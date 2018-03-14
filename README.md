@@ -1,6 +1,6 @@
 # -Programowanie_zespolowe_2018_gr2
 
-# Warsztat samochodowy napisany w JavaFX
+Warsztat samochodowy napisany w JavaFX
 
 # Aplikacja będzie miała za zadaie obsługiwanie klientów oraz przebieg napraw. Będziemy mieli możliwość:
 dodawanie, usuwanie, edycje, podgląd pracowników
