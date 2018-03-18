@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package warsztatsamochodowy.controllers;
 
 import java.io.IOException;
@@ -25,10 +21,10 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
+ * Klasa kontrolera FXML do obsługi okna logowania.
  *
- * @author Administrator
  */
+
 public class LoginController implements Initializable {
 
     @FXML
@@ -41,10 +37,20 @@ public class LoginController implements Initializable {
     private PasswordField password;
 
     @FXML
+    
+
+     /**
+     *  Kliknięcie przycisku logowania przesyła wpisany login i hasło do funkcji sprawdzającej poprawność danych.
+     */
     private void buttonLogowanie_click(ActionEvent event) {
         sprawdzLogowanie(username.getText(), password.getText());
     }
 
+ /**
+ * Wyświetlenie komunikatu o błędzie
+ *
+ * @param message treść komunikatu
+ */
     private void error(String message) {
 
         Alert alert = new Alert(AlertType.ERROR);
@@ -54,6 +60,12 @@ public class LoginController implements Initializable {
         alert.showAndWait();
     }
 
+/**
+ * Funkcja zamyka bieżące okno i loguje użytkownika do aplikacji, pokazując menu główne.
+ *
+ * @param username login użytkownika
+ * @param stanowisko stanowisko użytkownika
+ */
     private void zalogujUzytkownika(String username, String stanowisko) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/warsztatsamochodowy/views/MainMenu.fxml"));
@@ -73,7 +85,13 @@ public class LoginController implements Initializable {
         }
 
     }
-
+    
+/**
+ * Funkcja sprawdza poprawność danych wprowadzonych przez użytkownika i wywołuje funkcję pokazującą menu główne lub wyświetla komunikat o błędzie.
+ *
+ * @param username login użytkownika
+ * @param password hasło użytkownika
+ */
     private void sprawdzLogowanie(String username, String password) {
 
         if (konta.containsKey(username)) {
@@ -90,7 +108,11 @@ public class LoginController implements Initializable {
     }
 
     HashMap<String, String[]> konta = new HashMap<String, String[]>();
-
+    
+/**
+ * Funkcja inicjalizująca kontroler. zapisuje przykładowe dane kont użytkowników.
+ *
+ */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         konta.put("Janusz", new String[]{"123456", "Kierownik"});
