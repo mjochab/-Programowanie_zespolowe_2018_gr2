@@ -15,7 +15,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -55,13 +54,13 @@ public class LoginController implements Initializable {
         alert.showAndWait();
     }
 
-    private void zalogujUzytkownika(String stanowisko) {
+    private void zalogujUzytkownika(String username, String stanowisko) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/warsztatsamochodowy/views/MainMenu.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
 
             MainMenuController mainmenu_controller = fxmlLoader.<MainMenuController>getController();
-            mainmenu_controller.stanowisko = stanowisko;
+            mainmenu_controller.przygotujMenu(username, stanowisko);
 
             Stage mainmenu_scene = new Stage();
             mainmenu_scene.setScene(new Scene(root1));
@@ -80,7 +79,7 @@ public class LoginController implements Initializable {
         if (konta.containsKey(username)) {
 
             if (konta.get(username)[0].equals(password)) {
-                zalogujUzytkownika(konta.get(username)[1]);
+                zalogujUzytkownika(konta.get(username)[0],konta.get(username)[1]);
             } else {
                 error("Wprowadzono złe hasło!");
             }
