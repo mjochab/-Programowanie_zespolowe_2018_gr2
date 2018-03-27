@@ -2,8 +2,6 @@ package warsztatsamochodowy.database;
 import java.sql.*;
 
 public class DatabaseConnection {
-   public DatabaseConnection(){
-    }
 
     public static void connectDatabase(){
 
@@ -20,8 +18,5 @@ public class DatabaseConnection {
             }
 
 
-        public static void main(String[] args){
-            connectDatabase();
-    }
 
 }

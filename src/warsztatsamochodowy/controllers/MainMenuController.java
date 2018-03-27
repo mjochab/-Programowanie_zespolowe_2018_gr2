@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import warsztatsamochodowy.Helper;
 
 /**
  * Klasa kontrolera FXML do obsługi menu głównego.
@@ -47,7 +48,7 @@ public class MainMenuController implements Initializable {
     //zmienne globalne z loginem i stanowiskiem użytkownika
     String stanowisko = "";
     String username = "";
-
+    private final Helper helper = new Helper();
     //ustawienie przycisków w menu jako odblokowane
     boolean lock_tasks, lock_orders, lock_parts, lock_team, lock_clients, lock_visits, lock_settings, lock_logout = false;
 
@@ -101,22 +102,12 @@ public class MainMenuController implements Initializable {
      *
      */
     @FXML
-    public void logout(MouseEvent event) {
+    public void logout(MouseEvent event) throws IOException {
         if (lock_logout == false) {
-
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/warsztatsamochodowy/views/Login.fxml"));
-                Parent root1 = (Parent) fxmlLoader.load();
-
-                Stage login_scene = new Stage();
-                login_scene.setScene(new Scene(root1));
-                login_scene.setTitle("Warsztat samochodowy - Logowanie");
-                login_scene.show();
-                Stage mainmenu_scene = (Stage) logout.getScene().getWindow();
-                mainmenu_scene.close();
-            } catch (IOException ex) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                helper.sceneSwitcher("/warsztatsamochodowy/views/Login.fxml", "Warsztat samochodowy - Logowanie");
+               
+                Stage mainMenu = (Stage) logout.getScene().getWindow();
+                mainMenu.close();
         }
 
     }
@@ -144,9 +135,12 @@ public class MainMenuController implements Initializable {
     }
 
     @FXML
-    void settings(MouseEvent event) {
-        if (lock_settings == false) {
-
+    void settings(MouseEvent event) throws IOException {
+        if (lock_settings == false) {             
+                    helper.sceneSwitcher("/warsztatsamochodowy/views/UserSettings.fxml", "Warsztat samochodowy - Ustawienia konta");
+                                     
+                    Stage mainmenu_scene = (Stage) logout.getScene().getWindow();
+                    mainmenu_scene.close();                 
         }
     }
 
@@ -158,9 +152,11 @@ public class MainMenuController implements Initializable {
     }
 
     @FXML
-    void team(MouseEvent event) {
+    void team(MouseEvent event) throws IOException {
         if (lock_team == false) {
-
+            helper.sceneSwitcher("/warsztatsamochodowy/views/Workers.fxml", "Warsztat samochodowy - Pracownicy");
+             Stage mainmenu_scene = (Stage) team.getScene().getWindow();
+             mainmenu_scene.close();           
         }
     }
 

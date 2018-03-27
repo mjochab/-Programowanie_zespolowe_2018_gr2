@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="warsztatsamochodowy.controllers.UserSettingsController">
+   <children>
+      <Text layoutX="189.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ustawienia konta" wrappingWidth="222.41015625">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <TextField layoutX="13.0" layoutY="128.0" />
+      <Text layoutX="13.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nowe hasło" />
+      <Text layoutX="13.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
+      <PasswordField layoutX="13.0" layoutY="75.0" />
+      <Button layoutX="504.0" layoutY="334.0" mnemonicParsing="false" onAction="#zapiszZmiany" text="Zapisz" />
+      <Button fx:id="powrot" layoutX="503.0" layoutY="30.0" mnemonicParsing="false" onAction="#powrtoDoMenu" text="Powrót" />
+      <TextField layoutX="13.0" layoutY="178.0" />
+      <Text layoutX="12.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adres" />
+      <Text layoutX="13.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numer telefonu" />
+      <TextField layoutX="13.0" layoutY="233.0" />
+   </children>
+</AnchorPane>
