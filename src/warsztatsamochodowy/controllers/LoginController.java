@@ -19,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import warsztatsamochodowy.Helper;
 
 /**
  * Klasa kontrolera FXML do obsługi okna logowania.
@@ -26,7 +27,7 @@ import javafx.stage.Stage;
  */
 
 public class LoginController implements Initializable {
-
+    private Helper helper = new Helper();
     @FXML
     private TextField username;
 
@@ -42,7 +43,7 @@ public class LoginController implements Initializable {
      /**
      *  Kliknięcie przycisku logowania przesyła wpisany login i hasło do funkcji sprawdzającej poprawność danych.
      */
-    private void buttonLogowanie_click(ActionEvent event) {
+    private void buttonLogowanie_click(ActionEvent event) throws IOException {
         sprawdzLogowanie(username.getText(), password.getText());
     }
 
@@ -66,23 +67,17 @@ public class LoginController implements Initializable {
  * @param username login użytkownika
  * @param stanowisko stanowisko użytkownika
  */
-    private void zalogujUzytkownika(String username, String stanowisko) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/warsztatsamochodowy/views/MainMenu.fxml"));
-            Parent root1 = (Parent) fxmlLoader.load();
+    private void zalogujUzytkownika(String username, String stanowisko) throws IOException {
+        helper.sceneSwitcher("/warsztatsamochodowy/views/MainMenu.fxml", "Warsztat samochodowy - Menu główne");
 
-            MainMenuController mainmenu_controller = fxmlLoader.<MainMenuController>getController();
-            mainmenu_controller.przygotujMenu(username, stanowisko);
+            
+            //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/warsztatsamochodowy/views/MainMenu.fxml"));
+           // MainMenuController mainmenu_controller = fxmlLoader.<MainMenuController>getController();
+          //  mainmenu_controller.przygotujMenu(username, stanowisko);
 
-            Stage mainmenu_scene = new Stage();
-            mainmenu_scene.setScene(new Scene(root1));
-            mainmenu_scene.setTitle("Warsztat samochodowy - Menu główne");
-            mainmenu_scene.show();
             Stage login_scene = (Stage) login.getScene().getWindow();
             login_scene.close();
-        } catch (IOException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
 
     }
     
@@ -92,7 +87,7 @@ public class LoginController implements Initializable {
  * @param username login użytkownika
  * @param password hasło użytkownika
  */
-    private void sprawdzLogowanie(String username, String password) {
+    private void sprawdzLogowanie(String username, String password) throws IOException {
 
         if (konta.containsKey(username)) {
 
