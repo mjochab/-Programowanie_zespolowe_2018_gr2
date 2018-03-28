@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="436.0" prefWidth="715.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="warsztatsamochodowy.controllers.MainMenuController">
+<AnchorPane id="AnchorPane" prefHeight="436.0" prefWidth="715.0" stylesheets="@styles/Main.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="warsztatsamochodowy.controllers.MainMenuController">
    <children>
-      <Pane fx:id="logout" layoutX="544.0" layoutY="238.0" onMouseClicked="#logout" prefHeight="172.0" prefWidth="140.0" style="-fx-border-color: #000000; -fx-border-width: 2px;">
+      <Pane fx:id="logout" layoutX="544.0" layoutY="238.0" onMouseClicked="#logout" prefHeight="172.0" prefWidth="140.0" styleClass="custom_button">
          <children>
             <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="33.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -23,7 +23,7 @@
             </Label>
          </children>
       </Pane>
-      <Pane fx:id="settings" layoutX="374.0" layoutY="238.0" onMouseClicked="#settings" prefHeight="172.0" prefWidth="140.0" style="-fx-border-color: #000000; -fx-border-width: 2px;">
+      <Pane fx:id="settings" layoutX="374.0" layoutY="238.0" onMouseClicked="#settings" prefHeight="172.0" prefWidth="140.0" styleClass="custom_button">
          <children>
             <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="33.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -37,7 +37,7 @@
             </Label>
          </children>
       </Pane>
-      <Pane fx:id="clients" layoutX="31.0" layoutY="238.0" onMouseClicked="#clients" prefHeight="172.0" prefWidth="140.0" style="-fx-border-color: #000000; -fx-border-width: 2px;">
+      <Pane fx:id="clients" layoutX="31.0" layoutY="238.0" onMouseClicked="#clients" prefHeight="172.0" prefWidth="140.0" styleClass="custom_button">
          <children>
             <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="33.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -51,7 +51,7 @@
             </Label>
          </children>
       </Pane>
-      <Pane fx:id="visits" layoutX="205.0" layoutY="238.0" onMouseClicked="#visits" prefHeight="172.0" prefWidth="140.0" style="-fx-border-color: #000000; -fx-border-width: 2px;">
+      <Pane fx:id="visits" layoutX="205.0" layoutY="238.0" onMouseClicked="#visits" prefHeight="172.0" prefWidth="140.0" styleClass="custom_button">
          <children>
             <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="33.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -65,7 +65,7 @@
             </Label>
          </children>
       </Pane>
-      <Pane fx:id="team" layoutX="544.0" layoutY="28.0" onMouseClicked="#team" prefHeight="172.0" prefWidth="140.0" style="-fx-border-color: #000000; -fx-border-width: 2px;">
+      <Pane fx:id="team" layoutX="544.0" layoutY="28.0" onMouseClicked="#team" prefHeight="172.0" prefWidth="140.0" styleClass="custom_button">
          <children>
             <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="33.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -79,7 +79,7 @@
             </Label>
          </children>
       </Pane>
-      <Pane fx:id="parts" layoutX="374.0" layoutY="28.0" onMouseClicked="#parts" prefHeight="172.0" prefWidth="140.0" style="-fx-border-color: #000000; -fx-border-width: 2px;">
+      <Pane fx:id="parts" layoutX="374.0" layoutY="28.0" onMouseClicked="#parts" prefHeight="172.0" prefWidth="140.0" styleClass="custom_button">
          <children>
             <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="33.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -93,7 +93,7 @@
             </Label>
          </children>
       </Pane>
-      <Pane fx:id="tasks" layoutX="31.0" layoutY="28.0" onMouseClicked="#tasks" prefHeight="172.0" prefWidth="140.0" style="-fx-border-color: #000000; -fx-border-width: 2px;">
+      <Pane fx:id="tasks" layoutX="31.0" layoutY="28.0" onMouseClicked="#tasks" prefHeight="172.0" prefWidth="140.0" styleClass="custom_button">
          <children>
             <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="33.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -107,7 +107,7 @@
             </Label>
          </children>
       </Pane>
-      <Pane fx:id="orders" layoutX="205.0" layoutY="28.0" onMouseClicked="#orders" prefHeight="172.0" prefWidth="140.0" style="-fx-border-color: #000000; -fx-border-width: 2px;">
+      <Pane fx:id="orders" layoutX="205.0" layoutY="28.0" onMouseClicked="#orders" prefHeight="172.0" prefWidth="140.0" styleClass="custom_button">
          <children>
             <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="33.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                <image>

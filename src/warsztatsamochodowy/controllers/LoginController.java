@@ -1,4 +1,3 @@
-
 package warsztatsamochodowy.controllers;
 
 import java.io.IOException;
@@ -25,8 +24,11 @@ import warsztatsamochodowy.Helper;
  * Klasa kontrolera FXML do obsługi okna logowania.
  *
  */
-
 public class LoginController implements Initializable {
+
+    public static String Stanowisko;
+    public static String Username;
+    
     private Helper helper = new Helper();
     @FXML
     private TextField username;
@@ -38,20 +40,20 @@ public class LoginController implements Initializable {
     private PasswordField password;
 
     @FXML
-    
 
-     /**
-     *  Kliknięcie przycisku logowania przesyła wpisany login i hasło do funkcji sprawdzającej poprawność danych.
+    /**
+     * Kliknięcie przycisku logowania przesyła wpisany login i hasło do funkcji
+     * sprawdzającej poprawność danych.
      */
     private void buttonLogowanie_click(ActionEvent event) throws IOException {
         sprawdzLogowanie(username.getText(), password.getText());
     }
 
- /**
- * Wyświetlenie komunikatu o błędzie
- *
- * @param message treść komunikatu
- */
+    /**
+     * Wyświetlenie komunikatu o błędzie
+     *
+     * @param message treść komunikatu
+     */
     private void error(String message) {
 
         Alert alert = new Alert(AlertType.ERROR);
@@ -61,38 +63,51 @@ public class LoginController implements Initializable {
         alert.showAndWait();
     }
 
-/**
- * Funkcja zamyka bieżące okno i loguje użytkownika do aplikacji, pokazując menu główne.
- *
- * @param username login użytkownika
- * @param stanowisko stanowisko użytkownika
- */
-    private void zalogujUzytkownika(String username, String stanowisko) throws IOException {
+    /**
+     * Funkcja zamyka bieżące okno i loguje użytkownika do aplikacji, pokazując
+     * menu główne.
+     *
+     * @param username login użytkownika
+     * @param stanowisko stanowisko użytkownika
+     */
+    public void zalogujUzytkownika(String username, String stanowisko) throws IOException {
+        Stanowisko = stanowisko;
         helper.sceneSwitcher("/warsztatsamochodowy/views/MainMenu.fxml", "Warsztat samochodowy - Menu główne");
-
-            
-            //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/warsztatsamochodowy/views/MainMenu.fxml"));
-           // MainMenuController mainmenu_controller = fxmlLoader.<MainMenuController>getController();
-          //  mainmenu_controller.przygotujMenu(username, stanowisko);
-
-            Stage login_scene = (Stage) login.getScene().getWindow();
-            login_scene.close();
-
-
+        Stage login_scene = (Stage) login.getScene().getWindow();
+        login_scene.close();
     }
-    
-/**
- * Funkcja sprawdza poprawność danych wprowadzonych przez użytkownika i wywołuje funkcję pokazującą menu główne lub wyświetla komunikat o błędzie.
- *
- * @param username login użytkownika
- * @param password hasło użytkownika
- */
+
+    /**
+     * Zwraca nazwe stanowiska logowanego użytkownika
+     * 
+     * @return Stanowisko stanowisko użytkownika
+     */
+    public String getStanowisko() {
+        return Stanowisko;
+    }
+    /**
+     * Zwraca login logowanego użytkownika
+     * 
+     * @return Username login użytkowwnika
+     */
+    public String getLogin() {
+        return Username;
+    }
+
+    /**
+     * Funkcja sprawdza poprawność danych wprowadzonych przez użytkownika i
+     * wywołuje funkcję pokazującą menu główne lub wyświetla komunikat o
+     * błędzie.
+     *
+     * @param username login użytkownika
+     * @param password hasło użytkownika
+     */
     private void sprawdzLogowanie(String username, String password) throws IOException {
 
         if (konta.containsKey(username)) {
 
             if (konta.get(username)[0].equals(password)) {
-                zalogujUzytkownika(konta.get(username)[0],konta.get(username)[1]);
+                zalogujUzytkownika(konta.get(username)[0], konta.get(username)[1]);
             } else {
                 error("Wprowadzono złe hasło!");
             }
@@ -103,11 +118,12 @@ public class LoginController implements Initializable {
     }
 
     HashMap<String, String[]> konta = new HashMap<String, String[]>();
-    
-/**
- * Funkcja inicjalizująca kontroler. zapisuje przykładowe dane kont użytkowników.
- *
- */
+
+    /**
+     * Funkcja inicjalizująca kontroler. zapisuje przykładowe dane kont
+     * użytkowników.
+     *
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         konta.put("Janusz", new String[]{"123456", "Kierownik"});

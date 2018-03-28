@@ -1,0 +1,11 @@
+/* 
+    Author     : Bartek
+*/
+.custom_button{
+    -fx-border-color: #000000;
+    -fx-border-width: 2px;
+}
+
+.custom_button:hover{
+    -fx-border-width: 3px;
+}

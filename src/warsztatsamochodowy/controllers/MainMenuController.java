@@ -3,13 +3,8 @@ package warsztatsamochodowy.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -46,8 +41,10 @@ public class MainMenuController implements Initializable {
     private Pane orders;
 
     //zmienne globalne z loginem i stanowiskiem użytkownika
-    String stanowisko = "";
-    String username = "";
+    LoginController login = new LoginController();
+    String stanowisko = login.getStanowisko();
+    String username = login.getLogin();
+    
     private final Helper helper = new Helper();
     //ustawienie przycisków w menu jako odblokowane
     boolean lock_tasks, lock_orders, lock_parts, lock_team, lock_clients, lock_visits, lock_settings, lock_logout = false;
@@ -59,12 +56,9 @@ public class MainMenuController implements Initializable {
      * @param username login użytkownika
      * @param stanowisko stanowisko użytkownika
      */
-    public void przygotujMenu(String username, String stanowisko) {
-        this.stanowisko = stanowisko;
-        this.username = username;
-
+    public void przygotujMenu() {
+        stanowisko = this.stanowisko;
         switch (stanowisko) {
-
             case "Kierownik":
                 lock_tasks = true;
                 lock_orders = true;
@@ -77,7 +71,6 @@ public class MainMenuController implements Initializable {
                 clients.setOpacity(0.45);
                 visits.setOpacity(0.45);
                 break;
-
             case "Recepcjonistka":
                 lock_team = true;
                 lock_parts = true;
@@ -96,18 +89,17 @@ public class MainMenuController implements Initializable {
         }
     }
 
-    
-     /**
+    /**
      * Funkcja zamyka menu główne i pokazuje ekran logowania.
      *
      */
     @FXML
     public void logout(MouseEvent event) throws IOException {
         if (lock_logout == false) {
-                helper.sceneSwitcher("/warsztatsamochodowy/views/Login.fxml", "Warsztat samochodowy - Logowanie");
-               
-                Stage mainMenu = (Stage) logout.getScene().getWindow();
-                mainMenu.close();
+            helper.sceneSwitcher("/warsztatsamochodowy/views/Login.fxml", "Warsztat samochodowy - Logowanie");
+
+            Stage mainMenu = (Stage) logout.getScene().getWindow();
+            mainMenu.close();
         }
 
     }
@@ -136,11 +128,11 @@ public class MainMenuController implements Initializable {
 
     @FXML
     void settings(MouseEvent event) throws IOException {
-        if (lock_settings == false) {             
-                    helper.sceneSwitcher("/warsztatsamochodowy/views/UserSettings.fxml", "Warsztat samochodowy - Ustawienia konta");
-                                     
-                    Stage mainmenu_scene = (Stage) logout.getScene().getWindow();
-                    mainmenu_scene.close();                 
+        if (lock_settings == false) {
+            helper.sceneSwitcher("/warsztatsamochodowy/views/UserSettings.fxml", "Warsztat samochodowy - Ustawienia konta");
+
+            Stage mainmenu_scene = (Stage) logout.getScene().getWindow();
+            mainmenu_scene.close();
         }
     }
 
@@ -155,8 +147,8 @@ public class MainMenuController implements Initializable {
     void team(MouseEvent event) throws IOException {
         if (lock_team == false) {
             helper.sceneSwitcher("/warsztatsamochodowy/views/Workers.fxml", "Warsztat samochodowy - Pracownicy");
-             Stage mainmenu_scene = (Stage) team.getScene().getWindow();
-             mainmenu_scene.close();           
+            Stage mainmenu_scene = (Stage) team.getScene().getWindow();
+            mainmenu_scene.close();
         }
     }
 
@@ -167,12 +159,14 @@ public class MainMenuController implements Initializable {
         }
     }
 
-/**
- * Funkcja inicjalizująca kontroler.
- *
- */
+    /**
+     * Funkcja inicjalizująca kontroler.
+     *
+     */
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        przygotujMenu();
     }
 
 }
