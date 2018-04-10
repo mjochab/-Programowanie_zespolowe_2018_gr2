@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="436.0" prefWidth="715.0" stylesheets="@styles/Main.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="warsztatsamochodowy.controllers.MainMenuController">
+<AnchorPane id="AnchorPane" prefHeight="436.0" prefWidth="715.0" stylesheets="@styles/Main.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="warsztatsamochodowy.controllers.MainMenuController">
    <children>
       <Pane fx:id="logout" layoutX="544.0" layoutY="238.0" onMouseClicked="#logout" prefHeight="172.0" prefWidth="140.0" styleClass="custom_button">
          <children>
@@ -51,14 +51,14 @@
             </Label>
          </children>
       </Pane>
-      <Pane fx:id="visits" layoutX="205.0" layoutY="238.0" onMouseClicked="#visits" prefHeight="172.0" prefWidth="140.0" styleClass="custom_button">
+      <Pane fx:id="cars" layoutX="205.0" layoutY="238.0" onMouseClicked="#cars" prefHeight="172.0" prefWidth="140.0" styleClass="custom_button">
          <children>
             <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="33.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/schedule.png" />
+                  <Image url="@../images/cars.png" />
                </image>
             </ImageView>
-            <Label layoutX="41.0" layoutY="119.0" text="Wizyty" textAlignment="CENTER">
+            <Label layoutX="19.0" layoutY="119.0" text="Samochody" textAlignment="CENTER">
                <font>
                   <Font size="20.0" />
                </font>

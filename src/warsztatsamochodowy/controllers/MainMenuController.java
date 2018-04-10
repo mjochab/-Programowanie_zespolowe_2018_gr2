@@ -26,7 +26,7 @@ public class MainMenuController implements Initializable {
     private Pane clients;
 
     @FXML
-    private Pane visits;
+    private Pane cars;
 
     @FXML
     private Pane team;
@@ -47,7 +47,7 @@ public class MainMenuController implements Initializable {
     
     private final Helper helper = new Helper();
     //ustawienie przycisków w menu jako odblokowane
-    boolean lock_tasks, lock_orders, lock_parts, lock_team, lock_clients, lock_visits, lock_settings, lock_logout = false;
+    boolean lock_tasks, lock_orders, lock_parts, lock_team, lock_clients, lock_cars, lock_settings, lock_logout = false;
 
     /**
      * Funkcja blokuje przyciski menu dla nieuprawnionych użytkowników i
@@ -64,12 +64,12 @@ public class MainMenuController implements Initializable {
                 lock_orders = true;
                 lock_parts = true;
                 lock_clients = true;
-                lock_visits = true;
+                lock_cars = true;
                 tasks.setOpacity(0.45);
                 orders.setOpacity(0.45);
                 parts.setOpacity(0.45);
                 clients.setOpacity(0.45);
-                visits.setOpacity(0.45);
+                cars.setOpacity(0.45);
                 break;
             case "Recepcjonistka":
                 lock_team = true;
@@ -82,10 +82,10 @@ public class MainMenuController implements Initializable {
             case "Mechanik":
                 lock_team = true;
                 lock_clients = true;
-                lock_visits = true;
+                lock_cars = true;
                 team.setOpacity(0.45);
                 clients.setOpacity(0.45);
-                visits.setOpacity(0.45);
+                cars.setOpacity(0.45);
         }
     }
 
@@ -160,8 +160,8 @@ public class MainMenuController implements Initializable {
     }
 
     @FXML
-    void visits(MouseEvent event) {
-        if (lock_visits == false) {
+    void cars(MouseEvent event) {
+        if (lock_cars == false) {
 
         }
     }
