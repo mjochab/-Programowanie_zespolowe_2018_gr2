@@ -122,7 +122,10 @@ public class MainMenuController implements Initializable {
     @FXML
     void parts(MouseEvent event) throws IOException {
         if (lock_parts == false) {
+
               helper.sceneSwitcher("/warsztatsamochodowy/views/Parts.fxml", "Warsztat samochodowy - Części");
+
+
                                      
                     Stage mainmenu_scene = (Stage) logout.getScene().getWindow();
                     mainmenu_scene.close();    
