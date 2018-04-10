@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="warsztatsamochodowy.controllers.PartsController">
+   <children>
+      <TextField fx:id="Tf_nazwa" layoutX="176.0" layoutY="97.0" />
+      <TextField fx:id="Tf_producent" layoutX="176.0" layoutY="139.0" />
+      <TextField fx:id="Tf_cena" layoutX="176.0" layoutY="181.0" />
+      <Label layoutX="59.0" layoutY="101.0" text="Nazwa" />
+      <Label layoutX="59.0" layoutY="143.0" text="Producent" />
+      <Label layoutX="59.0" layoutY="185.0" text="Cena" />
+      <Button fx:id="b_zatwierdz" layoutX="452.0" layoutY="325.0" mnemonicParsing="false" text="Zatwierdz" />
+      <Button fx:id="b_powrot" layoutX="452.0" layoutY="46.0" mnemonicParsing="false" onAction="#powrtoDoMenu" text="Powrót" />
+   </children>
+</AnchorPane>
