@@ -4,19 +4,16 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import warsztatsamochodowy.Helper;
 
@@ -28,7 +25,7 @@ public class LoginController implements Initializable {
 
     public static String Stanowisko;
     public static String Username;
-    
+
     private Helper helper = new Helper();
     @FXML
     private TextField username;
@@ -47,6 +44,13 @@ public class LoginController implements Initializable {
      */
     private void buttonLogowanie_click(ActionEvent event) throws IOException {
         sprawdzLogowanie(username.getText(), password.getText());
+    }
+
+    @FXML
+    private void password_onKeyPressed(KeyEvent event) throws IOException {
+        if (event.getCode() == KeyCode.ENTER) {
+            sprawdzLogowanie(username.getText(), password.getText());
+        }
     }
 
     /**
@@ -79,15 +83,16 @@ public class LoginController implements Initializable {
 
     /**
      * Zwraca nazwe stanowiska logowanego użytkownika
-     * 
+     *
      * @return Stanowisko stanowisko użytkownika
      */
     public String getStanowisko() {
         return Stanowisko;
     }
+
     /**
      * Zwraca login logowanego użytkownika
-     * 
+     *
      * @return Username login użytkowwnika
      */
     public String getLogin() {
@@ -130,7 +135,6 @@ public class LoginController implements Initializable {
         konta.put("Grażyna", new String[]{"brajanek2010", "Recepcjonistka"});
         konta.put("Heniek", new String[]{"kochamgrazynke", "Mechanik"});
         konta.put("Tadeusz", new String[]{"qwerty", "Administrator"});
-
     }
 
 }
