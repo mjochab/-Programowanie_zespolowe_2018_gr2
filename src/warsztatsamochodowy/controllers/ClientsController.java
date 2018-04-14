@@ -26,7 +26,7 @@ import warsztatsamochodowy.database.entity.Samochod;
 /**
  * FXML Controller class
  *
- * @author lukasz
+ * @author Piotr Świder
  */
 public class ClientsController implements Initializable {
 
