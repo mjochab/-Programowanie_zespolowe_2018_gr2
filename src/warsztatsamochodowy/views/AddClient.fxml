@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="warsztatsamochodowy.controllers.AddClientController">
+   <children>
+      <TextField fx:id="tfImie" layoutX="176.0" layoutY="97.0" />
+      <TextField fx:id="tfNazwisko" layoutX="176.0" layoutY="139.0" />
+      <TextField fx:id="tfNrTel" layoutX="176.0" layoutY="181.0" />
+      <ComboBox fx:id="cbxSamochod" layoutX="176.0" layoutY="223.0" />
+      <Label layoutX="59.0" layoutY="101.0" text="Imię" />
+      <Label layoutX="59.0" layoutY="143.0" text="Nazwisko" />
+      <Label layoutX="59.0" layoutY="185.0" text="Numer Telefonu" />
+      <Label layoutX="59.0" layoutY="227.0" text="Samochód" />
+      <Button fx:id="b_zapisz" layoutX="452.0" layoutY="325.0" mnemonicParsing="false" onAction="#onSave" text="Zapisz" />
+      <Button fx:id="b_powrot" layoutX="452.0" layoutY="46.0" mnemonicParsing="false" onAction="#powrotDoKlientow" text="Powrót" />
+   </children>
+</AnchorPane>
