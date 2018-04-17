@@ -1,28 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="warsztatsamochodowy.controllers.UserSettingsController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="warsztatsamochodowy.controllers.UserSettingsController">
    <children>
-      <Text layoutX="189.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ustawienia konta" wrappingWidth="222.41015625">
+      <Button layoutX="478.0" layoutY="351.0" mnemonicParsing="false" onAction="#zapiszZmiany" text="Zapisz zmiany" />
+      <Button fx:id="powrot" layoutX="414.0" layoutY="351.0" mnemonicParsing="false" onAction="#powrtoDoMenu" text="Powrót" />
+      <TextField fx:id="sb_imie" disable="true" editable="false" layoutX="127.0" layoutY="82.0" />
+      <TextField fx:id="sb_nazwisko" disable="true" editable="false" layoutX="127.0" layoutY="119.0" />
+      <TextField fx:id="sb_miejscowosc" layoutX="127.0" layoutY="155.0" />
+      <TextField fx:id="sb_adres" layoutX="127.0" layoutY="193.0" />
+      <Label layoutX="88.0" layoutY="44.0" prefHeight="17.0" prefWidth="103.0" text="Dane osobowe ">
          <font>
-            <Font size="24.0" />
+            <Font name="System Bold" size="12.0" />
          </font>
-      </Text>
-      <TextField layoutX="13.0" layoutY="128.0" />
-      <Text layoutX="13.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nowe hasło" />
-      <Text layoutX="13.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
-      <PasswordField layoutX="13.0" layoutY="75.0" />
-      <Button layoutX="504.0" layoutY="334.0" mnemonicParsing="false" onAction="#zapiszZmiany" text="Zapisz" />
-      <Button fx:id="powrot" layoutX="503.0" layoutY="30.0" mnemonicParsing="false" onAction="#powrtoDoMenu" text="Powrót" />
-      <TextField layoutX="13.0" layoutY="178.0" />
-      <Text layoutX="12.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adres" />
-      <Text layoutX="13.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numer telefonu" />
-      <TextField layoutX="13.0" layoutY="233.0" />
+      </Label>
+      <Label alignment="CENTER_RIGHT" layoutX="88.0" layoutY="86.0" text="Imię" />
+      <Label alignment="CENTER_RIGHT" layoutX="62.0" layoutY="123.0" text="Nazwisko" />
+      <Label alignment="CENTER_RIGHT" layoutX="47.0" layoutY="159.0" text="Miejscowość" />
+      <Label alignment="CENTER_RIGHT" layoutX="81.0" layoutY="197.0" text="Adres" />
+      <Label alignment="CENTER_RIGHT" layoutX="52.0" layoutY="237.0" text="Nr telefonu" />
+      <Label alignment="CENTER_RIGHT" layoutX="78.0" layoutY="279.0" text="E-mail" />
+      <Label layoutX="377.0" layoutY="44.0" text="Dane logowania">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="377.0" layoutY="88.0" text="Login" />
+      <Label layoutX="378.0" layoutY="125.0" text="Hasło" />
+      <TextField fx:id="sb_login" disable="true" editable="false" layoutX="420.0" layoutY="84.0" />
+      <TextField fx:id="sb_telefon" layoutX="127.0" layoutY="233.0" />
+      <TextField fx:id="sb_email" layoutX="127.0" layoutY="275.0" />
+      <Label alignment="CENTER_RIGHT" layoutX="318.0" layoutY="162.0" prefHeight="17.0" prefWidth="91.0" text="Nowe hasło" />
+      <PasswordField fx:id="sb_haslo" layoutX="420.0" layoutY="122.0" />
+      <PasswordField fx:id="sb_nowe_haslo" layoutX="420.0" layoutY="159.0" />
    </children>
 </AnchorPane>
