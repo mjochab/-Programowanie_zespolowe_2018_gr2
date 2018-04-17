@@ -69,7 +69,8 @@ public class UserSettingsController implements Initializable {
     private Helper helper = new Helper();
 
     /**
-     * Initializes the controller class.
+     * Podczas inicjalizacji kontrolera z bazy danych pobierane są dane
+     * zalogowanego użytkownika i wyświetlane w polach tekstowych
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -97,6 +98,11 @@ public class UserSettingsController implements Initializable {
     }
 
     @FXML
+    /**
+     * Metoda pobiera wartości z pól tekstowych i aktualizuje dane użytkownika w
+     * bazie danych. Zmiana hasła wymaga wpisania aktualnego hasła, w przypadku
+     * braku zgodności haseł wyświetlany jest błąd i dane nie są aktualizowane.
+     */
     private void zapiszZmiany(ActionEvent event) {
 
         try {
