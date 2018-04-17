@@ -86,7 +86,7 @@ public class UserSettingsController implements Initializable {
                 aktualne_haslo = rs.getString(6);
 
             }
-
+            sesja.close();
         } catch (Exception e) {
             helper.error(e.getMessage());
         }
@@ -138,7 +138,7 @@ public class UserSettingsController implements Initializable {
                 }
 
             }
-
+            sesja.close();
         } catch (Exception e) {
             helper.error(e.getMessage());
         }
@@ -147,12 +147,6 @@ public class UserSettingsController implements Initializable {
 
     @FXML
     private void powrtoDoMenu(ActionEvent event) throws IOException {
-
-        try {
-            sesja.close();
-        } catch (SQLException ex) {
-
-        }
 
         helper.powrotDoMenu();
         Stage settings = (Stage) powrot.getScene().getWindow();
