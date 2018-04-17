@@ -146,6 +146,13 @@ public class UserSettingsController implements Initializable {
 
     @FXML
     private void powrtoDoMenu(ActionEvent event) throws IOException {
+
+        try {
+            sesja.close();
+        } catch (SQLException ex) {
+
+        }
+
         helper.powrotDoMenu();
         Stage settings = (Stage) powrot.getScene().getWindow();
         settings.close();
