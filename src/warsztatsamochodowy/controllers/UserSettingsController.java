@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package warsztatsamochodowy.controllers;
 
 import java.io.IOException;
@@ -17,7 +12,7 @@ import warsztatsamochodowy.Helper;
 import warsztatsamochodowy.database.DatabaseConnection;
 
 /**
- * FXML Controller class
+ * Klasa kontrolera FXML do zmiany ustawień zalogowanego użytkownika.
  *
  * @author lukasz, sebastian
  */
