@@ -17,8 +17,6 @@ import warsztatsamochodowy.database.DatabaseConnection;
  * @author lukasz, sebastian
  */
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
