@@ -1,9 +1,11 @@
 package warsztatsamochodowy.database;
 import java.sql.*;
+import warsztatsamochodowy.Helper;
 
 public class DatabaseConnection {
 
           Connection con;
+    private Helper helper = new Helper();
     public Connection connectDatabase(){
 
                 try{
@@ -21,7 +23,7 @@ public class DatabaseConnection {
 
 */
                 }catch(Exception e){ 
-                    System.out.println(e);
+                       helper.error(e.getMessage());
                 return null;
                 }
                   

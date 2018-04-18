@@ -17,6 +17,8 @@ import warsztatsamochodowy.database.DatabaseConnection;
  * @author lukasz, sebastian
  */
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
@@ -60,7 +62,6 @@ public class UserSettingsController implements Initializable {
 
     Connection sesja = PolaczenieDB.connectDatabase();
 
-    @FXML
     private Helper helper = new Helper();
 
     /**
@@ -86,7 +87,6 @@ public class UserSettingsController implements Initializable {
                 aktualne_haslo = rs.getString(6);
 
             }
-            sesja.close();
         } catch (Exception e) {
             helper.error(e.getMessage());
         }
@@ -138,7 +138,6 @@ public class UserSettingsController implements Initializable {
                 }
 
             }
-            sesja.close();
         } catch (Exception e) {
             helper.error(e.getMessage());
         }
@@ -147,7 +146,11 @@ public class UserSettingsController implements Initializable {
 
     @FXML
     private void powrtoDoMenu(ActionEvent event) throws IOException {
-
+        try {
+            sesja.close();
+        } catch (Exception e) {
+        helper.error(e.getMessage());
+        }
         helper.powrotDoMenu();
         Stage settings = (Stage) powrot.getScene().getWindow();
         settings.close();
