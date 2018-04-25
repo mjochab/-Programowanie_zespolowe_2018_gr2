@@ -135,4 +135,19 @@ public class HibernateHelper {
         }
         return result;
     }
+    
+    public boolean deleteAllRows() {
+        boolean result = false;
+        try (Session session = sessionFactory.openSession()) {
+            Transaction tx = session.beginTransaction();
+            Query q = session.createQuery("DELETE FROM klient,samochod");
+            int res = q.executeUpdate();
+            if (res == 1) {
+                result = true;
+            }
+            tx.commit();
+            session.close();
+        }
+        return result;
+    }
 }
