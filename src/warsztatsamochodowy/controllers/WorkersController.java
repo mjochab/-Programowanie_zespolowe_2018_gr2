@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import warsztatsamochodowy.Helper;
@@ -42,14 +43,15 @@ public class WorkersController implements Initializable {
 
     @FXML
     private void dodajPracownika(ActionEvent event) throws IOException {
- Parent tabela = FXMLLoader.load(getClass().getResource("NewWorkers.fxml"));
-        Scene podgladTabel = new Scene(tabela);
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(podgladTabel);
-        stage.show();
+
+       
+            helper.sceneSwitcher("/warsztatsamochodowy/views/NewWorkers.fxml", "Warsztat samochodowy - Pracownicy");
+            Stage mainmenu_scene = (Stage) dodajPracownika.getScene().getWindow();
+            mainmenu_scene.close();
         
     }
+        
+   
     
 
     @FXML
