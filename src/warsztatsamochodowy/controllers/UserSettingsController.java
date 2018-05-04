@@ -68,21 +68,68 @@ public class UserSettingsController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        
+        Statement stmt = null;
 
         try {
-            Statement stmt = sesja.createStatement();
 
-            ResultSet rs = stmt.executeQuery("select * from pracownik where login = '" + username + "';");
+            stmt = sesja.createStatement();
+
+            //dodawanie tabeli, jeżeli nie istnieje
+            String query = "CREATE TABLE IF NOT EXISTS `pracownicy` (\n"
+                    + "  `ID` int(11) NOT NULL AUTO_INCREMENT,\n"
+                    + "  `Login` varchar(100) NOT NULL,\n"
+                    + "  `Haslo` varchar(100) NOT NULL,\n"
+                    + "  `Imie` varchar(100) NOT NULL,\n"
+                    + "  `Nazwisko` varchar(100) NOT NULL,\n"
+                    + "  `Miejscowosc` varchar(100) NOT NULL,\n"
+                    + "  `Adres` varchar(100) NOT NULL,\n"
+                    + "  `Telefon` varchar(100) NOT NULL,\n"
+                    + "  `Email` varchar(100) NOT NULL,\n"
+                    + "  `Stanowisko` varchar(100) NOT NULL,\n"
+                    + "  `Wynagrodzenie` varchar(100) NOT NULL,\n"
+                    + "  `Status` varchar(100) NOT NULL,\n"
+                    + "  PRIMARY KEY (`ID`),\n"
+                    + "  UNIQUE KEY `ID_UNIQUE` (`ID`)\n"
+                    + ");";
+
+            int wynik = stmt.executeUpdate(query);
+
+            //dodawanie tabeli, jeżeli nie istnieje
+            
+            
+            //dodawanie rekordów do tabeli Pracownicy
+            
+            query = "INSERT INTO `pracownicy` (`ID`, `Login`, `Haslo`, `Imie`, `Nazwisko`, `Miejscowosc`, `Adres`, `Telefon`, `Email`, `Stanowisko`, `Wynagrodzenie`, `Status`) "
+                    + "VALUES (1,'Janusz','123456','Janusz','Nosacz','Rzeszów','ul. Podiwłocze 1','123456789','janusz@gmail.com','Kierownik','5000','Zatrudniony'),"
+                    + "(2,'Grażyna','brajanek2010','Grażyna','Nosacz','Rzeszów','ul. Podwisłocze 1','987456321','grazyna@gmail.com','Recepcja','2000','Zatrudnony'),"
+                    + "(3,'Heniek','kochamgrazynke','Henryk','Kowalski','Kraków','ul. Partyzantów 4','111222333','heniek@gmail.com','Mechanik','3000','Zatrudnoiny'),"
+                    + "(4,'Tadeusz','qwerty','Tadeusz','Nowak','Mielec','ul. Grunwaldzka 10','741852963','tadek@gmail.com','Administrator','4000','Zatrudniony');";
+            
+                     wynik = stmt.executeUpdate(query);
+
+            //dodawanie rekordów do tabeli Pracownicy
+            
+                    } catch (Exception e) {
+            // helper.error(e.getMessage());
+        }
+        
+        try {
+            
+                       if(stmt == null) stmt = sesja.createStatement();
+            
+            ResultSet rs = stmt.executeQuery("select * from pracownicy where Login = '" + username + "';");
             while (rs.next()) {
 
-                sb_imie.setText(rs.getString(2));
-                sb_nazwisko.setText(rs.getString(3));
-                sb_miejscowosc.setText(rs.getString(7));
-                sb_adres.setText(rs.getString(8));
-                sb_telefon.setText(rs.getString(9));
-                sb_email.setText(rs.getString(10));
-                sb_login.setText(rs.getString(5));
-                aktualne_haslo = rs.getString(6);
+                sb_imie.setText(rs.getString("Imie"));
+                sb_nazwisko.setText(rs.getString("Nazwisko"));
+                sb_miejscowosc.setText(rs.getString("Miejscowosc"));
+                sb_adres.setText(rs.getString("Adres"));
+                sb_telefon.setText(rs.getString("Telefon"));
+                sb_email.setText(rs.getString("Email"));
+                sb_login.setText(rs.getString("Login"));
+                aktualne_haslo = rs.getString("Haslo");
 
             }
         } catch (Exception e) {
@@ -124,12 +171,12 @@ public class UserSettingsController implements Initializable {
 
             if (poprawnosc == 1) {
                 aktualne_haslo = new_password;
-                int wynik = stmt.executeUpdate("update pracownik set miejscowosc = '" + new_miejscowosc
-                        + "', adres = '" + new_adres
-                        + "', telefon = '" + new_telefon
-                        + "', email = '" + new_email
-                        + "', haslo = '" + new_password
-                        + "' where login = '" + username + "';");
+                int wynik = stmt.executeUpdate("update pracownicy set Miejscowosc = '" + new_miejscowosc
+                        + "', Adres = '" + new_adres
+                        + "', Telefon = '" + new_telefon
+                        + "', Email = '" + new_email
+                        + "', Haslo = '" + new_password
+                        + "' where Login = '" + username + "';");
                 if (wynik == 1) {
 
                     helper.message("Ustawienia zostały zapisane");
@@ -147,7 +194,7 @@ public class UserSettingsController implements Initializable {
         try {
             sesja.close();
         } catch (Exception e) {
-        helper.error(e.getMessage());
+            helper.error(e.getMessage());
         }
         helper.powrotDoMenu();
         Stage settings = (Stage) powrot.getScene().getWindow();
