@@ -77,7 +77,7 @@ public class UserSettingsController implements Initializable {
             stmt = sesja.createStatement();
 
             //dodawanie tabeli, jeżeli nie istnieje
-            String query = "CREATE TABLE IF NOT EXISTS `pracownicy` (\n"
+            String query = "CREATE TABLE IF NOT EXISTS `pracownik` (\n"
                     + "  `ID` int(11) NOT NULL AUTO_INCREMENT,\n"
                     + "  `Login` varchar(100) NOT NULL,\n"
                     + "  `Haslo` varchar(100) NOT NULL,\n"
@@ -87,9 +87,9 @@ public class UserSettingsController implements Initializable {
                     + "  `Adres` varchar(100) NOT NULL,\n"
                     + "  `Telefon` varchar(100) NOT NULL,\n"
                     + "  `Email` varchar(100) NOT NULL,\n"
-                    + "  `Stanowisko` varchar(100) NOT NULL,\n"
-                    + "  `Wynagrodzenie` varchar(100) NOT NULL,\n"
-                    + "  `Status` varchar(100) NOT NULL,\n"
+                    + "  `Specjalizacja` varchar(100) NOT NULL,\n"
+                    + "  `Wynagrodzenie` varchar(100) ,\n"
+                    + "  `Status` varchar(100) ,\n"
                     + "  PRIMARY KEY (`ID`),\n"
                     + "  UNIQUE KEY `ID_UNIQUE` (`ID`)\n"
                     + ");";
@@ -99,17 +99,17 @@ public class UserSettingsController implements Initializable {
             //dodawanie tabeli, jeżeli nie istnieje
             
             
-            //dodawanie rekordów do tabeli Pracownicy
+            //dodawanie rekordów do tabeli Pracownik
             
-            query = "INSERT INTO `pracownicy` (`ID`, `Login`, `Haslo`, `Imie`, `Nazwisko`, `Miejscowosc`, `Adres`, `Telefon`, `Email`, `Stanowisko`, `Wynagrodzenie`, `Status`) "
-                    + "VALUES (1,'Janusz','123456','Janusz','Nosacz','Rzeszów','ul. Podiwłocze 1','123456789','janusz@gmail.com','Kierownik','5000','Zatrudniony'),"
+            query = "INSERT INTO `pracownik` (`ID`, `Login`, `Haslo`, `Imie`, `Nazwisko`, `Miejscowosc`, `Adres`, `Telefon`, `Email`, `Specjalizacja`, `Wynagrodzenie`, `Status`) "
+                    + "VALUES (1,'Janusz','123456','Janusz','Nosacz','Rzeszów','ul. Podwiłocze 1','123456789','janusz@gmail.com','Kierownik','5000','Zatrudniony'),"
                     + "(2,'Grażyna','brajanek2010','Grażyna','Nosacz','Rzeszów','ul. Podwisłocze 1','987456321','grazyna@gmail.com','Recepcja','2000','Zatrudnony'),"
                     + "(3,'Heniek','kochamgrazynke','Henryk','Kowalski','Kraków','ul. Partyzantów 4','111222333','heniek@gmail.com','Mechanik','3000','Zatrudnoiny'),"
                     + "(4,'Tadeusz','qwerty','Tadeusz','Nowak','Mielec','ul. Grunwaldzka 10','741852963','tadek@gmail.com','Administrator','4000','Zatrudniony');";
             
                      wynik = stmt.executeUpdate(query);
 
-            //dodawanie rekordów do tabeli Pracownicy
+            //dodawanie rekordów do tabeli Pracownik
             
                     } catch (Exception e) {
             // helper.error(e.getMessage());
@@ -119,7 +119,7 @@ public class UserSettingsController implements Initializable {
             
                        if(stmt == null) stmt = sesja.createStatement();
             
-            ResultSet rs = stmt.executeQuery("select * from pracownicy where Login = '" + username + "';");
+            ResultSet rs = stmt.executeQuery("select * from pracownik where Login = '" + username + "';");
             while (rs.next()) {
 
                 sb_imie.setText(rs.getString("Imie"));
@@ -171,7 +171,7 @@ public class UserSettingsController implements Initializable {
 
             if (poprawnosc == 1) {
                 aktualne_haslo = new_password;
-                int wynik = stmt.executeUpdate("update pracownicy set Miejscowosc = '" + new_miejscowosc
+                int wynik = stmt.executeUpdate("update pracownik set Miejscowosc = '" + new_miejscowosc
                         + "', Adres = '" + new_adres
                         + "', Telefon = '" + new_telefon
                         + "', Email = '" + new_email
