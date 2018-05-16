@@ -89,7 +89,7 @@ public class UserSettingsController implements Initializable {
                     + "  `Email` varchar(100) NOT NULL,\n"
                     + "  `Specjalizacja` varchar(100) NOT NULL,\n"
                     + "  `Wynagrodzenie` varchar(100) ,\n"
-                    + "  `Status` varchar(100) ,\n"
+                    + "  `Status` varchar(100) NOT NULL ,\n"
                     + "  PRIMARY KEY (`ID`),\n"
                     + "  UNIQUE KEY `ID_UNIQUE` (`ID`)\n"
                     + ");";
