@@ -12,6 +12,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import warsztatsamochodowy.Helper;
@@ -46,6 +48,12 @@ public class NewWorkersController implements Initializable {
     private TextField tfEmial;
 
      private Helper helper = new Helper();
+    @FXML
+    private ComboBox<?> comboSpecjalizacja;
+    @FXML
+    private RadioButton RadioMezczyzna;
+    @FXML
+    private RadioButton RadioKobieta;
     /**
      * Initializes the controller class.
      */
