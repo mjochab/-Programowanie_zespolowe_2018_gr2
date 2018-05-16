@@ -185,7 +185,6 @@ CREATE TABLE `pracownik` (
 
 LOCK TABLES `pracownik` WRITE;
 /*!40000 ALTER TABLE `pracownik` DISABLE KEYS */;
-INSERT INTO `pracownik` (`ID`, `Login`, `Haslo`, `Imie`, `Nazwisko`, `Miejscowosc`, `Adres`, `Telefon`, `Email`, `Specjalizacja`, `Status`, `Wynagrodzenie`) VALUES (1,'Janusz','123456','Janusz','Nosacz','Rzeszów','ul. Podwi?ocze 1','123456789','janusz@gmail.com','Kierownik','Zatrudniony',5000),(2,'Gra?yna','brajanek2010','Gra?yna','Nosacz','Rzeszów','ul. Podwis?ocze 1','987456321','grazyna@gmail.com','Recepcja','Zatrudnony',2000),(3,'Heniek','kochamgrazynke','Henryk','Kowalski','Kraków','ul. Partyzantów 4','111222333','heniek@gmail.com','Mechanik','Zatrudnoiny',3000),(4,'Tadeusz','qwerty','Tadeusz','Nowak','Mielec','ul. Grunwaldzka 10','741852963','tadek@gmail.com','Administrator','Zatrudniony',4000);
 /*!40000 ALTER TABLE `pracownik` ENABLE KEYS */;
 UNLOCK TABLES;
 
