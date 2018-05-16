@@ -88,7 +88,7 @@ CREATE TABLE `naprawa` (
   `Opis` text NOT NULL,
   `Status` varchar(100) NOT NULL,
   PRIMARY KEY (`ID`),
-  CONSTRAINT `naprawa_klient` FOREIGN KEY (`ID`) REFERENCES `klient` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `naprawa_klient` FOREIGN KEY (`ID`) REFERENCES `klient` (`ID`) ON UPDATE CASCADE,
   CONSTRAINT `naprawa_samochod` FOREIGN KEY (`ID`) REFERENCES `samochod` (`ID`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
