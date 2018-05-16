@@ -53,7 +53,10 @@ public class NewWorkersController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-
+/**
+ * Tworzenie metody zatwierdzenia metody tworzenia do bazy
+ * @param event 
+ */
     @FXML
     private void ZatwierdzZm(ActionEvent event) {
     }

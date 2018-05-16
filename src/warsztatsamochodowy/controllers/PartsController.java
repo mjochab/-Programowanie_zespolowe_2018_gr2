@@ -48,6 +48,11 @@ public class PartsController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+    /**
+     * Metoda powrotu do menu
+     * @param event
+     * @throws IOException 
+     */
     
     @FXML
     private void powrtoDoMenu(ActionEvent event) throws IOException {
