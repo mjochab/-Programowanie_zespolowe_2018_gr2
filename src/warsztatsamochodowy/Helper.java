@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package warsztatsamochodowy;
 
 import java.io.IOException;
@@ -13,12 +8,18 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 /**
+ * Pomocnicze metody przdatne np: przy zmianie sceny
  *
+ * error - Wyswietlnie okna z komunikatem "Wystąpił błąd"
+ * message - Wyswietlnie okna z komunikatem "Komunikat"
+ * powrotDoMenu - metoda która wyśweitla okno głowne programu
+ * sceneSwitcher - metoda do szybkiej zmiany sceny
+ * 
  * @author lukasz
  */
 public class Helper {
-    
-        public void error(String message) {
+
+    public void error(String message) {
 
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Wystąpił błąd");
@@ -26,8 +27,8 @@ public class Helper {
         alert.setContentText(message);
         alert.showAndWait();
     }
-        
-                public void message(String message) {
+
+    public void message(String message) {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Komunikat");
@@ -35,24 +36,23 @@ public class Helper {
         alert.setContentText(message);
         alert.showAndWait();
     }
-        
-        
-    
-    public void powrotDoMenu() throws IOException{
-           FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/warsztatsamochodowy/views/MainMenu.fxml"));
-                    Stage mainMenu = new Stage();
-                    Parent root = (Parent) fxmlLoader.load();
-                    mainMenu.setScene(new Scene(root));
-                    mainMenu.show();
-                    mainMenu.setTitle("Warsztat samochodowy - Menu główne");
+
+    public void powrotDoMenu() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/warsztatsamochodowy/views/MainMenu.fxml"));
+        Stage mainMenu = new Stage();
+        Parent root = (Parent) fxmlLoader.load();
+        mainMenu.setScene(new Scene(root));
+        mainMenu.show();
+        mainMenu.setTitle("Warsztat samochodowy - Menu główne");
 
     }
-    public void sceneSwitcher(String SciezkaFXML, String tytul) throws IOException{
-           FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(SciezkaFXML));
-                    Stage settings_scene = new Stage();
-                    Parent root = (Parent) fxmlLoader.load();
-                    settings_scene.setScene(new Scene(root));
-                    settings_scene.setTitle(tytul);
-                    settings_scene.show();
+
+    public void sceneSwitcher(String SciezkaFXML, String tytul) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(SciezkaFXML));
+        Stage settings_scene = new Stage();
+        Parent root = (Parent) fxmlLoader.load();
+        settings_scene.setScene(new Scene(root));
+        settings_scene.setTitle(tytul);
+        settings_scene.show();
     }
 }

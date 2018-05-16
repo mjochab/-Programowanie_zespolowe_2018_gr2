@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 import warsztatsamochodowy.Helper;
 
 /**
- * FXML Controller class
+ * Klasa kontrolera FXML Pracownicy
  *
  * @author lukasz
  */
