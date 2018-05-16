@@ -14,13 +14,13 @@
       <Label layoutX="22.0" layoutY="101.0" text="Nazwa" />
       <Label layoutX="22.0" layoutY="143.0" text="Producent" />
       <Label layoutX="22.0" layoutY="185.0" text="Cena" />
-      <Button fx:id="b_zatwierdz" layoutX="491.0" layoutY="337.0" mnemonicParsing="false" text="Zatwierdz" />
+      <Button layoutX="491.0" layoutY="337.0" mnemonicParsing="false" onAction="#AddCzesci" text="Zatwierdz" />
       <Button fx:id="b_powrot" layoutX="390.0" layoutY="337.0" mnemonicParsing="false" onAction="#powrtoDoMenu" prefHeight="25.0" prefWidth="81.0" text="Powrót" />
       <TableView fx:id="tab_czesci" layoutX="236.0" layoutY="22.0" prefHeight="303.0" prefWidth="342.0">
         <columns>
-          <TableColumn prefWidth="132.0" text="Nazwa" />
-          <TableColumn prefWidth="143.0" text="Producent" />
-            <TableColumn minWidth="0.0" prefWidth="66.0" text="Cena" />
+          <TableColumn fx:id="columNazwa" prefWidth="132.0" text="Nazwa" />
+          <TableColumn fx:id="columnProducent" prefWidth="143.0" text="Producent" />
+            <TableColumn fx:id="columnCena" minWidth="0.0" prefWidth="66.0" text="Cena" />
         </columns>
       </TableView>
    </children>

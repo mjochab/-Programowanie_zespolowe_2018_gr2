@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -31,8 +32,6 @@ public class PartsController implements Initializable {
     @FXML
     private TextField Tf_cena;
     @FXML
-    private Button b_zatwierdz;
-    @FXML
     private Button b_powrot;
 
     
@@ -40,6 +39,12 @@ public class PartsController implements Initializable {
     private Helper helper = new Helper();
     @FXML
     private TableView<?> tab_czesci;
+    @FXML
+    private TableColumn<?, ?> columNazwa;
+    @FXML
+    private TableColumn<?, ?> columnProducent;
+    @FXML
+    private TableColumn<?, ?> columnCena;
     /**
     /**
      * Initializes the controller class.
@@ -59,6 +64,10 @@ public class PartsController implements Initializable {
         helper.powrotDoMenu();
         Stage settings = (Stage) b_powrot.getScene().getWindow();
         settings.close();
+    }
+
+    @FXML
+    private void AddCzesci(ActionEvent event) {
     }
     
 }
