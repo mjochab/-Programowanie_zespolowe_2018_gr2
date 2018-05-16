@@ -52,12 +52,12 @@ DROP TABLE IF EXISTS `klient`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `klient` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Imie` varchar(255) NOT NULL,
-  `Nazwisko` varchar(255) NOT NULL,
-  `Adres` varchar(20) DEFAULT NULL,
-  `Miejscowosc` bigint(20) DEFAULT NULL,
-  `Telefon` varchar(45) NOT NULL,
-  `Email` varchar(45) DEFAULT NULL,
+  `Imie` varchar(100)  NOT NULL,
+  `Nazwisko` varchar(100)  NOT NULL,
+  `Adres` varchar(100)  DEFAULT NULL,
+  `Miejscowosc` varchar(100)  DEFAULT NULL,
+  `Telefon` varchar(100)  NOT NULL,
+  `Email` varchar(100)  DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
