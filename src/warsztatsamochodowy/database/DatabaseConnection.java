@@ -2,12 +2,22 @@ package warsztatsamochodowy.database;
 import java.sql.*;
 import warsztatsamochodowy.Helper;
 
+/**
+ * 
+ * 
+ * 
+ * @author Tomek Galka
+ */
+
 public class DatabaseConnection {
 
           Connection con;
     private Helper helper = new Helper();
     public Connection connectDatabase(){
-
+        /**
+         *  Proba polaczenia z lokalna baza danych
+         * 
+         */
                 try{
               
                     Class.forName("com.mysql.jdbc.Driver");
@@ -22,6 +32,11 @@ public class DatabaseConnection {
                     con.close();
 
 */
+    /**
+     * Wyrzuca wyjatek w razie blednego polaczenia z baza danych
+     * 
+     * 
+     */
                 }catch(Exception e){ 
                        helper.error(e.getMessage());
                 return null;
