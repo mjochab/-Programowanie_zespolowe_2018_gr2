@@ -88,8 +88,8 @@ CREATE TABLE `naprawa` (
   `Opis` text NOT NULL,
   `Status` varchar(100) NOT NULL,
   PRIMARY KEY (`ID`),
-  CONSTRAINT `naprawa_klient` FOREIGN KEY (`ID`) REFERENCES `klient` (`ID`) ON UPDATE CASCADE,
-  CONSTRAINT `naprawa_samochod` FOREIGN KEY (`ID`) REFERENCES `samochod` (`ID`) ON UPDATE CASCADE
+  CONSTRAINT `naprawa_klient` FOREIGN KEY (`Klient`) REFERENCES `klient` (`ID`) ON UPDATE CASCADE,
+  CONSTRAINT `naprawa_samochod` FOREIGN KEY (`Samochod`) REFERENCES `samochod` (`ID`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -115,8 +115,8 @@ CREATE TABLE `naprawa_czesc` (
   `Czesc` int(11) NOT NULL,
   `Ilosc` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
-  CONSTRAINT `naprawa_czesc_czesc` FOREIGN KEY (`ID`) REFERENCES `czesc` (`ID`) ON UPDATE CASCADE,
-  CONSTRAINT `naprawa_czesci_naprawa` FOREIGN KEY (`ID`) REFERENCES `naprawa` (`ID`) ON UPDATE CASCADE
+  CONSTRAINT `naprawa_czesc_czesc` FOREIGN KEY (`Czesc`) REFERENCES `czesc` (`ID`) ON UPDATE CASCADE,
+  CONSTRAINT `naprawa_czesci_naprawa` FOREIGN KEY (`Naprawa`) REFERENCES `naprawa` (`ID`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -141,8 +141,8 @@ CREATE TABLE `naprawa_pracownik` (
   `Naprawa` int(11) NOT NULL,
   `Pracownik` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
-  CONSTRAINT `naprawa_pracownik_naprawa` FOREIGN KEY (`ID`) REFERENCES `naprawa` (`ID`) ON UPDATE CASCADE,
-  CONSTRAINT `naprawa_pracownik_pracownik` FOREIGN KEY (`ID`) REFERENCES `pracownik` (`ID`) ON UPDATE CASCADE
+  CONSTRAINT `naprawa_pracownik_naprawa` FOREIGN KEY (`Naprawa`) REFERENCES `naprawa` (`ID`) ON UPDATE CASCADE,
+  CONSTRAINT `naprawa_pracownik_pracownik` FOREIGN KEY (`Pracownik`) REFERENCES `pracownik` (`ID`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -204,7 +204,7 @@ CREATE TABLE `samochod` (
   `Model` varchar(100) NOT NULL,
   `Typ` varchar(100) NOT NULL,
   PRIMARY KEY (`ID`),
-  CONSTRAINT `samochod_klient` FOREIGN KEY (`ID`) REFERENCES `klient` (`ID`) ON UPDATE CASCADE
+  CONSTRAINT `samochod_klient` FOREIGN KEY (`Klient`) REFERENCES `klient` (`ID`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -233,7 +233,7 @@ CREATE TABLE `zamowienie` (
   `Data_zamowienia` datetime NOT NULL,
   `Status` varchar(100) NOT NULL,
   PRIMARY KEY (`ID`),
-  CONSTRAINT `zamawiajacy` FOREIGN KEY (`ID`) REFERENCES `pracownik` (`ID`) ON UPDATE CASCADE
+  CONSTRAINT `zamawiajacy` FOREIGN KEY (`Zamawiajacy`) REFERENCES `pracownik` (`ID`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
