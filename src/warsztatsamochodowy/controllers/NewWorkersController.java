@@ -105,7 +105,6 @@ public class NewWorkersController implements Initializable {
      "');";
           
              int wynik = stmt.executeUpdate(query);
-            wynik = stmt.executeUpdate(query);
             
             
             
