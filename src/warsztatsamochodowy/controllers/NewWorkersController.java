@@ -87,6 +87,10 @@ public class NewWorkersController implements Initializable {
 
             stmt = sesja.createStatement();
             
+            String wynagrodzenie = tfWynagordzenie.getText();
+            int wyplata = Integer.parseInt(wynagrodzenie);
+            
+            
           String query  = "INSERT INTO pracownik (ID, Login, Haslo, Imie, Nazwisko, Miejscowosc, Adres, Telefon, Email, Specjalizacja, Wynagrodzenie, Status) "
                      +"Values(NULL,'"+tfLogin.getText()+
         "','"+tfHaslo.getText()+"','"+tfImie.getText()+
@@ -96,7 +100,7 @@ public class NewWorkersController implements Initializable {
         tfTelefon.getText()+"','"+
         tfEmial.getText()+"','"+
         cbSpecjalizacja.getSelectionModel().getSelectedItem().toString()+
-        "','"+tfWynagordzenie.getText()+
+        "','"+wyplata+
         "','"+cbStatus.getSelectionModel().getSelectedItem().toString()+
      "');";
           
