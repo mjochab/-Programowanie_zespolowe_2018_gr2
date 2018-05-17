@@ -96,19 +96,8 @@ public class NewWorkersController implements Initializable {
     private void ZatwierdzZm(ActionEvent event) {
 
         Statement stmt = null;
-        );
-        cbSpecjalizacja.getItems().addAll(
-        "Diagnosta",
-        "Mechanik",
-        "Pomocnik"
-                
-        );
-    }    
-/**
- * Tworzenie metody zatwierdzenia metody tworzenia do bazy
- * @param event 
- */
-
+        
+   
         try {
 
             stmt = sesja.createStatement();

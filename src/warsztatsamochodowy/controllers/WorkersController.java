@@ -11,6 +11,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,11 +22,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import warsztatsamochodowy.Helper;
 import warsztatsamochodowy.database.DatabaseConnection;
+import warsztatsamochodowy.database.entity.Pracownik;
 
 /**
  * Klasa kontrolera FXML Pracownicy
@@ -37,72 +41,69 @@ public class WorkersController implements Initializable {
     private Button powrot;
     @FXML
     private Button dodajPracownika;
-    
+
     private Helper helper = new Helper();
     @FXML
-    private TableColumn<?, ?> StatusColumn;
+    private TableColumn<Pracownik, String> StatusColumn;
     @FXML
-    private TableColumn<?, ?> ImieColumn;
+    private TableColumn<Pracownik, String> ImieColumn;
     @FXML
-    private TableColumn<?, ?> NazwiskoColumn;
+    private TableColumn<Pracownik, String> NazwiskoColumn;
     @FXML
-    private TableColumn<?, ?> TelColumn;
+    private TableColumn<Pracownik, String> TelColumn;
     @FXML
-    private TableColumn<?, ?> SpecjalizacjaColumn;
+    private TableColumn<Pracownik, String> SpecjalizacjaColumn;
+
+    private ObservableList<Pracownik> data;
     /**
      * Initializes the controller class.
      */
-    
-       DatabaseConnection PolaczenieDB = new DatabaseConnection();
 
-
+    DatabaseConnection PolaczenieDB = new DatabaseConnection();
 
     Connection sesja = PolaczenieDB.connectDatabase();
+    @FXML
+    private TableView<Pracownik> tablepracownik;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-      
-        
+
+        data = FXCollections.observableArrayList();
         Statement stmt = null;
 
         try {
 
             stmt = sesja.createStatement();
-               ResultSet rs = stmt.executeQuery("select * from pracownik;");
+            ResultSet rs = stmt.executeQuery("select * from pracownik;");
             while (rs.next()) {
+                data.add(new Pracownik(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getInt(12)));
 
-                ImieColumn.setText(rs.getString("Imie"));
-                NazwiskoColumn.setText(rs.getString("Nazwisko"));
-                TelColumn.setText(rs.getString("Telefon"));
-                SpecjalizacjaColumn.setText(rs.getString("Specjalizacja"));
-                StatusColumn.setText(rs.getString("Status"));
-                
-                
-                
             }
-            
-            
-            
-            
-        
-        }catch(Exception e){
-            
+
+            ImieColumn.setCellValueFactory(new PropertyValueFactory<>("Imie"));
+            NazwiskoColumn.setCellValueFactory(new PropertyValueFactory<>("Nazwisko"));
+            TelColumn.setCellValueFactory(new PropertyValueFactory<>("Telefon"));
+            SpecjalizacjaColumn.setCellValueFactory(new PropertyValueFactory<>("Specjalizacja"));
+            StatusColumn.setCellValueFactory(new PropertyValueFactory<>("Status"));
+
+            tablepracownik.setItems(null);
+            tablepracownik.setItems(data);
+
+        } catch (Exception e) {
+
         }
-        
-    }    
+
+    }
 
     @FXML
     private void dodajPracownika(ActionEvent event) throws IOException {
 
-   
-        
-            helper.sceneSwitcher("/warsztatsamochodowy/views/NewWorkers.fxml", "Warsztat samochodowy - Pracownicy");
-            Stage mainmenu_scene = (Stage) dodajPracownika.getScene().getWindow();
-            mainmenu_scene.close();
-        
+        helper.sceneSwitcher("/warsztatsamochodowy/views/NewWorkers.fxml", "Warsztat samochodowy - Pracownicy");
+
+        Stage mainmenu_scene = (Stage) dodajPracownika.getScene().getWindow();
+        mainmenu_scene.close();
+
     }
-        
-   
-    
 
     @FXML
     private void powrotDoMenu(ActionEvent event) throws IOException {
@@ -110,5 +111,5 @@ public class WorkersController implements Initializable {
         Stage workers = (Stage) powrot.getScene().getWindow();
         workers.close();
     }
-    
+
 }
