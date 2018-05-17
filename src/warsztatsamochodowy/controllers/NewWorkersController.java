@@ -66,7 +66,17 @@ public class NewWorkersController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        cbStatus.setItems().addAll("Zatrudniony");
+        cbStatus.getItems().addAll("Zatrudniony",
+                "Na urlopie",
+                "Zwolniony"
+        );
+        
+        cbSpecjalizacja.getItems().addAll("Diagnosta",
+                "Mechanik",
+                "Praktykant - pomocnik",
+                "Recjepcjonista"
+ 
+        );
     }
 
     @FXML
@@ -85,13 +95,17 @@ public class NewWorkersController implements Initializable {
         "','"+tfAdres.getText()+"','"+
         tfTelefon.getText()+"','"+
         tfEmial.getText()+"','"+
-        cmSpecjalizacja.getSelectionModel().getSelectedItem().toString()+
+        cbSpecjalizacja.getSelectionModel().getSelectedItem().toString()+
         "','"+tfWynagordzenie.getText()+
         "','"+cbStatus.getSelectionModel().getSelectedItem().toString()+
      "');";
           
              int wynik = stmt.executeUpdate(query);
             wynik = stmt.executeUpdate(query);
+            
+            
+            
+            
         } catch (Exception e) {
 
         }
