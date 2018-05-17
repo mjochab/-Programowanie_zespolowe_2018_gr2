@@ -76,7 +76,7 @@ public class Pracownik {
         return Specjalizacja;
     }
           public StringProperty StatusProperty() {
-        return Email;
+        return Status;
     }
           public IntegerProperty WynagrodzenieProperty() {
         return Wynagrodzenie;
