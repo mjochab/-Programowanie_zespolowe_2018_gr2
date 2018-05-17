@@ -174,7 +174,7 @@ CREATE TABLE `pracownik` (
   `Email` varchar(100) NOT NULL,
   `Specjalizacja` varchar(100) NOT NULL,
   `Status` varchar(100) NOT NULL,
-  `Wynagrodzenie` int(11) DEFAULT NULL,
+  `Wynagrodzenie` float DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -228,7 +228,7 @@ CREATE TABLE `zamowienie` (
   `Czesc` int(11) NOT NULL,
   `Zamawiajacy` int(11) NOT NULL,
   `Ilosc` int(11) NOT NULL,
-  `Koszt` int(11) NOT NULL,
+  `Koszt` float NOT NULL,
   `Data_zamowienia` datetime NOT NULL,
   `Status` varchar(100) NOT NULL,
   PRIMARY KEY (`ID`),
