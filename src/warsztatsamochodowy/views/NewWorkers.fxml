@@ -22,7 +22,10 @@
       <Label layoutX="45.0" layoutY="192.0" text="Adres" />
       <Label layoutX="47.0" layoutY="232.0" text="Nr telefonu" />
       <Label layoutX="45.0" layoutY="274.0" text="e-mail" />
-      <Label layoutX="45.0" layoutY="314.0" text="Status" />
+      <Label layoutX="45.0" layoutY="314.0" text="Status" /><<<<<<< HEAD<<<<<<<<< Temporary merge branch 1
+      <RadioButton layoutX="112.0" layoutY="323.0" mnemonicParsing="false" text="Meżczyzna" />
+      <RadioButton layoutX="213.0" layoutY="323.0" mnemonicParsing="false" text="Kobieta" />
+
       <Label layoutX="317.0" layoutY="137.0" text="Dane logowania" />
       <Label layoutX="323.0" layoutY="184.0" text="Login" />
       <Label layoutX="323.0" layoutY="224.0" text="Haslo" />
@@ -37,5 +40,6 @@
       <ComboBox fx:id="cbStatus" layoutX="117.0" layoutY="310.0" prefWidth="150.0" />
       <TextField fx:id="tfWynagordzenie" layoutX="117.0" layoutY="356.0" />
       <Label layoutX="29.0" layoutY="360.0" text="Wynagrodzenie" />
+
    </children>
 </AnchorPane>
