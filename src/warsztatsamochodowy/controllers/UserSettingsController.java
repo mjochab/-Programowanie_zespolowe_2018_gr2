@@ -89,7 +89,7 @@ public class UserSettingsController implements Initializable {
                     + "  `Email` varchar(100) NOT NULL,\n"
                     + "  `Specjalizacja` varchar(100) NOT NULL,\n"
                     + "  `Wynagrodzenie` varchar(100) ,\n"
-                    + "  `Status` varchar(100) ,\n"
+                    + "  `Status` varchar(100) NOT NULL ,\n"
                     + "  PRIMARY KEY (`ID`),\n"
                     + "  UNIQUE KEY `ID_UNIQUE` (`ID`)\n"
                     + ");";
@@ -103,7 +103,7 @@ public class UserSettingsController implements Initializable {
             
             query = "INSERT INTO `pracownik` (`ID`, `Login`, `Haslo`, `Imie`, `Nazwisko`, `Miejscowosc`, `Adres`, `Telefon`, `Email`, `Specjalizacja`, `Wynagrodzenie`, `Status`) "
                     + "VALUES (1,'Janusz','123456','Janusz','Nosacz','Rzeszów','ul. Podwiłocze 1','123456789','janusz@gmail.com','Kierownik','5000','Zatrudniony'),"
-                    + "(2,'Grażyna','brajanek2010','Grażyna','Nosacz','Rzeszów','ul. Podwisłocze 1','987456321','grazyna@gmail.com','Recepcja','2000','Zatrudnony'),"
+                    + "(2,'Grażyna','brajanek2010','Grazyna','Nosacz','Rzeszów','ul. Podwisłocze 1','987456321','grazyna@gmail.com','Recepcja','2000','Zatrudnony'),"
                     + "(3,'Heniek','kochamgrazynke','Henryk','Kowalski','Kraków','ul. Partyzantów 4','111222333','heniek@gmail.com','Mechanik','3000','Zatrudnoiny'),"
                     + "(4,'Tadeusz','qwerty','Tadeusz','Nowak','Mielec','ul. Grunwaldzka 10','741852963','tadek@gmail.com','Administrator','4000','Zatrudniony');";
             

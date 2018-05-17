@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -50,7 +51,7 @@ public class NewWorkersController implements Initializable {
     @FXML
     private TextField tfEmial;
 
-     private Helper helper = new Helper();
+    private Helper helper = new Helper();
     @FXML
     private ComboBox<String> cbSpecjalizacja;
     @FXML
@@ -66,6 +67,8 @@ public class NewWorkersController implements Initializable {
 
 
     Connection sesja = PolaczenieDB.connectDatabase();
+    @FXML
+    private TextField tfWynagordzenie;
 
 
     
@@ -79,49 +82,53 @@ public class NewWorkersController implements Initializable {
         
         );
         cbSpecjalizacja.getItems().addAll(
-        "Diagnosta",
-        "Mechanik",
-        "Pomocnik"
+                "Diagnosta",
+                "Mechanik",
+                "Pomocnik"
                 
         );
-    }    
-/**
- * Tworzenie metody zatwierdzenia metody tworzenia do bazy
- * @param event 
- */
+    }
+    /**
+     * Tworzenie metody zatwierdzenia metody tworzenia do bazy
+     * @param event
+     */
     @FXML
     private void ZatwierdzZm(ActionEvent event) {
-        
-          Statement stmt = null;
+
+        Statement stmt = null;
 
         try {
 
             stmt = sesja.createStatement();
 
-        
-        String query  = "INSERT INTO pracownik (ID, Login, Haslo, Imie, Nazwisko, Miejscowosc, Adres, Telefon, Email, Specjalizacja, Wynagrodzenie, Status) "
-                     +"Values(NULL,'"+tfLogin.getText()+
-        "','"+tfHaslo.getText()+"','"+tfImie.getText()+
-        "','"+tfNazwisko.getText()+
-        "','"+tfMiejscowosc.getText()+
-        "','"+tfAdres.getText()+"','"+
-        tfTelefon.getText()+"','"+
-        tfEmial.getText()+"','"+
-        cbSpecjalizacja.getSelectionModel().getSelectedItem().toString()+
-        "','"+tfWyagrodzenie.getText()+
-        "','"+cbStatus.getSelectionModel().getSelectedItem().toString()+
-     "');";
-         int wynik = stmt.executeUpdate(query);
+            String wynagrodzenie = tfWyagrodzenie.getText();
+            int wyplata = Integer.parseInt(wynagrodzenie);
+
+            String query = "INSERT INTO pracownik (ID, Login, Haslo, Imie, Nazwisko, Miejscowosc, Adres, Telefon, Email, Specjalizacja, Wynagrodzenie, Status) "
+                    + "Values(NULL,'" + tfLogin.getText()
+                    + "','" + tfHaslo.getText() + "','" + tfImie.getText()
+                    + "','" + tfNazwisko.getText()
+                    + "','" + tfMiejscowosc.getText()
+                    + "','" + tfAdres.getText() + "','"
+                    + tfTelefon.getText() + "','"
+                    + tfEmial.getText() + "','"
+                    + cbSpecjalizacja.getSelectionModel().getSelectedItem().toString()
+                    + "','" + wyplata
+                    + "','" + cbStatus.getSelectionModel().getSelectedItem().toString()
+                    + "');";
+            int wynik = stmt.executeUpdate(query);
+
         } catch (Exception e) {
-        
-        
-    }
+
+        }
+
     }
 
     @FXML
     private void PowrotTab(ActionEvent event) throws IOException {
-        
-            try {
+
+        try {
+
             sesja.close();
         } catch (Exception e) {
             helper.error(e.getMessage());
@@ -129,6 +136,7 @@ public class NewWorkersController implements Initializable {
         helper.powrotDoMenu();
         Stage settings = (Stage) b_powrot.getScene().getWindow();
         settings.close();
+
     }
-    
+
 }
