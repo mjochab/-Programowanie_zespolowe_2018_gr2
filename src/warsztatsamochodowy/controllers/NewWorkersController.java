@@ -27,7 +27,6 @@ import warsztatsamochodowy.database.DatabaseConnection;
  *
  * @author Artur
  */
-
 public class NewWorkersController implements Initializable {
 
     @FXML
@@ -57,57 +56,48 @@ public class NewWorkersController implements Initializable {
     private ComboBox<String> cbSpecjalizacja;
     @FXML
     private ComboBox<String> cbStatus;
-    private TextField tfWyagrodzenie;
+
     /**
      * Initializes the controller class.
      */
 
-    
     DatabaseConnection PolaczenieDB = new DatabaseConnection();
-
 
     Connection sesja = PolaczenieDB.connectDatabase();
     @FXML
     private TextField tfWynagordzenie;
 
-
-    
-    
-    
     public void initialize(URL url, ResourceBundle rb) {
         cbStatus.getItems().addAll(
                 "Zatrudniony",
                 "Urlop",
                 "Zwolniony"
-               
-        
         );
         cbSpecjalizacja.getItems().addAll(
                 "Diagnosta",
                 "Mechanik",
                 "Pomocnik",
-                 "Recepcjonista"
-                
+                "Recepcjonista"
         );
     }
+
     /**
      * Tworzenie metody zatwierdzenia metody tworzenia do bazy
+     *
      * @param event
      */
     @FXML
     private void ZatwierdzZm(ActionEvent event) {
 
         Statement stmt = null;
-        
-   
+
         try {
 
             stmt = sesja.createStatement();
-
-            String wynagrodzenie = tfWyagrodzenie.getText();
+            String wynagrodzenie = tfWynagordzenie.getText();
             int wyplata = Integer.parseInt(wynagrodzenie);
 
-            String query = "INSERT INTO pracownik (ID, Login, Haslo, Imie, Nazwisko, Miejscowosc, Adres, Telefon, Email, Specjalizacja, Wynagrodzenie, Status) "
+            String query = "INSERT INTO pracownik (ID, Login, Haslo, Imie, Nazwisko, Miejscowosc, Adres, Telefon, Email, Specjalizacja, Status,Wynagrodzenie) "
                     + "Values(NULL,'" + tfLogin.getText()
                     + "','" + tfHaslo.getText() + "','" + tfImie.getText()
                     + "','" + tfNazwisko.getText()
@@ -116,17 +106,16 @@ public class NewWorkersController implements Initializable {
                     + tfTelefon.getText() + "','"
                     + tfEmial.getText() + "','"
                     + cbSpecjalizacja.getSelectionModel().getSelectedItem().toString()
-                    + "','" + wyplata
                     + "','" + cbStatus.getSelectionModel().getSelectedItem().toString()
+                    + "','" + wyplata
                     + "');";
-          
-            
+
             int wynik = stmt.executeUpdate(query);
-
-            
-            
+            helper.message("Ustawienia zostały zapisane");
+            tfLogin.clear();
+            tfWynagordzenie.clear();
         } catch (Exception e) {
-
+            helper.message("Sprawdź dane w formularzu");
         }
 
     }
