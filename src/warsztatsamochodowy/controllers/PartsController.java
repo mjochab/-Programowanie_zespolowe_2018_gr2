@@ -65,6 +65,7 @@ public class PartsController implements Initializable {
     DatabaseConnection PolaczenieDB = new DatabaseConnection();
     Connection sesja;
     Statement stmt;
+    public static String Nazwa, ID, Cena, Producent, Ilosc;
 
     /**
      * /**
@@ -79,6 +80,26 @@ public class PartsController implements Initializable {
         kol_Ilosc.setCellValueFactory(new PropertyValueFactory<>("Ilosc"));
         kol_Cena.setCellValueFactory(new PropertyValueFactory<>("Cena"));
         wczytajBaze();
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public String getNazwa() {
+        return Nazwa;
+    }
+
+    public String getProducent() {
+        return Producent;
+    }
+
+    public String getCena() {
+        return Cena;
+    }
+
+    public String getIlosc() {
+        return Ilosc;
     }
 
     void dodajDoTabeli(String id, String nazwa, String producent, String ilosc, String cena) {
@@ -138,10 +159,10 @@ public class PartsController implements Initializable {
 
     @FXML
     private void dodajCzesc(ActionEvent event) throws IOException {
-        
-                    helper.sceneSwitcher("/warsztatsamochodowy/views/AddPart.fxml", "Warsztat samochodowy - Nowa część");
-            Stage this_scene = (Stage) tab_czesci.getScene().getWindow();
-            this_scene.close();
+
+        helper.sceneSwitcher("/warsztatsamochodowy/views/AddPart.fxml", "Warsztat samochodowy - Nowa część");
+        Stage this_scene = (Stage) tab_czesci.getScene().getWindow();
+        this_scene.close();
 
     }
 
@@ -190,6 +211,25 @@ public class PartsController implements Initializable {
 
     @FXML
     private void edytujCzesc(ActionEvent event) throws IOException {
+
+        if (tab_czesci.getSelectionModel().getSelectedItems().size() == 1) {
+
+            Czesc c = tab_czesci.getSelectionModel().getSelectedItem();
+
+            ID = c.getID();
+            Nazwa = c.getNazwa();
+            Producent = c.getProducent();
+            Ilosc = c.getIlosc();
+            Cena = c.getCena();
+            System.out.println(Cena);
+
+            helper.sceneSwitcher("/warsztatsamochodowy/views/EditPart.fxml", "Warsztat samochodowy - Edycja części");
+            Stage this_scene = (Stage) tab_czesci.getScene().getWindow();
+            this_scene.close();
+
+        } else {
+            helper.error("Wybierz 1 część");
+        }
 
     }
 

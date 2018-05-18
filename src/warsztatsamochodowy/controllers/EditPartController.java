@@ -14,11 +14,12 @@ import warsztatsamochodowy.database.DatabaseConnection;
 /**
  * Klasa kontrolera FXML do dodawanie nowych czesci.
  *
+ *
  */
 import java.sql.*;
 import javafx.scene.control.TextField;
 
-public class AddPartController implements Initializable {
+public class EditPartController implements Initializable {
 
     @FXML
     private Button zatwierdz;
@@ -38,7 +39,12 @@ public class AddPartController implements Initializable {
     @FXML
     private TextField sb_cena;
 
-   
+    PartsController parts = new PartsController();
+    String id = parts.getID();
+    String nazwa = parts.getNazwa();
+    String producent = parts.getProducent();
+    String cena = parts.getCena();
+    String ilosc = parts.getIlosc();
 
     DatabaseConnection PolaczenieDB = new DatabaseConnection();
 
@@ -54,17 +60,21 @@ public class AddPartController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        sb_nazwa.setText(nazwa);
+        sb_producent.setText(producent);
+        sb_ilosc.setText(ilosc);
+        sb_cena.setText(cena);
+
     }
 
-
-    
-     @FXML
-    void dodajCzesc(ActionEvent event) {
+    @FXML
+    void edytujCzesc(ActionEvent event) {
 
         String nazwa = sb_nazwa.getText();
         String producent = sb_producent.getText();
         String ilosc = sb_ilosc.getText();
         String cena = sb_cena.getText();
+        String id = this.id;
 
         try {
             if (sesja == null || sesja.isClosed()) {
@@ -73,18 +83,13 @@ public class AddPartController implements Initializable {
             stmt = sesja.createStatement();
             Statement stmt = sesja.createStatement();
 
-            int wynik = stmt.executeUpdate("INSERT INTO czesc (Nazwa,Producent,Ilosc,Cena) VALUES ('"
-                    + nazwa
-                    + "', '" + producent
-                    + "', '" + ilosc
-                    + "', '" + cena
-                    + "');");
+            int wynik = stmt.executeUpdate("UPDATE czesc set Nazwa = '" + nazwa
+                    + "', Producent = '" + producent
+                    + "', Ilosc = '" + ilosc
+                    + "', Cena = '" + cena
+                    + "' WHERE ID = '" + id + "';");
             if (wynik == 1) {
-sb_nazwa.clear();
-sb_producent.clear();
-sb_ilosc.clear();
-sb_cena.clear();
-                helper.message("Część została dodana");
+                helper.message("Część została zmieniona");
             }
 
         } catch (Exception e) {
@@ -100,7 +105,6 @@ sb_cena.clear();
 
         }
     }
-    
 
     @FXML
     private void powrot(ActionEvent event) throws IOException {
