@@ -53,10 +53,10 @@ public class NewWorkersController implements Initializable {
 
     private Helper helper = new Helper();
 
+    @FXML
     private ComboBox<String> cbSpecjalizacja;
     @FXML
     private ComboBox<String> cbStatus;
-    @FXML
     private TextField tfWyagrodzenie;
     /**
      * Initializes the controller class.

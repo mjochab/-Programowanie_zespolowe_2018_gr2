@@ -42,6 +42,7 @@ public class Pracownik {
         this.Specjalizacja = new SimpleStringProperty(Specjalizacja);
         this.Status = new SimpleStringProperty(Status);
         this.Wynagrodzenie = new SimpleIntegerProperty(Wynagrodzenie);
+        
     }
 
     
