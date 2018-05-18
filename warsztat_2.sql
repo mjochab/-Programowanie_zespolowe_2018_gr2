@@ -137,7 +137,7 @@ DROP TABLE IF EXISTS `naprawa_pracownik`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `naprawa_pracownik` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Naprawa` int(11) NOT NULL,
   `Pracownik` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
@@ -177,7 +177,7 @@ CREATE TABLE `pracownik` (
   `Wynagrodzenie` float DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `Login_UNIQUE` (`Login`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -205,7 +205,7 @@ CREATE TABLE `samochod` (
   `Typ` varchar(100) NOT NULL,
   PRIMARY KEY (`ID`),
   CONSTRAINT `samochod_klient` FOREIGN KEY (`Klient`) REFERENCES `klient` (`ID`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
