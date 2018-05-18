@@ -138,6 +138,10 @@ public class PartsController implements Initializable {
 
     @FXML
     private void dodajCzesc(ActionEvent event) throws IOException {
+        
+                    helper.sceneSwitcher("/warsztatsamochodowy/views/AddPart.fxml", "Warsztat samochodowy - Nowa część");
+            Stage this_scene = (Stage) tab_czesci.getScene().getWindow();
+            this_scene.close();
 
     }
 
