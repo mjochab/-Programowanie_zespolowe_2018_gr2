@@ -6,6 +6,8 @@ import java.sql.Statement;
 
 /**
  *
+ * Metoda do usuwania tabel z bazy danych
+ * 
  * @author Bartek
  */
 public class DatabaseDelete {
