@@ -7,21 +7,24 @@ package warsztatsamochodowy.controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import warsztatsamochodowy.Helper;
+import warsztatsamochodowy.database.DatabaseConnection;
 
 /**
  * FXML Controller class
  *
  * @author Artur
  */
-
 public class NewWorkersController implements Initializable {
 
     @FXML
@@ -45,29 +48,85 @@ public class NewWorkersController implements Initializable {
     @FXML
     private TextField tfEmial;
 
-     private Helper helper = new Helper();
+    private Helper helper = new Helper();
+
     /**
      * Initializes the controller class.
      */
+
+    DatabaseConnection PolaczenieDB = new DatabaseConnection();
+    Connection sesja = PolaczenieDB.connectDatabase();
+    @FXML
+    private ComboBox<String> cbStatus;
+    @FXML
+    private TextField tfWynagordzenie;
+    @FXML
+    private ComboBox<String> cbSpecjalizacja;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-/**
- * Tworzenie metody zatwierdzenia metody tworzenia do bazy
- * @param event 
- */
+
+        cbStatus.getItems().addAll("Zatrudniony",
+                "Na urlopie",
+                "Zwolniony"
+        );
+        
+        cbSpecjalizacja.getItems().addAll("Diagnosta",
+                "Mechanik",
+                "Praktykant - pomocnik",
+                "Recjepcjonista"
+ 
+        );
+    }
+
     @FXML
     private void ZatwierdzZm(ActionEvent event) {
+        Statement stmt = null;
+
+        try {
+
+            stmt = sesja.createStatement();
+            
+            String wynagrodzenie = tfWynagordzenie.getText();
+            int wyplata = Integer.parseInt(wynagrodzenie);
+            
+            
+          String query  = "INSERT INTO pracownik (ID, Login, Haslo, Imie, Nazwisko, Miejscowosc, Adres, Telefon, Email, Specjalizacja, Wynagrodzenie, Status) "
+                     +"Values(NULL,'"+tfLogin.getText()+
+        "','"+tfHaslo.getText()+"','"+tfImie.getText()+
+        "','"+tfNazwisko.getText()+
+        "','"+tfMiejscowosc.getText()+
+        "','"+tfAdres.getText()+"','"+
+        tfTelefon.getText()+"','"+
+        tfEmial.getText()+"','"+
+        cbSpecjalizacja.getSelectionModel().getSelectedItem().toString()+
+        "','"+wyplata+
+        "','"+cbStatus.getSelectionModel().getSelectedItem().toString()+
+     "');";
+          
+             int wynik = stmt.executeUpdate(query);
+            
+            
+            
+            
+        } catch (Exception e) {
+
+        }
+
     }
 
     @FXML
     private void PowrotTab(ActionEvent event) throws IOException {
-        
-           helper.sceneSwitcher("/warsztatsamochodowy/views/Workers.fxml", "Warsztat samochodowy - Pracownicy");
-            Stage mainmenu_scene = (Stage) b_powrot.getScene().getWindow();
-            mainmenu_scene.close();
-        
+
+      try {
+            sesja.close();
+        } catch (Exception e) {
+            helper.error(e.getMessage());
+        }
+        helper.powrotDoMenu();
+        Stage settings = (Stage) b_powrot.getScene().getWindow();
+        settings.close();
+
     }
-    
+
 }
