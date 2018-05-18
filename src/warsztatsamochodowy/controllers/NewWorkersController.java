@@ -79,12 +79,14 @@ public class NewWorkersController implements Initializable {
                 "Zatrudniony",
                 "Urlop",
                 "Zwolniony"
+               
         
         );
         cbSpecjalizacja.getItems().addAll(
                 "Diagnosta",
                 "Mechanik",
-                "Pomocnik"
+                "Pomocnik",
+                 "Recepcjonista"
                 
         );
     }
@@ -117,8 +119,12 @@ public class NewWorkersController implements Initializable {
                     + "','" + wyplata
                     + "','" + cbStatus.getSelectionModel().getSelectedItem().toString()
                     + "');";
+          
+            
             int wynik = stmt.executeUpdate(query);
 
+            
+            
         } catch (Exception e) {
 
         }
