@@ -221,7 +221,6 @@ public class PartsController implements Initializable {
             Producent = c.getProducent();
             Ilosc = c.getIlosc();
             Cena = c.getCena();
-            System.out.println(Cena);
 
             helper.sceneSwitcher("/warsztatsamochodowy/views/EditPart.fxml", "Warsztat samochodowy - Edycja części");
             Stage this_scene = (Stage) tab_czesci.getScene().getWindow();
