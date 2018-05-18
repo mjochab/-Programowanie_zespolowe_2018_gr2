@@ -9,8 +9,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,6 +31,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import warsztatsamochodowy.Helper;
 import warsztatsamochodowy.database.DatabaseConnection;
+import warsztatsamochodowy.database.entity.Potwierdzenie;
 import warsztatsamochodowy.database.entity.Pracownik;
 
 /**
@@ -64,11 +68,17 @@ public class WorkersController implements Initializable {
     Connection sesja = PolaczenieDB.connectDatabase();
     @FXML
     private TableView<Pracownik> tablepracownik;
+    @FXML
+    private Button usunPracownika;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+ladujTabelePracownick();
+    
 
-        data = FXCollections.observableArrayList();
+    }
+    public void ladujTabelePracownick(){
+          data = FXCollections.observableArrayList();
         Statement stmt = null;
 
         try {
@@ -91,8 +101,7 @@ public class WorkersController implements Initializable {
 
         } catch (Exception e) {
 
-        }
-
+        }  
     }
 
     @FXML
@@ -110,6 +119,31 @@ public class WorkersController implements Initializable {
         helper.powrotDoMenu();
         Stage workers = (Stage) powrot.getScene().getWindow();
         workers.close();
+    }
+
+    @FXML
+    private void usunPracownika(ActionEvent event) {
+
+        int id_placowki = tablepracownik.getSelectionModel().getSelectedItem().getID();
+
+        System.out.println(id_placowki);
+        Statement stmt = null;
+          boolean flaga=Potwierdzenie.display("Usuń", "Czy napewno chcesz usunać?");
+          if(flaga== true){
+        try {
+            stmt = sesja.createStatement();
+
+         int rs = stmt.executeUpdate("delete from Pracownik where ID = " + tablepracownik.getSelectionModel().getSelectedItem().getID());
+       
+         helper.message("Pracownik zostal usuniety");
+              ladujTabelePracownick();
+              
+              
+        } catch (SQLException ex) {
+            Logger.getLogger(WorkersController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+          }
+          
     }
 
 }

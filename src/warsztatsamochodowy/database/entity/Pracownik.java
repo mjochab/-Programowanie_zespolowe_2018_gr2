@@ -46,6 +46,42 @@ public class Pracownik {
     }
 
     
+     public Integer getID(){
+        return ID.get();
+    }
+    public String getLogin(){
+        return Login.get();      
+    }
+    public String getHaslo(){
+        return Haslo.get();
+    }
+    public String getImie(){
+        return Imie.get();
+    }
+    public String getNazwisko(){
+        return Nazwisko.get();
+    }
+    public String getMiejscowosc(){
+        return Miejscowosc.get();
+    }
+    public String getAdres(){
+        return Adres.get();
+    }
+    public String getTelefon(){
+        return Telefon.get();
+    }
+       public String getEmail(){
+        return Email.get();
+    }
+       public String getSpecjalizacja(){
+        return Specjalizacja.get();
+    }
+        public String getStatus(){
+        return Status.get();
+    }
+            public Integer getWynagrodzenie(){
+        return Wynagrodzenie.get();
+    }
      public IntegerProperty IDProperty() {
         return ID;
      }
