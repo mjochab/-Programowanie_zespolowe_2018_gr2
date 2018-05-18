@@ -23,8 +23,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import warsztatsamochodowy.Helper;
-import static warsztatsamochodowy.controllers.LoginController.Stanowisko;
-import static warsztatsamochodowy.controllers.LoginController.Username;
 import warsztatsamochodowy.database.DatabaseConnection;
 import warsztatsamochodowy.database.entity.Czesc;
 
