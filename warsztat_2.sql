@@ -175,7 +175,8 @@ CREATE TABLE `pracownik` (
   `Specjalizacja` varchar(100) NOT NULL,
   `Status` varchar(100) NOT NULL,
   `Wynagrodzenie` float DEFAULT NULL,
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `Login_UNIQUE` (`Login`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
