@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 
@@ -80,8 +81,18 @@ public class NewWorkersController implements Initializable {
                 "Recepcjonista"
         );
     }
-
-    /**
+  public static Boolean czyLitery(String text){
+        return text.matches("[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ]+.*[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ]");
+    }
+  
+    private void brakZaznaczenia(String tytul, String komunikat1, String komunikat2) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(tytul);
+        alert.setHeaderText(komunikat1);
+        alert.setContentText(komunikat2);
+        alert.showAndWait();
+    }
+  /*
      * Tworzenie metody zatwierdzenia metody tworzenia do bazy
      *
      * @param event
@@ -97,6 +108,11 @@ public class NewWorkersController implements Initializable {
             String wynagrodzenie = tfWynagordzenie.getText();
             int wyplata = Integer.parseInt(wynagrodzenie);
 
+//         if(czyLitery(tfTelefon.getText())||czyLitery (tfWynagordzenie.getText())){
+//              brakZaznaczenia("Bład","Zły format wpisywania danych! ","Proszę uzupełnić pola.");
+//       
+//         }
+//            
             String query = "INSERT INTO pracownik (ID, Login, Haslo, Imie, Nazwisko, Miejscowosc, Adres, Telefon, Email, Specjalizacja, Status,Wynagrodzenie) "
                     + "Values(NULL,'" + tfLogin.getText()
                     + "','" + tfHaslo.getText() + "','" + tfImie.getText()
@@ -113,6 +129,13 @@ public class NewWorkersController implements Initializable {
             int wynik = stmt.executeUpdate(query);
             helper.message("Ustawienia zostały zapisane");
             tfLogin.clear();
+            tfHaslo.clear();
+            tfImie.clear();
+            tfNazwisko.clear();
+            tfMiejscowosc.clear();
+            tfAdres.clear();
+            tfTelefon.clear();
+            tfEmial.clear();
             tfWynagordzenie.clear();
         } catch (Exception e) {
             helper.message("Sprawdź dane w formularzu");
