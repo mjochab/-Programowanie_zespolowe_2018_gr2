@@ -145,7 +145,6 @@ public class UserSettingsController implements Initializable {
                         + "', Haslo = '" + new_password
                         + "' where Login = '" + username + "';");
                 if (wynik == 1) {
-
                     helper.message("Ustawienia zostały zapisane");
                 }
 

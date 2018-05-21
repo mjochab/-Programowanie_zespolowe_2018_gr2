@@ -8,6 +8,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="warsztatsamochodowy.controllers.NewWorkersController">
    <children>
+      <ComboBox fx:id="cbSpecjalizacja" layoutX="317.0" layoutY="72.0" prefHeight="25.0" prefWidth="189.0" />
       <Button fx:id="b_zatwierdz" layoutX="433.0" layoutY="356.0" mnemonicParsing="false" onAction="#ZatwierdzZm" text="Zatwierdz" />
       <Button fx:id="b_powrot" layoutX="512.0" layoutY="356.0" mnemonicParsing="false" onAction="#PowrotTab" text="Powrot" />
       <TextField fx:id="tfImie" layoutX="117.0" layoutY="72.0" />
@@ -22,6 +23,7 @@
       <Label layoutX="47.0" layoutY="232.0" text="Nr telefonu" />
       <Label layoutX="45.0" layoutY="274.0" text="e-mail" />
       <Label layoutX="45.0" layoutY="314.0" text="Status" />
+
       <Label layoutX="317.0" layoutY="137.0" text="Dane logowania" />
       <Label layoutX="323.0" layoutY="184.0" text="Login" />
       <Label layoutX="323.0" layoutY="224.0" text="Haslo" />
@@ -29,10 +31,10 @@
       <TextField fx:id="tfHaslo" layoutX="377.0" layoutY="220.0" />
       <TextField fx:id="tfTelefon" layoutX="117.0" layoutY="228.0" />
       <TextField fx:id="tfEmial" layoutX="117.0" layoutY="270.0" />
-      <ComboBox fx:id="cbSpecjalizacja" layoutX="317.0" layoutY="72.0" prefWidth="150.0" />
       <Label layoutX="317.0" layoutY="49.0" text="Specjalizacja" />
       <ComboBox fx:id="cbStatus" layoutX="117.0" layoutY="310.0" prefWidth="150.0" />
       <TextField fx:id="tfWynagordzenie" layoutX="117.0" layoutY="356.0" />
       <Label layoutX="29.0" layoutY="360.0" text="Wynagrodzenie" />
+
    </children>
 </AnchorPane>

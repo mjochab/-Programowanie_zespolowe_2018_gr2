@@ -13,8 +13,11 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import warsztatsamochodowy.Helper;
@@ -50,67 +53,92 @@ public class NewWorkersController implements Initializable {
 
     private Helper helper = new Helper();
 
+    @FXML
+    private ComboBox<String> cbSpecjalizacja;
+    @FXML
+    private ComboBox<String> cbStatus;
+
     /**
      * Initializes the controller class.
      */
 
     DatabaseConnection PolaczenieDB = new DatabaseConnection();
+
     Connection sesja = PolaczenieDB.connectDatabase();
     @FXML
-    private ComboBox<String> cbStatus;
-    @FXML
     private TextField tfWynagordzenie;
-    @FXML
-    private ComboBox<String> cbSpecjalizacja;
 
-    @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        cbStatus.getItems().addAll("Zatrudniony",
-                "Na urlopie",
+        cbStatus.getItems().addAll(
+                "Zatrudniony",
+                "Urlop",
                 "Zwolniony"
         );
-        
-        cbSpecjalizacja.getItems().addAll("Diagnosta",
+        cbSpecjalizacja.getItems().addAll(
+                "Diagnosta",
                 "Mechanik",
-                "Praktykant - pomocnik",
-                "Recjepcjonista"
- 
+                "Pomocnik",
+                "Recepcjonista"
         );
     }
-
+  public static Boolean czyLitery(String text){
+        return text.matches("[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ]+.*[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ]");
+    }
+  
+    private void brakZaznaczenia(String tytul, String komunikat1, String komunikat2) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(tytul);
+        alert.setHeaderText(komunikat1);
+        alert.setContentText(komunikat2);
+        alert.showAndWait();
+    }
+  /*
+     * Tworzenie metody zatwierdzenia metody tworzenia do bazy
+     *
+     * @param event
+     */
     @FXML
     private void ZatwierdzZm(ActionEvent event) {
+
         Statement stmt = null;
 
         try {
 
             stmt = sesja.createStatement();
-            
             String wynagrodzenie = tfWynagordzenie.getText();
             int wyplata = Integer.parseInt(wynagrodzenie);
-            
-            
-          String query  = "INSERT INTO pracownik (ID, Login, Haslo, Imie, Nazwisko, Miejscowosc, Adres, Telefon, Email, Specjalizacja, Wynagrodzenie, Status) "
-                     +"Values(NULL,'"+tfLogin.getText()+
-        "','"+tfHaslo.getText()+"','"+tfImie.getText()+
-        "','"+tfNazwisko.getText()+
-        "','"+tfMiejscowosc.getText()+
-        "','"+tfAdres.getText()+"','"+
-        tfTelefon.getText()+"','"+
-        tfEmial.getText()+"','"+
-        cbSpecjalizacja.getSelectionModel().getSelectedItem().toString()+
-        "','"+wyplata+
-        "','"+cbStatus.getSelectionModel().getSelectedItem().toString()+
-     "');";
-          
-             int wynik = stmt.executeUpdate(query);
-            
-            
-            
-            
-        } catch (Exception e) {
 
+//         if(czyLitery(tfTelefon.getText())||czyLitery (tfWynagordzenie.getText())){
+//              brakZaznaczenia("Bład","Zły format wpisywania danych! ","Proszę uzupełnić pola.");
+//       
+//         }
+//            
+            String query = "INSERT INTO pracownik (ID, Login, Haslo, Imie, Nazwisko, Miejscowosc, Adres, Telefon, Email, Specjalizacja, Status,Wynagrodzenie) "
+                    + "Values(NULL,'" + tfLogin.getText()
+                    + "','" + tfHaslo.getText() + "','" + tfImie.getText()
+                    + "','" + tfNazwisko.getText()
+                    + "','" + tfMiejscowosc.getText()
+                    + "','" + tfAdres.getText() + "','"
+                    + tfTelefon.getText() + "','"
+                    + tfEmial.getText() + "','"
+                    + cbSpecjalizacja.getSelectionModel().getSelectedItem().toString()
+                    + "','" + cbStatus.getSelectionModel().getSelectedItem().toString()
+                    + "','" + wyplata
+                    + "');";
+
+            int wynik = stmt.executeUpdate(query);
+            helper.message("Ustawienia zostały zapisane");
+            tfLogin.clear();
+            tfHaslo.clear();
+            tfImie.clear();
+            tfNazwisko.clear();
+            tfMiejscowosc.clear();
+            tfAdres.clear();
+            tfTelefon.clear();
+            tfEmial.clear();
+            tfWynagordzenie.clear();
+        } catch (Exception e) {
+            helper.message("Sprawdź dane w formularzu");
         }
 
     }
@@ -118,7 +146,8 @@ public class NewWorkersController implements Initializable {
     @FXML
     private void PowrotTab(ActionEvent event) throws IOException {
 
-      try {
+        try {
+
             sesja.close();
         } catch (Exception e) {
             helper.error(e.getMessage());
