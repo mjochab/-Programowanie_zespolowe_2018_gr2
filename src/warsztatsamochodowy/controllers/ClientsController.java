@@ -52,6 +52,9 @@ public class ClientsController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    /*
+    Moduł Klienci
+    */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
          //TODO usunąć po dodaniu samochodów
@@ -67,14 +70,25 @@ public class ClientsController implements Initializable {
         colSamochod.setCellValueFactory(new PropertyValueFactory("samochod"));
         tabelaKlienci.setItems(FXCollections.observableArrayList(klienci));
     }    
-
+    /**
+     * Obsługa przycisku otwierającego okno dodawania nowych klientów
+     * 
+     * @param event
+     * @throws IOException 
+     */
+    
     @FXML
     private void dodajKlienta(ActionEvent event) throws IOException {
          helper.sceneSwitcher("/warsztatsamochodowy/views/AddClient.fxml", "Warsztat samochodowy - Dodaj Klienta");
          Stage clients = (Stage) powrot.getScene().getWindow();
          clients.close();
     }
-
+    /**
+     * Obsługa przycisku powrotu do menu z modułu Klienci
+     * 
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void powrotDoMenu(ActionEvent event) throws IOException {
         helper.powrotDoMenu();

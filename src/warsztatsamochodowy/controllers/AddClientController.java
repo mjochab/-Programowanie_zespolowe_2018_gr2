@@ -31,7 +31,10 @@ import warsztatsamochodowy.database.entity.Samochod;
  * FXML Controller class
  *
  * @author Piotr Świder
+ * 
+ * Moduł dodawania nowych klientów
  */
+
 public class AddClientController implements Initializable {
 
     @FXML
@@ -53,6 +56,8 @@ public class AddClientController implements Initializable {
     /**
     /**
      * Initializes the controller class.
+     * 
+     * Okno dodawania nowych klientów do bazy danych
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -71,7 +76,11 @@ public class AddClientController implements Initializable {
         cbxSamochod.setItems(FXCollections.observableArrayList(samochody));
         HibernateHelper.getInstance().getCars();
     }    
-    
+    /**
+     * 
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void onSave(ActionEvent event) throws IOException {
         String imie = tfImie.getText();
@@ -88,7 +97,11 @@ public class AddClientController implements Initializable {
         }
         powrotDoKlientow(event);
     }
-    
+    /**
+     * Obsługa przycisku powracania do modułu Klienci 
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void powrotDoKlientow(ActionEvent event) throws IOException {
         helper.sceneSwitcher("/warsztatsamochodowy/views/Clients.fxml", "Warsztat samochodowy - Klienci");
