@@ -31,9 +31,8 @@ import warsztatsamochodowy.database.entity.Samochod;
  * FXML Controller class
  *
  * @author Piotr Świder
- * 
- * Moduł dodawania nowych klientów
  */
+
 
 public class AddClientController implements Initializable {
 
