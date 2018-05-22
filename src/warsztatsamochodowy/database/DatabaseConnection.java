@@ -13,13 +13,14 @@ public class DatabaseConnection {
 
           Connection con;
     private Helper helper = new Helper();
+    
+   
     public Connection connectDatabase(){
         /**
          *  Proba polaczenia z lokalna baza danych
          * 
          */
-         */
-
+         
                 try{
               
                     Class.forName("com.mysql.jdbc.Driver");

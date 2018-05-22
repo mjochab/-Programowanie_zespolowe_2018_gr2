@@ -160,7 +160,7 @@ public class NewWorkersController implements Initializable {
     }
         
         
-    }
+    
     /**
      * Powrot do menu
      * @param event
