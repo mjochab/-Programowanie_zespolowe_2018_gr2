@@ -30,8 +30,7 @@ CREATE TABLE `czesc` (
   `Producent` varchar(100) NOT NULL,
   `Ilosc` int(11) NOT NULL,
   `Cena` float NOT NULL,
-  PRIMARY KEY (`ID`),
-  UNIQUE KEY `Nazwa_UNIQUE` (`Nazwa`)
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
