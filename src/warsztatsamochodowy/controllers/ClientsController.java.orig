@@ -73,14 +73,21 @@ public class ClientsController implements Initializable {
         colSamochod.setCellValueFactory(new PropertyValueFactory("samochod"));
         tabelaKlienci.setItems(FXCollections.observableArrayList(klienci));
     }    
+<<<<<<< HEAD
+     /**
+     * Metoda obslugująca przycisk dodawania nowych klientó
+     * @param event
+     * @throws IOException 
+     */
+=======
     /**
      * Obsługa przycisku otwierającego okno dodawania nowych klientów
      * 
      * @param event
      * @throws IOException 
      */
-
     
+>>>>>>> origin/JavaDoc
     @FXML
     private void dodajKlienta(ActionEvent event) throws IOException {
          helper.sceneSwitcher("/warsztatsamochodowy/views/AddClient.fxml", "Warsztat samochodowy - Dodaj Klienta");
@@ -88,10 +95,14 @@ public class ClientsController implements Initializable {
          clients.close();
     }
     /**
+<<<<<<< HEAD
      * Medota obslugujaca przycisk powrotu do panelu glownego programu
+=======
+     * Obsługa przycisku powrotu do menu z modułu Klienci
+     * 
+>>>>>>> origin/JavaDoc
      * @param event
      * @throws IOException 
-     */
      */
     @FXML
     private void powrotDoMenu(ActionEvent event) throws IOException {

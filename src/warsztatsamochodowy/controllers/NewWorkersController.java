@@ -8,8 +8,10 @@ package warsztatsamochodowy.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -61,13 +63,25 @@ public class NewWorkersController implements Initializable {
     /**
      * Initializes the controller class.
      */
-
     DatabaseConnection PolaczenieDB = new DatabaseConnection();
 
+    LoginController login = new LoginController();
+    String username = login.getLogin();
+    String aktualne_haslo = "";
+
     Connection sesja = PolaczenieDB.connectDatabase();
+    
     @FXML
     private TextField tfWynagordzenie;
-
+    @FXML
+    private ComboBox<?> comboSpecjalizacja;
+    @FXML
+    private RadioButton RadioMezczyzna;
+    @FXML
+    private RadioButton RadioKobieta;
+    
+    
+    
     public void initialize(URL url, ResourceBundle rb) {
         cbStatus.getItems().addAll(
                 "Zatrudniony",
@@ -84,7 +98,7 @@ public class NewWorkersController implements Initializable {
   public static Boolean czyLitery(String text){
         return text.matches("[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ]+.*[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ]");
     }
-  
+        
     private void brakZaznaczenia(String tytul, String komunikat1, String komunikat2) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(tytul);
@@ -144,6 +158,14 @@ public class NewWorkersController implements Initializable {
         }
 
     }
+        
+        
+    }
+    /**
+     * Powrot do menu
+     * @param event
+     * @throws IOException 
+     */
 
     @FXML
     private void PowrotTab(ActionEvent event) throws IOException {

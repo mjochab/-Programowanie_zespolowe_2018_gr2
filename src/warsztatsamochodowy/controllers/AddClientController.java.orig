@@ -81,7 +81,11 @@ public class AddClientController implements Initializable {
         HibernateHelper.getInstance().getCars();
     }    
     /**
+<<<<<<< HEAD
      * Metoda zapisująca wprowadzone dane o nowym kliencie do bazy danych
+=======
+     * 
+>>>>>>> origin/JavaDoc
      * @param event
      * @throws IOException 
      */
@@ -101,11 +105,19 @@ public class AddClientController implements Initializable {
         }
         powrotDoKlientow(event);
     }
+<<<<<<< HEAD
+    
+    /**
+     * Metoda obslugujaca przycisk powrotu do modulu Klienci z modulu dodawania klientow
+     */
+    
+=======
     /**
      * Obsługa przycisku powracania do modułu Klienci 
      * @param event
      * @throws IOException 
      */
+>>>>>>> origin/JavaDoc
     @FXML
     private void powrotDoKlientow(ActionEvent event) throws IOException {
         helper.sceneSwitcher("/warsztatsamochodowy/views/Clients.fxml", "Warsztat samochodowy - Klienci");
