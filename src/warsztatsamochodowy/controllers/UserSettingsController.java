@@ -12,7 +12,7 @@ import warsztatsamochodowy.Helper;
 import warsztatsamochodowy.database.DatabaseConnection;
 
 /**
- * Klasa kontrolera FXML do zmiany ustawień zalogowanego użytkownika.
+ * Klasa kontrolera FXML do zmiany ustawieĹ zalogowanego uĹźytkownika.
  *
  * @author lukasz, sebastian
  */
@@ -64,15 +64,12 @@ public class UserSettingsController implements Initializable {
     Statement stmt;
 
     /**
-     * Podczas inicjalizacji kontrolera z bazy danych pobierane są dane
-     * zalogowanego użytkownika i wyświetlane w polach tekstowych
+     * Podczas inicjalizacji kontrolera z bazy danych pobierane sÄ dane
+     * zalogowanego uĹźytkownika i wyĹwietlane w polach tekstowych
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
 
-
-        
         try {
              sesja = PolaczenieDB.connectDatabase();
                     stmt = sesja.createStatement();
@@ -104,9 +101,9 @@ public class UserSettingsController implements Initializable {
 
     @FXML
     /**
-     * Metoda pobiera wartości z pól tekstowych i aktualizuje dane użytkownika w
-     * bazie danych. Zmiana hasła wymaga wpisania aktualnego hasła, w przypadku
-     * braku zgodności haseł wyświetlany jest błąd i dane nie są aktualizowane.
+     * Metoda pobiera wartoĹci z pĂłl tekstowych i aktualizuje dane uĹźytkownika w
+     * bazie danych. Zmiana hasĹa wymaga wpisania aktualnego hasĹa, w przypadku
+     * braku zgodnoĹci haseĹ wyĹwietlany jest bĹÄd i dane nie sÄ aktualizowane.
      */
     private void zapiszZmiany(ActionEvent event) {
 
@@ -128,7 +125,7 @@ public class UserSettingsController implements Initializable {
 
                 } else {
                     poprawnosc = 0;
-                    helper.error("Hasła nie zgadzają się");
+                    helper.error("HasĹa nie zgadzajÄ siÄ");
 
                 }
 
@@ -145,7 +142,8 @@ public class UserSettingsController implements Initializable {
                         + "', Haslo = '" + new_password
                         + "' where Login = '" + username + "';");
                 if (wynik == 1) {
-                    helper.message("Ustawienia zostały zapisane");
+
+                    helper.message("Ustawienia zostaĹy zapisane");
                 }
 
             }

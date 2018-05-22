@@ -40,6 +40,8 @@ public class LoginController implements Initializable {
 
     @FXML
     private PasswordField password;
+    @FXML
+    private Button registerButton;
 
     @FXML
 
@@ -136,6 +138,13 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         Username = null;
         Stanowisko = null;
+    }
+
+    @FXML
+    private void registerWorker(ActionEvent event) throws IOException {
+        helper.sceneSwitcher("/warsztatsamochodowy/views/RegisterWorker.fxml", "Warsztat samochodowy - Rejestracja pracownika");
+        Stage login_scene = (Stage) login.getScene().getWindow();
+        login_scene.close();
     }
 
 }
