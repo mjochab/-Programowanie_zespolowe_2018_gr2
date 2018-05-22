@@ -6,12 +6,13 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" maxHeight="238.0" maxWidth="370.0" minHeight="223.0" minWidth="340.0" prefHeight="225.0" prefWidth="365.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="warsztatsamochodowy.controllers.LoginController">
+<AnchorPane id="AnchorPane" maxHeight="362.0" maxWidth="370.0" minHeight="223.0" minWidth="340.0" prefHeight="331.0" prefWidth="365.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="warsztatsamochodowy.controllers.LoginController">
    <children>
       <Label layoutX="29.0" layoutY="25.0" text="Nazwa użytkownika:" />
       <TextField id="test" fx:id="username" layoutX="30.0" layoutY="50.0" prefHeight="25.0" prefWidth="307.0" />
-      <PasswordField fx:id="password" layoutX="29.0" layoutY="119.0" prefHeight="25.0" onKeyPressed="#password_onKeyPressed" prefWidth="307.0" />
+      <PasswordField fx:id="password" layoutX="29.0" layoutY="119.0" onKeyPressed="#password_onKeyPressed" prefHeight="25.0" prefWidth="307.0" />
       <Button fx:id="login" layoutX="29.0" layoutY="168.0" mnemonicParsing="false" onAction="#buttonLogowanie_click" prefHeight="32.0" prefWidth="307.0" text="Zaloguj się" />
       <Label layoutX="29.0" layoutY="93.0" text="Hasło:" />
+      <Button fx:id="registerButton" layoutX="29.0" layoutY="239.0" mnemonicParsing="false" onAction="#registerWorker" prefHeight="25.0" prefWidth="307.0" text="Rejestracja pracownika" />
    </children>
 </AnchorPane>
