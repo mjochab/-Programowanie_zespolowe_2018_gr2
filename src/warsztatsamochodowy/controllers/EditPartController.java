@@ -40,7 +40,6 @@ public class EditPartController implements Initializable {
     private TextField sb_cena;
 
     PartsController parts = new PartsController();
-   
     String id = parts.getID();
     String nazwa = parts.getNazwa();
     String producent = parts.getProducent();
