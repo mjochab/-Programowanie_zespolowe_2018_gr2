@@ -5,12 +5,18 @@
  */
 package warsztatsamochodowy.controllers;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -70,10 +76,12 @@ public class WorkersController implements Initializable {
     private TableView<Pracownik> tablepracownik;
     @FXML
     private Button usunPracownika;
+    @FXML
+    private Button generateRaport;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-ladujTabelePracownick();
+        ladujTabelePracownick();
     
 
     }
@@ -101,7 +109,7 @@ ladujTabelePracownick();
 
         } catch (Exception e) {
 
-        }  
+        } 
     }
 
     @FXML
@@ -144,6 +152,32 @@ ladujTabelePracownick();
         }
           }
           
+    }
+
+    @FXML
+    private void generateRaport(ActionEvent event) {
+        data = FXCollections.observableArrayList();
+        Statement stmt = null;
+        Document document = new Document(PageSize.A4);
+         try {
+             PdfWriter.getInstance(document, new FileOutputStream("raport.pdf"));
+            stmt = sesja.createStatement();
+            ResultSet rs = stmt.executeQuery("select * from pracownik;");
+            while (rs.next()) {
+                
+                data.add(new Pracownik(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getInt(12)));
+
+            }
+            document.open();
+            for(Pracownik p : data){
+                Paragraph para = new Paragraph("Imie " + p.getImie() + " Nazwisko " + p.getNazwisko() + " Login " + p.getLogin());
+                document.add(para);
+            }
+         
+        } catch (Exception e) {
+             helper.message(e.getMessage());
+        } 
+         document.close();
     }
 
 }
