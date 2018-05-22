@@ -57,7 +57,6 @@ public class MainMenuController implements Initializable {
      *
      */
     public void przygotujMenu() {
-        stanowisko = this.stanowisko;
         switch (stanowisko) {
             case "Administrator":
                 break;
@@ -74,7 +73,7 @@ public class MainMenuController implements Initializable {
                 clients.setOpacity(0.45);
                 cars.setOpacity(0.45);
                 break;
-            case "Recepcjonistka":
+            case "Recepcjonista":
                 lock_team = true;
                 lock_parts = true;
                 lock_orders = true;
@@ -84,6 +83,8 @@ public class MainMenuController implements Initializable {
                 parts.setOpacity(0.45);
                 break;
             case "Mechanik":
+            case "Diagnosta":
+            case "Pomocnik":
                 lock_team = true;
                 lock_clients = true;
                 lock_cars = true;
