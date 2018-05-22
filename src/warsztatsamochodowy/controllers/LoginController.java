@@ -102,10 +102,15 @@ public class LoginController implements Initializable {
             }
             stmt = sesja.createStatement();
 
-            ResultSet rs = stmt.executeQuery("select Login, Haslo, Specjalizacja from pracownik where Login = '" + username
+            ResultSet rs = stmt.executeQuery("select Login, Haslo, Specjalizacja, Status from pracownik where Login = '" + username
                     + "' AND Haslo = '" + password + "';");
             if (rs.isBeforeFirst()) {
                 while (rs.next()) {
+                    String status = rs.getString("Status");
+                    if (status.equals("Zwolniony")) {
+                        helper.error("Pracownik został zwolniony!");
+                        break;
+                    }
                     Stanowisko = rs.getString("Specjalizacja");
                     Username = username;
                     break;
