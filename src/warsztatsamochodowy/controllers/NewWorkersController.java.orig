@@ -15,7 +15,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+<<<<<<< HEAD
+=======
 
+>>>>>>> 5c0bc0b3c6418325dbc7de7514639bd0b385bb05
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -52,7 +55,11 @@ public class NewWorkersController implements Initializable {
     private TextField tfEmial;
 
     private Helper helper = new Helper();
+<<<<<<< HEAD
 
+=======
+    @FXML
+>>>>>>> 5c0bc0b3c6418325dbc7de7514639bd0b385bb05
     private ComboBox<String> cbSpecjalizacja;
     @FXML
     private ComboBox<String> cbStatus;
@@ -62,6 +69,26 @@ public class NewWorkersController implements Initializable {
      * Initializes the controller class.
      */
 
+<<<<<<< HEAD
+    DatabaseConnection PolaczenieDB = new DatabaseConnection();
+    Connection sesja = PolaczenieDB.connectDatabase();
+    @FXML
+    private ComboBox<String> cbStatus;
+    @FXML
+    private TextField tfWynagordzenie;
+    @FXML
+    private ComboBox<String> cbSpecjalizacja;
+
+    
+    public void initialize(URL url, ResourceBundle rb) {
+
+        cbStatus.getItems().addAll("Zatrudniony",
+                "Na urlopie",
+                "Zwolniony"
+        );
+        
+        cbSpecjalizacja.getItems().addAll("Diagnosta",
+=======
     
     DatabaseConnection PolaczenieDB = new DatabaseConnection();
 
@@ -83,35 +110,66 @@ public class NewWorkersController implements Initializable {
         );
         cbSpecjalizacja.getItems().addAll(
                 "Diagnosta",
+>>>>>>> 5c0bc0b3c6418325dbc7de7514639bd0b385bb05
                 "Mechanik",
                 "Pomocnik"
                 
         );
     }
-    /**
-     * Tworzenie metody zatwierdzenia metody tworzenia do bazy
-     * @param event
-     */
-    @FXML
-    private void ZatwierdzZm(ActionEvent event) {
-
-        Statement stmt = null;
+<<<<<<< HEAD
         
+        );
         cbSpecjalizacja.getItems().addAll(
         "Diagnosta",
         "Mechanik",
         "Pomocnik"
                 
         );
-       
+    }    
 /**
  * Tworzenie metody zatwierdzenia metody tworzenia do bazy
  * @param event 
  */
+=======
+    /**
+     * Tworzenie metody zatwierdzenia metody tworzenia do bazy
+     * @param event
+     */
+>>>>>>> 5c0bc0b3c6418325dbc7de7514639bd0b385bb05
+    @FXML
+    private void ZatwierdzZm(ActionEvent event) {
+
+        Statement stmt = null;
 
         try {
 
             stmt = sesja.createStatement();
+<<<<<<< HEAD
+            
+            String wynagrodzenie = tfWynagordzenie.getText();
+            int wyplata = Integer.parseInt(wynagrodzenie);
+            
+            
+          String query  = "INSERT INTO pracownik (ID, Login, Haslo, Imie, Nazwisko, Miejscowosc, Adres, Telefon, Email, Specjalizacja, Wynagrodzenie, Status) "
+                     +"Values(NULL,'"+tfLogin.getText()+
+        "','"+tfHaslo.getText()+"','"+tfImie.getText()+
+        "','"+tfNazwisko.getText()+
+        "','"+tfMiejscowosc.getText()+
+        "','"+tfAdres.getText()+"','"+
+        tfTelefon.getText()+"','"+
+        tfEmial.getText()+"','"+
+        cbSpecjalizacja.getSelectionModel().getSelectedItem().toString()+
+        "','"+wyplata+
+        "','"+cbStatus.getSelectionModel().getSelectedItem().toString()+
+     "');";
+          
+             int wynik = stmt.executeUpdate(query);
+            wynik = stmt.executeUpdate(query);
+            
+            
+            
+            
+=======
 
             String wynagrodzenie = tfWyagrodzenie.getText();
             int wyplata = Integer.parseInt(wynagrodzenie);
@@ -130,6 +188,7 @@ public class NewWorkersController implements Initializable {
                     + "');";
             int wynik = stmt.executeUpdate(query);
 
+>>>>>>> 5c0bc0b3c6418325dbc7de7514639bd0b385bb05
         } catch (Exception e) {
 
         }
@@ -139,8 +198,12 @@ public class NewWorkersController implements Initializable {
     @FXML
     private void PowrotTab(ActionEvent event) throws IOException {
 
+<<<<<<< HEAD
+      try {
+=======
         try {
 
+>>>>>>> 5c0bc0b3c6418325dbc7de7514639bd0b385bb05
             sesja.close();
         } catch (Exception e) {
             helper.error(e.getMessage());
