@@ -54,6 +54,11 @@ public class AddClientController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    /**
+     * Metoda inicjalizująca dodawnie noych klientów do bazy danych
+     * @param url
+     * @param rb 
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cbxSamochod.setConverter(new StringConverter<Samochod>() {
@@ -71,7 +76,11 @@ public class AddClientController implements Initializable {
         cbxSamochod.setItems(FXCollections.observableArrayList(samochody));
         HibernateHelper.getInstance().getCars();
     }    
-    
+    /**
+     * Metoda zapisująca wprowadzone dane o nowym kliencie do bazy danych
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void onSave(ActionEvent event) throws IOException {
         String imie = tfImie.getText();
@@ -88,6 +97,10 @@ public class AddClientController implements Initializable {
         }
         powrotDoKlientow(event);
     }
+    
+    /**
+     * Metoda obslugujaca przycisk powrotu do modulu Klienci z modulu dodawania klientow
+     */
     
     @FXML
     private void powrotDoKlientow(ActionEvent event) throws IOException {

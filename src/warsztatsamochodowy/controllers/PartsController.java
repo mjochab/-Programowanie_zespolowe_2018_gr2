@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import warsztatsamochodowy.Helper;
@@ -37,6 +38,8 @@ public class PartsController implements Initializable {
     
 
     private Helper helper = new Helper();
+    @FXML
+    private TableView<?> tab_czesci;
     /**
     /**
      * Initializes the controller class.
@@ -45,6 +48,11 @@ public class PartsController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+    /**
+     * Metoda powrotu do menu
+     * @param event
+     * @throws IOException 
+     */
     
     @FXML
     private void powrtoDoMenu(ActionEvent event) throws IOException {

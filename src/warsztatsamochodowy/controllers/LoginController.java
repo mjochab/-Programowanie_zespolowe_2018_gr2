@@ -58,14 +58,7 @@ public class LoginController implements Initializable {
      *
      * @param message treść komunikatu
      */
-    private void error(String message) {
 
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Wystąpił błąd");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
 
     /**
      * Funkcja zamyka bieżące okno i loguje użytkownika do aplikacji, pokazując
@@ -76,6 +69,7 @@ public class LoginController implements Initializable {
      */
     public void zalogujUzytkownika(String username, String stanowisko) throws IOException {
         Stanowisko = stanowisko;
+        Username = username;
         helper.sceneSwitcher("/warsztatsamochodowy/views/MainMenu.fxml", "Warsztat samochodowy - Menu główne");
         Stage login_scene = (Stage) login.getScene().getWindow();
         login_scene.close();
@@ -112,12 +106,12 @@ public class LoginController implements Initializable {
         if (konta.containsKey(username)) {
 
             if (konta.get(username)[0].equals(password)) {
-                zalogujUzytkownika(konta.get(username)[0], konta.get(username)[1]);
+                zalogujUzytkownika(username, konta.get(username)[1]);
             } else {
-                error("Wprowadzono złe hasło!");
+                helper.error("Wprowadzono złe hasło!");
             }
         } else {
-            error("Użytkownik nie istnieje!");
+             helper.error("Użytkownik nie istnieje!");
         }
 
     }

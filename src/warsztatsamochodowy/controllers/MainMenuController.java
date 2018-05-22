@@ -10,6 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import warsztatsamochodowy.Helper;
 
+
 /**
  * Klasa kontrolera FXML do obsługi menu głównego.
  *
@@ -39,6 +40,9 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private Pane orders;
+    
+    
+   
 
     //zmienne globalne z loginem i stanowiskiem użytkownika
     LoginController login = new LoginController();
@@ -126,9 +130,7 @@ public class MainMenuController implements Initializable {
         if (lock_parts == false) {
 
               helper.sceneSwitcher("/warsztatsamochodowy/views/Parts.fxml", "Warsztat samochodowy - Części");
-
-
-                                     
+                  
                     Stage mainmenu_scene = (Stage) logout.getScene().getWindow();
                     mainmenu_scene.close();    
 
@@ -172,6 +174,7 @@ public class MainMenuController implements Initializable {
      * Funkcja inicjalizująca kontroler.
      *
      */
+    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {

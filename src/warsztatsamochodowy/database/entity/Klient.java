@@ -14,6 +14,10 @@ import javax.persistence.Table;
  *
  * @author Piotr Świder
  */
+/**
+ * Klasa przechowujaca dane o klientach
+ * 
+ */
 @Entity
 @Table(name="KLIENCI")
 public class Klient implements Serializable {
@@ -41,7 +45,14 @@ public class Klient implements Serializable {
     public Klient(Long id) {
         this.id = id;
     }
-
+    /**
+     * Modul Klienci
+     * 
+     * @param imie
+     * @param nazwisko
+     * @param nrTel
+     * @param samochod 
+     */
     public Klient(String imie, String nazwisko, String nrTel, Samochod samochod) {
         this.imie = imie;
         this.nazwisko = nazwisko;

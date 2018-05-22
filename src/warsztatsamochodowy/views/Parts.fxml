@@ -6,16 +6,22 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="warsztatsamochodowy.controllers.PartsController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="warsztatsamochodowy.controllers.PartsController">
    <children>
-      <TextField fx:id="Tf_nazwa" layoutX="176.0" layoutY="97.0" />
-      <TextField fx:id="Tf_producent" layoutX="176.0" layoutY="139.0" />
-      <TextField fx:id="Tf_cena" layoutX="176.0" layoutY="181.0" />
-      <Label layoutX="59.0" layoutY="101.0" text="Nazwa" />
-      <Label layoutX="59.0" layoutY="143.0" text="Producent" />
-      <Label layoutX="59.0" layoutY="185.0" text="Cena" />
-      <Button fx:id="b_zatwierdz" layoutX="452.0" layoutY="325.0" mnemonicParsing="false" text="Zatwierdz" />
-      <Button fx:id="b_powrot" layoutX="452.0" layoutY="46.0" mnemonicParsing="false" onAction="#powrtoDoMenu" text="Powrót" />
+      <TextField fx:id="Tf_nazwa" layoutX="87.0" layoutY="97.0" />
+      <TextField fx:id="Tf_producent" layoutX="87.0" layoutY="139.0" />
+      <TextField fx:id="Tf_cena" layoutX="87.0" layoutY="181.0" />
+      <Label layoutX="22.0" layoutY="101.0" text="Nazwa" />
+      <Label layoutX="22.0" layoutY="143.0" text="Producent" />
+      <Label layoutX="22.0" layoutY="185.0" text="Cena" />
+      <Button fx:id="b_zatwierdz" layoutX="491.0" layoutY="337.0" mnemonicParsing="false" text="Zatwierdz" />
+      <Button fx:id="b_powrot" layoutX="390.0" layoutY="337.0" mnemonicParsing="false" onAction="#powrtoDoMenu" prefHeight="25.0" prefWidth="81.0" text="Powrót" />
+      <TableView fx:id="tab_czesci" layoutX="236.0" layoutY="22.0" prefHeight="303.0" prefWidth="342.0">
+        <columns>
+          <TableColumn prefWidth="132.0" text="Nazwa" />
+          <TableColumn prefWidth="143.0" text="Producent" />
+            <TableColumn minWidth="0.0" prefWidth="66.0" text="Cena" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>
