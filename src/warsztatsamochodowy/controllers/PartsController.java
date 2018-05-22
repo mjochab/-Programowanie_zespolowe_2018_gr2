@@ -22,7 +22,6 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import jdk.nashorn.internal.runtime.regexp.joni.Config;
 import warsztatsamochodowy.Helper;
@@ -64,29 +63,21 @@ public class PartsController implements Initializable {
     private TableColumn<Czesc, String> kol_Cena;
 
     private Helper helper = new Helper();
-
+  /**
+     * Polaczenie z baza
+     * Tworzenie zmienncyh 
+     */
     DatabaseConnection PolaczenieDB = new DatabaseConnection();
     Connection sesja;
     Statement stmt;
     public static String Nazwa, ID, Cena, Producent, Ilosc;
 
-    /**
-     * Polaczenie z baza
-     * Tworzenie zmienncyh 
-     */
-    
-     DatabaseConnection PolaczenieDB = new DatabaseConnection();
-
     LoginController login = new LoginController();
     String username = login.getLogin();
     String aktualne_haslo = "";
 
-    Connection sesja = PolaczenieDB.connectDatabase();
-    @FXML
     private TableColumn<Config, String> columNazwa;
-    @FXML
     private TableColumn<Config, String> columnProducent;
-    @FXML
     private TableColumn<Config, String> columnCena;
 
    private ObservableList<Config> data;
@@ -100,12 +91,8 @@ public class PartsController implements Initializable {
            stmt = sesja.createStatement();
            String query = "INSERT INTO `czesci` (`id_czesci`, `nazwa_cz`, `producent_cz`, `cena_cz`) "
                     + "VALUES (1,'Filtr powietrza','Bosh','70');";
-       
-      
+
              ResultSet rs = stmt.executeQuery("select nazwa_cz,producent_cz,cena_cz from czesci;");
-            
-             
-             
              
              while (rs.next()) {
                 
@@ -121,16 +108,16 @@ public class PartsController implements Initializable {
        
        catch (Exception e) {
             helper.error(e.getMessage());
+        }
     }
-
-    void dodajDoTabeli(String id, String nazwa, String producent, String ilosc, String cena) {
+    private void dodajDoTabeli(String id, String nazwa, String producent, String ilosc, String cena) {
 
         Czesc czesc = new Czesc(id, nazwa, producent, ilosc, cena);
         tab_czesci.getItems().add(czesc);
 
-    }
+    };
 
-    void usunzTabeli(ObservableList<Czesc> zaznaczoneCzesci) {
+   private void usunzTabeli(ObservableList<Czesc> zaznaczoneCzesci) {
 
         ObservableList<Czesc> wszystkieCzesci = tab_czesci.getItems();
         wszystkieCzesci.removeAll(zaznaczoneCzesci);
@@ -138,7 +125,7 @@ public class PartsController implements Initializable {
 
     }
 
-    void wczytajBaze() {
+   private void wczytajBaze() {
 
         try {
             if (sesja == null || sesja.isClosed()) {
@@ -173,7 +160,7 @@ public class PartsController implements Initializable {
 
  
     
-    }
+    
     /**
      * Tworzenie metody przycisku powrot
      * @param event
@@ -191,7 +178,6 @@ public class PartsController implements Initializable {
      * @throws SQLException 
      */
 
-    @FXML
     private void AddCzesci(ActionEvent event) throws SQLException {
            Statement stmt =null;
            
@@ -232,7 +218,6 @@ public class PartsController implements Initializable {
             if (stmt == null || stmt.isClosed()) {
                 stmt = sesja.createStatement();
             }
-
             ObservableList<Czesc> czescZaznaczona;
             ObservableList<Czesc> doUsuniecia = FXCollections.observableArrayList();
             czescZaznaczona = tab_czesci.getSelectionModel().getSelectedItems();

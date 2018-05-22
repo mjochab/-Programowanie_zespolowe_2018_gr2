@@ -92,7 +92,7 @@ public class ClientsController implements Initializable {
      * @param event
      * @throws IOException 
      */
-     */
+
     @FXML
     private void powrotDoMenu(ActionEvent event) throws IOException {
         helper.powrotDoMenu();
