@@ -30,7 +30,8 @@ CREATE TABLE `czesc` (
   `Producent` varchar(100) NOT NULL,
   `Ilosc` int(11) NOT NULL,
   `Cena` float NOT NULL,
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `Nazwa_UNIQUE` (`Nazwa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -137,7 +138,7 @@ DROP TABLE IF EXISTS `naprawa_pracownik`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `naprawa_pracownik` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Naprawa` int(11) NOT NULL,
   `Pracownik` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
@@ -174,9 +175,10 @@ CREATE TABLE `pracownik` (
   `Email` varchar(100) NOT NULL,
   `Specjalizacja` varchar(100) NOT NULL,
   `Status` varchar(100) NOT NULL,
-  `Wynagrodzenie` int(11) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  `Wynagrodzenie` float DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `Login_UNIQUE` (`Login`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -204,7 +206,7 @@ CREATE TABLE `samochod` (
   `Typ` varchar(100) NOT NULL,
   PRIMARY KEY (`ID`),
   CONSTRAINT `samochod_klient` FOREIGN KEY (`Klient`) REFERENCES `klient` (`ID`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -228,7 +230,7 @@ CREATE TABLE `zamowienie` (
   `Czesc` int(11) NOT NULL,
   `Zamawiajacy` int(11) NOT NULL,
   `Ilosc` int(11) NOT NULL,
-  `Koszt` int(11) NOT NULL,
+  `Koszt` float NOT NULL,
   `Data_zamowienia` datetime NOT NULL,
   `Status` varchar(100) NOT NULL,
   PRIMARY KEY (`ID`),

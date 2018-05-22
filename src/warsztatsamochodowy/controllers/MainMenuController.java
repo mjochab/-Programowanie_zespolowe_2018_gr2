@@ -3,13 +3,14 @@ package warsztatsamochodowy.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import warsztatsamochodowy.Helper;
-
 
 /**
  * Klasa kontrolera FXML do obsługi menu głównego.
@@ -40,15 +41,12 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private Pane orders;
-    
-    
-   
 
     //zmienne globalne z loginem i stanowiskiem użytkownika
     LoginController login = new LoginController();
     String stanowisko = login.getStanowisko();
     String username = login.getLogin();
-    
+
     private final Helper helper = new Helper();
     //ustawienie przycisków w menu jako odblokowane
     boolean lock_tasks, lock_orders, lock_parts, lock_team, lock_clients, lock_cars, lock_settings, lock_logout = false;
@@ -57,18 +55,19 @@ public class MainMenuController implements Initializable {
      * Funkcja blokuje przyciski menu dla nieuprawnionych użytkowników i
      * zapisuje jego login oraz stanowisko do zmiennej globalnej.
      *
-     * @param username login użytkownika
-     * @param stanowisko stanowisko użytkownika
      */
     public void przygotujMenu() {
         stanowisko = this.stanowisko;
         switch (stanowisko) {
+            case "Administrator":
+                break;
             case "Kierownik":
                 lock_tasks = true;
                 lock_orders = true;
                 lock_parts = true;
                 lock_clients = true;
                 lock_cars = true;
+
                 tasks.setOpacity(0.45);
                 orders.setOpacity(0.45);
                 parts.setOpacity(0.45);
@@ -79,6 +78,7 @@ public class MainMenuController implements Initializable {
                 lock_team = true;
                 lock_parts = true;
                 lock_orders = true;
+
                 team.setOpacity(0.45);
                 orders.setOpacity(0.45);
                 parts.setOpacity(0.45);
@@ -87,9 +87,29 @@ public class MainMenuController implements Initializable {
                 lock_team = true;
                 lock_clients = true;
                 lock_cars = true;
+
                 team.setOpacity(0.45);
                 clients.setOpacity(0.45);
                 cars.setOpacity(0.45);
+                break;
+            default:
+                helper.error("Nie rozpoznano uprawnień użytkownika!");
+                lock_tasks = true;
+                lock_orders = true;
+                lock_parts = true;
+                lock_clients = true;
+                lock_cars = true;
+                lock_settings = true;
+                lock_team = true;
+
+                tasks.setOpacity(0.45);
+                orders.setOpacity(0.45);
+                parts.setOpacity(0.45);
+                clients.setOpacity(0.45);
+                cars.setOpacity(0.45);
+                team.setOpacity(0.45);
+                settings.setOpacity(0.45);
+
         }
     }
 
@@ -129,10 +149,10 @@ public class MainMenuController implements Initializable {
     void parts(MouseEvent event) throws IOException {
         if (lock_parts == false) {
 
-              helper.sceneSwitcher("/warsztatsamochodowy/views/Parts.fxml", "Warsztat samochodowy - Części");
-                  
-                    Stage mainmenu_scene = (Stage) logout.getScene().getWindow();
-                    mainmenu_scene.close();    
+            helper.sceneSwitcher("/warsztatsamochodowy/views/Parts.fxml", "Warsztat samochodowy - Części");
+
+            Stage mainmenu_scene = (Stage) logout.getScene().getWindow();
+            mainmenu_scene.close();
 
         }
     }
@@ -174,8 +194,6 @@ public class MainMenuController implements Initializable {
      * Funkcja inicjalizująca kontroler.
      *
      */
-    
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         przygotujMenu();
