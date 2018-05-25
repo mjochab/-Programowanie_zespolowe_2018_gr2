@@ -1,47 +1,45 @@
 package warsztatsamochodowy.database.entity;
 
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
  
 /**
  *
  * @author Piotr Świder
  */
-@Entity
-@Table(name="SAMOCHODY")
 public class Samochod implements Serializable {
-    @Id
-    @Column(name="ID")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    
     private Long id;
+    
+    private Klient klient;
+    
+    private String vin;
  
-    @Column(name="MARKA", length = 255)
-    private String marka;
+    private String producent;
    
-    @Column(name="MODEL", length = 255)
     private String model;
    
-    @Column(name="NUMER_REJESTRACYJNY", length = 15)
-    private String numerRejestracyjny;
+    private String typ;
  
     public Samochod() {
     }
 
-    public Samochod(Long id) {
+    public Samochod(Long id, String vin, String producent, String model, String typ, Klient klient) {
         this.id = id;
-    }
-
-    public Samochod(String marka, String model, String numerRejestracyjny) {
-        this.marka = marka;
+        this.klient = klient;
+        this.vin = vin;
+        this.producent = producent;
         this.model = model;
-        this.numerRejestracyjny = numerRejestracyjny;
+        this.typ = typ;
     }
 
+    public Samochod(Long id, String vin, String producent, String model, String typ) {
+        this.id = id;
+        this.vin = vin;
+        this.producent = producent;
+        this.model = model;
+        this.typ = typ;
+    }
+    
     public Long getId() {
         return id;
     }
@@ -50,12 +48,28 @@ public class Samochod implements Serializable {
         this.id = id;
     }
 
-    public String getMarka() {
-        return marka;
+    public Klient getKlient() {
+        return klient;
     }
 
-    public void setMarka(String marka) {
-        this.marka = marka;
+    public void setKlient(Klient klient) {
+        this.klient = klient;
+    }
+
+    public String getVin() {
+        return vin;
+    }
+
+    public void setVin(String vin) {
+        this.vin = vin;
+    }
+
+    public String getProducent() {
+        return producent;
+    }
+
+    public void setProducent(String producent) {
+        this.producent = producent;
     }
 
     public String getModel() {
@@ -66,17 +80,19 @@ public class Samochod implements Serializable {
         this.model = model;
     }
 
-    public String getNumerRejestracyjny() {
-        return numerRejestracyjny;
+    public String getTyp() {
+        return typ;
     }
 
-    public void setNumerRejestracyjny(String numerRejestracyjny) {
-        this.numerRejestracyjny = numerRejestracyjny;
+    public void setTyp(String typ) {
+        this.typ = typ;
     }
+
+   
 
     @Override
     public String toString() {
-        return marka + " " + model + " " + numerRejestracyjny;
+        return producent + " " + model + " " + typ + " " + vin;
     }
 
    
