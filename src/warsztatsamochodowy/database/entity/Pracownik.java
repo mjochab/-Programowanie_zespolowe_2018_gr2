@@ -16,18 +16,18 @@ import javafx.beans.property.StringProperty;
  */
 public class Pracownik {
 
-    private final IntegerProperty ID;
-    private final StringProperty Login;
-    private final StringProperty Haslo;
-    private final StringProperty Imie;
-    private final StringProperty Nazwisko;
-    private final StringProperty Miejscowosc;
-    private final StringProperty Adres;
-    private final StringProperty Telefon;
-    private final StringProperty Email;
-    private final StringProperty Specjalizacja;
-    private final StringProperty Status;
-    private final IntegerProperty Wynagrodzenie;
+    private  IntegerProperty ID;
+    private  StringProperty Login;
+    private  StringProperty Haslo;
+    private  StringProperty Imie;
+    private  StringProperty Nazwisko;
+    private  StringProperty Miejscowosc;
+    private  StringProperty Adres;
+    private  StringProperty Telefon;
+    private  StringProperty Email;
+    private  StringProperty Specjalizacja;
+    private  StringProperty Status;
+    private  IntegerProperty Wynagrodzenie;
 
     public Pracownik(Integer ID, String Login, String Haslo, String Imie, String Nazwisko, String Miejscowosc, String Adres, String Telefon, String Email, String Specjalizacja, String Status, Integer Wynagrodzenie) {
         this.ID = new SimpleIntegerProperty(ID);
@@ -43,6 +43,13 @@ public class Pracownik {
         this.Status = new SimpleStringProperty(Status);
         this.Wynagrodzenie = new SimpleIntegerProperty(Wynagrodzenie);
         
+    }
+
+    public Pracownik(Integer ID, String Imie, String Nazwisko, String Status) {
+        this.ID = new SimpleIntegerProperty(ID);
+        this.Imie = new SimpleStringProperty(Imie);
+        this.Nazwisko = new SimpleStringProperty(Nazwisko);
+        this.Status = new SimpleStringProperty(Status);
     }
 
     

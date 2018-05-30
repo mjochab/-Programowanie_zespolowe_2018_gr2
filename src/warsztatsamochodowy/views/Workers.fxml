@@ -20,5 +20,6 @@
       <Button fx:id="dodajPracownika" layoutX="559.0" layoutY="305.0" mnemonicParsing="false" onAction="#dodajPracownika" text="Dodaj pracownika" />
       <Button fx:id="usunPracownika" layoutX="559.0" layoutY="338.0" mnemonicParsing="false" onAction="#usunPracownika" prefHeight="25.0" prefWidth="112.0" text="Usun pracownika" />
       <Button fx:id="generateRaport" layoutX="559.0" layoutY="272.0" mnemonicParsing="false" onAction="#generateRaport" prefHeight="25.0" prefWidth="112.0" text="Generuj raport" />
+      <Button fx:id="addWorkerToFix" layoutX="555.0" layoutY="64.0" mnemonicParsing="false" onAction="#addWorkerToFix" prefHeight="25.0" prefWidth="133.0" text="Dodaj pracownika do naprawy" />
    </children>
 </AnchorPane>

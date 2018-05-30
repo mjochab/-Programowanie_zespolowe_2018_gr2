@@ -78,6 +78,8 @@ public class WorkersController implements Initializable {
     private Button usunPracownika;
     @FXML
     private Button generateRaport;
+    @FXML
+    private Button addWorkerToFix;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -178,6 +180,15 @@ public class WorkersController implements Initializable {
              helper.message(e.getMessage());
         } 
          document.close();
+    }
+
+    @FXML
+    private void addWorkerToFix(ActionEvent event) throws IOException {
+        helper.sceneSwitcher("/warsztatsamochodowy/views/AddWorkerToFix.fxml", "Warsztat samochodowy - Dodaj Naprawe");
+
+        Stage mainmenu_scene = (Stage) dodajPracownika.getScene().getWindow();
+        mainmenu_scene.close();
+
     }
 
 }

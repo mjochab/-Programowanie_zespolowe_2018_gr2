@@ -10,11 +10,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import warsztatsamochodowy.Helper;
+import warsztatsamochodowy.database.entity.Fix;
+import warsztatsamochodowy.database.entity.FixWorker;
 import warsztatsamochodowy.database.entity.Klient;
+import warsztatsamochodowy.database.entity.Pracownik;
 import warsztatsamochodowy.database.entity.Samochod;
+import warsztatsamochodowy.database.entity.Task;
 
 /**
  *
@@ -30,7 +36,7 @@ public class DBHelper {
     
     private static Helper helper;
 
-    private DBHelper() {
+    public DBHelper() {
         helper = new Helper();
         dbConnection = new DatabaseConnection();
     }
@@ -63,7 +69,7 @@ public class DBHelper {
         try {
             checkConnection();
             Statement s = connection.createStatement();
-            s.execute("SELECT k.*, s.id as ID_SAM, s.Producent, s.Model, s.Typ, s.VIN FROM klient k LEFT JOIN "
+            s.execute("SELECT k.*, s.id as ID_SAM, s.Producent, s.Model, s.Typ, s.VIN FROM klient k INNER JOIN "
                     + "samochod s ON k.ID = s.Klient ORDER BY k.ID ASC");
             ResultSet rs = s.getResultSet();
             while(rs.next()) {
@@ -78,8 +84,21 @@ public class DBHelper {
             helper.error(e.getMessage());
         }
         return klienci;
+    } 
+    public List<Task> getAllTasks(){
+        
+        List<Task> task = new ArrayList<>();
+        try{
+            checkConnection();
+            
+            Statement s = connection.createStatement();
+    
+        }catch (SQLException ex){
+            helper.error(ex.getMessage());
+        }
+        return null;
     }
-
+    
     public List<Samochod> getCars() {
         List<Samochod> cars = new ArrayList<>();
         try {
@@ -101,7 +120,30 @@ public class DBHelper {
         } 
         return cars;
     }
-  
+   public List<Pracownik> getAllWorkers(){
+         List<Pracownik> workers = new ArrayList<>();
+        try {
+            checkConnection();
+            Statement s = connection.createStatement();
+            s.execute("SELECT * from pracownik");
+            ResultSet rs = s.getResultSet();
+            while(rs.next()) {
+                workers.add(new Pracownik(rs.getInt("ID"),rs.getString("Imie"),rs.getString("Nazwisko"),rs.getString("Status")));  
+            }
+            rs.close();
+            s.close();
+        } catch (SQLException e) {
+            helper.error(e.getMessage());
+        } 
+        if(workers == null || workers.isEmpty()){
+            helper.error("Lista pracownikow jest pusta, dodaj nowych pracownikow");
+            return null;
+        }
+        for(Pracownik w : workers){
+            System.out.println(w.getImie());
+   }
+        return workers;
+    }
     public Klient getKlientById(Long id) {
         Klient klient = null;
         try {
@@ -173,7 +215,29 @@ public class DBHelper {
         }
         return klient;
     }
-
+    public void addOrUpdateNaprawa(Klient client){
+        try{
+            Date now = new Date();
+            checkConnection();
+            PreparedStatement ps = connection.prepareStatement(
+               "INSERT INTO naprawa(Klient, Koszt, Samochod, Data_rozpoczecia,Data_zakonczenia, Opis,Status) VALUES(?, ?, ?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS
+            );
+            System.out.println(client.getId());
+            ps.setLong(1, client.getId());
+            ps.setFloat(2, 0);
+            ps.setLong(3, client.getSamochod().getId());
+            ps.setTimestamp(4, new Timestamp(now.getTime()));
+            ps.setTimestamp(5, new Timestamp(now.getTime()));
+            ps.setString(6, "");
+            ps.setString(7, "");
+            ps.execute();
+            ps.close();
+            
+        }catch(SQLException ex){
+            helper.error(ex.getMessage());
+        }
+    }
+   
     public Samochod addOrUpdateCar(Samochod car) {
         try {
             checkConnection();
@@ -230,4 +294,5 @@ public class DBHelper {
         }
         return result;
     }
+   
 }
