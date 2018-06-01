@@ -9,8 +9,42 @@ package warsztatsamochodowy.database.entity;
  *
  * @author lukasz
  */
-public class FixWorker {
+public class RepairWorker {
     private int FixWorkerId;
-    private Fix fix;
-    private Pracownik pracownik;
+    private int fixId;
+    private int pracownikId;
+
+    public RepairWorker(int FixWorkerId, int fixId, int pracownikId) {
+        this.FixWorkerId = FixWorkerId;
+        this.fixId = fixId;
+        this.pracownikId = pracownikId;
+    }
+    
+    
+
+    public int getFixWorkerId() {
+        return FixWorkerId;
+    }
+
+    public void setFixWorkerId(int FixWorkerId) {
+        this.FixWorkerId = FixWorkerId;
+    }
+
+    public int getFixId() {
+        return fixId;
+    }
+
+    public void setFixId(int fixId) {
+        this.fixId = fixId;
+    }
+
+    public int getPracownikId() {
+        return pracownikId;
+    }
+
+    public void setPracownikId(int pracownikId) {
+        this.pracownikId = pracownikId;
+    }
+    
+    
 }

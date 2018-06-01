@@ -9,21 +9,28 @@ package warsztatsamochodowy.database.entity;
  *
  * @author lukasz
  */
-public class Fix {
+public class Repair {
     private int FixId;
-    private Pracownik Pracownik;
-    private Samochod Samochod;
+    private int PracownikId;
+    private int SamochodId;
     private String Status;
     private float Koszt;
-    
-    
-    public Fix(int FixId, Pracownik Pracownik, Samochod Samochod, String Status, float Koszt) {
+    private String carName;
+    private String carProducer;
+    public Repair(int FixId, int PracownikId, int SamochodId, String Status, float Koszt) {
         this.FixId = FixId;
-        this.Pracownik = Pracownik;
-        this.Samochod = Samochod;
+        this.PracownikId = PracownikId;
+        this.SamochodId = SamochodId;
         this.Status = Status;
         this.Koszt = Koszt;
     }
+
+    public Repair(int FixId, String carName, String carProducer) {
+        this.FixId = FixId;
+        this.carName = carName;
+        this.carProducer = carProducer;
+    }   
+
    
     public int getFixId() {
         return FixId;
@@ -33,21 +40,7 @@ public class Fix {
         this.FixId = FixId;
     }
 
-    public Pracownik getPracownik() {
-        return Pracownik;
-    }
-
-    public void setPracownik(Pracownik Pracownik) {
-        this.Pracownik = Pracownik;
-    }
-
-    public Samochod getSamochod() {
-        return Samochod;
-    }
-
-    public void setSamochod(Samochod Samochod) {
-        this.Samochod = Samochod;
-    }
+  
 
     public String getStatus() {
         return Status;
@@ -63,6 +56,38 @@ public class Fix {
 
     public void setKoszt(float Koszt) {
         this.Koszt = Koszt;
+    }
+
+    public int getPracownikId() {
+        return PracownikId;
+    }
+
+    public void setPracownikId(int PracownikId) {
+        this.PracownikId = PracownikId;
+    }
+
+    public int getSamochodId() {
+        return SamochodId;
+    }
+
+    public void setSamochodId(int SamochodId) {
+        this.SamochodId = SamochodId;
+    }
+
+    public String getCarName() {
+        return carName;
+    }
+
+    public void setCarName(String carName) {
+        this.carName = carName;
+    }
+
+    public String getCarProducer() {
+        return carProducer;
+    }
+
+    public void setCarProducer(String carProducer) {
+        this.carProducer = carProducer;
     }
    
 }

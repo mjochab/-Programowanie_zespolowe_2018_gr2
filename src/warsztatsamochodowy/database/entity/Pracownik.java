@@ -52,6 +52,12 @@ public class Pracownik {
         this.Status = new SimpleStringProperty(Status);
     }
 
+    public Pracownik(int ID, String Imie, String Nazwisko) {
+        this.ID = new SimpleIntegerProperty(ID);
+        this.Imie = new SimpleStringProperty(Imie);
+        this.Nazwisko = new SimpleStringProperty(Nazwisko);
+    }
+   
     
      public Integer getID(){
         return ID.get();

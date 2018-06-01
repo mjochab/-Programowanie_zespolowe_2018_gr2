@@ -143,7 +143,7 @@ public class WorkersController implements Initializable {
         try {
             stmt = sesja.createStatement();
 
-         int rs = stmt.executeUpdate("delete from Pracownik where ID = " + tablepracownik.getSelectionModel().getSelectedItem().getID());
+         int rs = stmt.executeUpdate("delete from Pracownik where PracownikId = " + tablepracownik.getSelectionModel().getSelectedItem().getID());
        
          helper.message("Pracownik zostal usuniety");
               ladujTabelePracownick();
