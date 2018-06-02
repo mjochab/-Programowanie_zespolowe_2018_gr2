@@ -169,9 +169,12 @@ public class MainMenuController implements Initializable {
     }
 
     @FXML
-    void tasks(MouseEvent event) {
-        if (lock_tasks == false) {
+    void tasks(MouseEvent event) throws IOException {
+        if (!lock_tasks) {
+            helper.sceneSwitcher("/warsztatsamochodowy/views/Tasks.fxml", "Warsztat samochodowy - Zlecenia");
 
+            Stage mainmenu_scene = (Stage) logout.getScene().getWindow();
+            mainmenu_scene.close();
         }
     }
 

@@ -87,7 +87,7 @@ public class EditPartController implements Initializable {
                     + "', Producent = '" + producent
                     + "', Ilosc = '" + ilosc
                     + "', Cena = '" + cena
-                    + "' WHERE ID = '" + id + "';");
+                    + "' WHERE CzescId = '" + id + "';");
             if (wynik == 1) {
                 helper.message("Część została zmieniona");
             }

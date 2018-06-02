@@ -116,6 +116,7 @@ public class AddClientController implements Initializable {
                 && StringUtils.isNotBlank(nrTel) && samochod != null) {
             Klient k = new Klient(imie, nazwisko, nrTel, miejscowosc, adres, email, samochod);
             DBHelper.getInstance().addOrUpdateKlient(k);
+            DBHelper.getInstance().addOrUpdateNaprawa(k);
         } else {
             return;
         }

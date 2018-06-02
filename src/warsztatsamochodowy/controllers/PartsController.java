@@ -107,7 +107,7 @@ public class PartsController implements Initializable {
             ResultSet rs = stmt.executeQuery("SELECT * FROM Czesc;");
 
             while (rs.next()) {
-                String id = rs.getString("ID");
+                String id = rs.getString("CzescId");
                 String nazwa = rs.getString("Nazwa");
                 String producent = rs.getString("Producent");
                 String ilosc = rs.getString("Ilosc");
@@ -163,7 +163,7 @@ public class PartsController implements Initializable {
 
                 String id = c.getID();
 
-                int wynik = stmt.executeUpdate("DELETE FROM Czesc WHERE ID = " + id + ";");
+                int wynik = stmt.executeUpdate("DELETE FROM Czesc WHERE CzescId = " + id + ";");
                 if (wynik == 1) {
 
                     doUsuniecia.add(c);
