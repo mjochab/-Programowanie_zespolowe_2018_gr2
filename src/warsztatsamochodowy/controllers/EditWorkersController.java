@@ -154,6 +154,7 @@ public class EditWorkersController implements Initializable {
                 try {
                     sesja.close();
                 } catch (Exception e) {
+                    
                 }
             }
         }
