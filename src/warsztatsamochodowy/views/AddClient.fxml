@@ -7,16 +7,30 @@
 <?import javafx.scene.layout.*?>
 
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="warsztatsamochodowy.controllers.AddClientController">
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="warsztatsamochodowy.controllers.AddClientController">
    <children>
       <TextField fx:id="tfImie" layoutX="176.0" layoutY="97.0" />
       <TextField fx:id="tfNazwisko" layoutX="176.0" layoutY="139.0" />
       <TextField fx:id="tfNrTel" layoutX="176.0" layoutY="181.0" />
-      <ComboBox fx:id="cbxSamochod" layoutX="176.0" layoutY="223.0" />
+      <TextField fx:id="tfMiejscowosc" layoutX="176.0" layoutY="223.0" />
+      <TextField fx:id="tfAdres" layoutX="176.0" layoutY="265.0" />
+      <TextField fx:id="tfEmail" layoutX="176.0" layoutY="307.0" />
+      <TextField fx:id="tfVin" layoutX="176.0" layoutY="369.0" />
+      <TextField fx:id="tfProducent" layoutX="176.0" layoutY="411.0" />
+      <TextField fx:id="tfModel" layoutX="176.0" layoutY="453.0" />
+      <TextField fx:id="tfTyp" layoutX="176.0" layoutY="495.0" />
       <Label layoutX="59.0" layoutY="101.0" text="Imię" />
       <Label layoutX="59.0" layoutY="143.0" text="Nazwisko" />
       <Label layoutX="59.0" layoutY="185.0" text="Numer Telefonu" />
-      <Label layoutX="59.0" layoutY="227.0" text="Samochód" />
+      <Label layoutX="59.0" layoutY="227.0" text="Miejscowość" />
+      <Label layoutX="59.0" layoutY="269.0" text="Adres" />
+      <Label layoutX="59.0" layoutY="311.0" text="e-mail" />
+      <Label layoutX="59.0" layoutY="353.0" text="Samochód:" />
+      <Label layoutX="59.0" layoutY="373.0" text="VIN" />
+      <Label layoutX="59.0" layoutY="415.0" text="Producent" />
+      <Label layoutX="59.0" layoutY="457.0" text="Model" />
+      <Label layoutX="59.0" layoutY="499.0" text="Typ" />
+      
       <Button fx:id="b_zapisz" layoutX="452.0" layoutY="325.0" mnemonicParsing="false" onAction="#onSave" text="Zapisz" />
       <Button fx:id="b_powrot" layoutX="452.0" layoutY="46.0" mnemonicParsing="false" onAction="#powrotDoKlientow" text="Powrót" />
    </children>

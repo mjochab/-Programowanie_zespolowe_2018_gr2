@@ -19,9 +19,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import warsztatsamochodowy.Helper;
-import warsztatsamochodowy.database.HibernateHelper;
+import warsztatsamochodowy.database.DBHelper;
 import warsztatsamochodowy.database.entity.Klient;
-import warsztatsamochodowy.database.entity.Samochod;
 
 /**
  * FXML Controller class
@@ -44,6 +43,12 @@ public class ClientsController implements Initializable {
     @FXML
     private TableColumn<Klient, String> colNrTel;
     @FXML
+    private TableColumn<Klient, String> colMiejscowosc;
+    @FXML
+    private TableColumn<Klient, String> colAdres;
+    @FXML
+    private TableColumn<Klient, String> colEmail;
+    @FXML
     private TableColumn<Klient, String> colSamochod;
     
     private Helper helper = new Helper();
@@ -52,29 +57,32 @@ public class ClientsController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    /*
+    Moduł Klienci
+    */
     @Override
     /**
      * Modul Klienci
      */
     public void initialize(URL url, ResourceBundle rb) {
-         //TODO usunąć po dodaniu samochodów
-        HibernateHelper hibernateHelper = HibernateHelper.getInstance();
-        if(hibernateHelper.getCars().isEmpty()) {
-            hibernateHelper.addOrUpdateCar(new Samochod("Audi", "A4", "RZ123456"));
-            hibernateHelper.addOrUpdateCar(new Samochod("Daewoo", "Tico", "RLA321654"));
-        }
-        klienci = HibernateHelper.getInstance().getKlienci();
+        klienci = DBHelper.getInstance().getKlienci();
         colImie.setCellValueFactory(new PropertyValueFactory("imie"));
         colNazwisko.setCellValueFactory(new PropertyValueFactory("nazwisko"));
         colNrTel.setCellValueFactory(new PropertyValueFactory("nrTel"));
+        colMiejscowosc.setCellValueFactory(new PropertyValueFactory("miejscowosc"));
+        colAdres.setCellValueFactory(new PropertyValueFactory("adres"));
+        colEmail.setCellValueFactory(new PropertyValueFactory("email"));
         colSamochod.setCellValueFactory(new PropertyValueFactory("samochod"));
         tabelaKlienci.setItems(FXCollections.observableArrayList(klienci));
     }    
-     /**
-     * Metoda obslugująca przycisk dodawania nowych klientó
+    /**
+     * Obsługa przycisku otwierającego okno dodawania nowych klientów
+     * 
      * @param event
      * @throws IOException 
      */
+
+    
     @FXML
     private void dodajKlienta(ActionEvent event) throws IOException {
          helper.sceneSwitcher("/warsztatsamochodowy/views/AddClient.fxml", "Warsztat samochodowy - Dodaj Klienta");
@@ -86,6 +94,7 @@ public class ClientsController implements Initializable {
      * @param event
      * @throws IOException 
      */
+
     @FXML
     private void powrotDoMenu(ActionEvent event) throws IOException {
         helper.powrotDoMenu();

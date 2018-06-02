@@ -2,13 +2,13 @@ package warsztatsamochodowy.controllers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -16,6 +16,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import warsztatsamochodowy.Helper;
+import warsztatsamochodowy.database.DatabaseConnection;
 
 /**
  * Klasa kontrolera FXML do obsługi okna logowania.
@@ -27,6 +28,10 @@ public class LoginController implements Initializable {
     public static String Username;
 
     private Helper helper = new Helper();
+    DatabaseConnection PolaczenieDB = new DatabaseConnection();
+    Connection sesja;
+    Statement stmt;
+
     @FXML
     private TextField username;
 
@@ -35,6 +40,8 @@ public class LoginController implements Initializable {
 
     @FXML
     private PasswordField password;
+    @FXML
+    private Button registerButton;
 
     @FXML
 
@@ -54,22 +61,10 @@ public class LoginController implements Initializable {
     }
 
     /**
-     * Wyświetlenie komunikatu o błędzie
-     *
-     * @param message treść komunikatu
-     */
-
-
-    /**
      * Funkcja zamyka bieżące okno i loguje użytkownika do aplikacji, pokazując
      * menu główne.
-     *
-     * @param username login użytkownika
-     * @param stanowisko stanowisko użytkownika
      */
-    public void zalogujUzytkownika(String username, String stanowisko) throws IOException {
-        Stanowisko = stanowisko;
-        Username = username;
+    public void zalogujUzytkownika() throws IOException {
         helper.sceneSwitcher("/warsztatsamochodowy/views/MainMenu.fxml", "Warsztat samochodowy - Menu główne");
         Stage login_scene = (Stage) login.getScene().getWindow();
         login_scene.close();
@@ -103,32 +98,58 @@ public class LoginController implements Initializable {
      */
     private void sprawdzLogowanie(String username, String password) throws IOException {
 
-        if (konta.containsKey(username)) {
-
-            if (konta.get(username)[0].equals(password)) {
-                zalogujUzytkownika(username, konta.get(username)[1]);
-            } else {
-                helper.error("Wprowadzono złe hasło!");
+        try {
+            if (sesja == null || sesja.isClosed()) {
+                sesja = PolaczenieDB.connectDatabase();
             }
-        } else {
-             helper.error("Użytkownik nie istnieje!");
+            stmt = sesja.createStatement();
+
+            ResultSet rs = stmt.executeQuery("select Login, Haslo, Specjalizacja, Status from pracownik where Login = '" + username
+                    + "' AND Haslo = '" + password + "';");
+            if (rs.isBeforeFirst()) {
+                while (rs.next()) {
+                    String status = rs.getString("Status");
+                    if (status.equals("Zwolniony")) {
+                        helper.error("Pracownik został zwolniony!");
+                        break;
+                    }
+                    Stanowisko = rs.getString("Specjalizacja");
+                    Username = username;
+                    break;
+                }
+            } else {
+                helper.error("Podano błędny login lub hasło!");
+            }
+
+        } catch (Exception e) {
+            helper.error(e.getMessage());
+        } finally {
+
+            if (sesja != null) {
+                try {
+                    sesja.close();
+                } catch (Exception e) {
+                } finally {
+                    if (Username != null) {
+                        zalogujUzytkownika();
+                    }
+                }
+            }
         }
 
     }
 
-    HashMap<String, String[]> konta = new HashMap<String, String[]>();
-
-    /**
-     * Funkcja inicjalizująca kontroler. zapisuje przykładowe dane kont
-     * użytkowników.
-     *
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        konta.put("Janusz", new String[]{"123456", "Kierownik"});
-        konta.put("Grażyna", new String[]{"brajanek2010", "Recepcjonistka"});
-        konta.put("Heniek", new String[]{"kochamgrazynke", "Mechanik"});
-        konta.put("Tadeusz", new String[]{"qwerty", "Administrator"});
+        Username = null;
+        Stanowisko = null;
+    }
+
+    @FXML
+    private void registerWorker(ActionEvent event) throws IOException {
+        helper.sceneSwitcher("/warsztatsamochodowy/views/RegisterWorker.fxml", "Warsztat samochodowy - Rejestracja pracownika");
+        Stage login_scene = (Stage) login.getScene().getWindow();
+        login_scene.close();
     }
 
 }

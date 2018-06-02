@@ -1,14 +1,6 @@
 package warsztatsamochodowy.database.entity;
 
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
  
 /**
  *
@@ -18,46 +10,54 @@ import javax.persistence.Table;
  * Klasa przechowujaca dane o klientach
  * 
  */
-@Entity
-@Table(name="KLIENCI")
 public class Klient implements Serializable {
-    @Id
-    @Column(name="ID")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+
     private Long id;
- 
-    @Column(name="IMIE", length = 255)
+
     private String imie;
-   
-    @Column(name="NAZWISKO", length = 255)
+
     private String nazwisko;
-  
-    @Column(name="NR_TEL", length = 20)
+
     private String nrTel;
     
-    @ManyToOne
-    @JoinColumn(name="SAMOCHOD_ID")
+    private String miejscowosc;
+    
+    private String adres;
+
+    private String email;
+    
     private Samochod samochod;
  
     public Klient() {
     }
 
-    public Klient(Long id) {
-        this.id = id;
-    }
-    /**
-     * Modul Klienci
-     * 
-     * @param imie
-     * @param nazwisko
-     * @param nrTel
-     * @param samochod 
-     */
-    public Klient(String imie, String nazwisko, String nrTel, Samochod samochod) {
+    public Klient(String imie, String nazwisko, String nrTel, String miejscowosc, String adres, String email, Samochod samochod) {
         this.imie = imie;
         this.nazwisko = nazwisko;
         this.nrTel = nrTel;
+        this.miejscowosc = miejscowosc;
+        this.adres = adres;
+        this.email = email;
         this.samochod = samochod;
+    }
+    
+    
+
+    public Klient(Long id, String imie, String nazwisko, String nrTel, String miejscowosc, String adres, String email, Samochod samochod) {
+        this.id = id;
+        this.imie = imie;
+        this.nazwisko = nazwisko;
+        this.nrTel = nrTel;
+        this.miejscowosc = miejscowosc;
+        this.adres = adres;
+        this.samochod = samochod;
+        this.email = email;
+    }
+
+    public Klient(Long id, String imie, String nazwisko) {
+        this.id = id;
+        this.imie = imie;
+        this.nazwisko = nazwisko;
     }
 
     public Long getId() {
@@ -99,4 +99,33 @@ public class Klient implements Serializable {
     public void setSamochod(Samochod samochod) {
         this.samochod = samochod;
     }   
+
+    public String getMiejscowosc() {
+        return miejscowosc;
+    }
+
+    public void setMiejscowosc(String miejscowosc) {
+        this.miejscowosc = miejscowosc;
+    }
+
+    public String getAdres() {
+        return adres;
+    }
+
+    public void setAdres(String adres) {
+        this.adres = adres;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
+    @Override
+    public String toString() {
+        return imie + " " + nazwisko;
+    }
 }

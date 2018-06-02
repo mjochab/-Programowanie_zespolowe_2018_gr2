@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 /**
  * Pomocnicze metody przdatne np: przy zmianie sceny
@@ -55,4 +56,5 @@ public class Helper {
         settings_scene.setTitle(tytul);
         settings_scene.show();
     }
+    
 }
