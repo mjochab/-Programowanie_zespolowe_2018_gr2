@@ -114,15 +114,17 @@ public class DBHelper {
           try{
             checkConnection();
             Statement s = connection.createStatement();
-            s.execute("select p.PracownikId, s.SamochodId, p.Imie, p.Nazwisko, s.Producent, s.Model from naprawa_pracownik np\n" +
+            s.execute("select p.PracownikId, s.SamochodId,n.NaprawaId, p.Imie, p.Nazwisko, s.Producent, s.Model from naprawa_pracownik np\n" +
                       "inner join naprawa n on np.Naprawa = n.NaprawaId\n" +
                       "inner join pracownik p on np.Pracownik = p.PracownikId\n" +
                       "inner join klient k on n.Klient = k.KlientId\n" +
                       "inner join samochod s on n.Samochod = s.SamochodId");
             ResultSet rs = s.getResultSet();
             while(rs.next()) {
-                repairWorker.add(new RepairWorkerVM(rs.getInt("PracownikId"),
+                repairWorker.add(new RepairWorkerVM(
                                                     rs.getInt("SamochodId"),
+                                                    rs.getInt("PracownikId"),
+                                                    rs.getInt("NaprawaId"),
                                                     rs.getString("Imie"),
                                                     rs.getString("Nazwisko"),
                                                     rs.getString("Model"),

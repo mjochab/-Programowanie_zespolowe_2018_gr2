@@ -46,5 +46,7 @@
       <Button fx:id="b_powrot" layoutX="458.0" layoutY="284.0" mnemonicParsing="false" onAction="#Powrot" prefHeight="25.0" prefWidth="103.0" text="Powrót" />
       <ComboBox fx:id="cb_specjalizacja" layoutX="127.0" layoutY="309.0" prefWidth="150.0" />
       <Label layoutX="52.0" layoutY="313.0" text="Specjalizacja" />
+      <ComboBox fx:id="cb_status" layoutX="127.0" layoutY="344.0" prefWidth="150.0" />
+      <Label layoutX="64.0" layoutY="348.0" text="Status" />
    </children>
 </AnchorPane>

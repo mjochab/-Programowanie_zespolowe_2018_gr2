@@ -67,6 +67,8 @@ public class EditWorkersController implements Initializable {
     Statement stmt;
     @FXML
     private ComboBox<String> cb_specjalizacja;
+    @FXML
+    private ComboBox<String> cb_status;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -75,6 +77,11 @@ public class EditWorkersController implements Initializable {
                 "Mechanik",
                 "Pomocnik",
                 "Recepcjonista"
+        );
+          cb_status.getItems().addAll(
+               "Zatrudniony",
+                "Urlop",
+                "Zwolniony"
         );
         try {
             sesja = PolaczenieDB.connectDatabase();
@@ -89,6 +96,7 @@ public class EditWorkersController implements Initializable {
                 sb_adres.setText(rs.getString("Adres"));
                 sb_telefon.setText(rs.getString("Telefon"));
                 sb_email.setText(rs.getString("Email"));
+                
                 sb_login.setText(rs.getString("Login"));
                 aktualne_haslo = rs.getString("Haslo");
                 break;
@@ -128,6 +136,7 @@ public class EditWorkersController implements Initializable {
             String new_password = sb_nowe_haslo.getText();
             String new_login = sb_login.getText();
             String new_specjalizacja = cb_specjalizacja.getSelectionModel().getSelectedItem().toString();
+            String new_status = cb_status.getSelectionModel().getSelectedItem().toString();
             if (poprawnosc == 1 && old_password.equals(new_password)) {
                 aktualne_haslo = new_password;
                 int wynik = stmt.executeUpdate("update pracownik set Miejscowosc = '" + new_miejscowosc
@@ -139,6 +148,7 @@ public class EditWorkersController implements Initializable {
                         + "', Haslo = '" + new_password
                         + "', Login = '" + new_login
                         +"', Specjalizacja = '" + new_specjalizacja
+                        +"', Status = '" + new_status
                         + "' where PracownikId = '" + WorkersController.idPracownika+"';");
 
                 if (wynik == 1) {

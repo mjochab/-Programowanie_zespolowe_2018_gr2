@@ -7,9 +7,14 @@ package warsztatsamochodowy.controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,6 +29,8 @@ import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import warsztatsamochodowy.Helper;
 import warsztatsamochodowy.database.DBHelper;
+import warsztatsamochodowy.database.DatabaseConnection;
+import warsztatsamochodowy.database.entity.Potwierdzenie;
 import warsztatsamochodowy.database.entity.Repair;
 import warsztatsamochodowy.database.entity.Pracownik;
 import warsztatsamochodowy.database.entity.Samochod;
@@ -63,6 +70,15 @@ public class AddWorkerToFixController implements Initializable {
     private TableColumn<String, String> carProducerTable;
     @FXML
     private TableColumn<String, String> carMakeTable;
+    @FXML
+    private Button b_usun;
+    
+      DatabaseConnection PolaczenieDB = new DatabaseConnection();
+
+    Connection sesja = PolaczenieDB.connectDatabase();
+    @FXML
+    private TableColumn<Integer, Integer> RepairIdTable;
+    
     /**
      * Initializes the controller class.
      * Dodaje listy napraw oraz liste pracownikow do comboboxow
@@ -118,7 +134,7 @@ public class AddWorkerToFixController implements Initializable {
       carIdTable.setCellValueFactory(new PropertyValueFactory("CarId"));
       carProducerTable.setCellValueFactory(new PropertyValueFactory("Producent"));
       carMakeTable.setCellValueFactory(new PropertyValueFactory("Model"));
-     
+      RepairIdTable.setCellValueFactory(new PropertyValueFactory("FixId"));
     }
     private void setComboBoxes(){
      dbFix = dbhelper.getAllTasks();
@@ -168,4 +184,31 @@ public class AddWorkerToFixController implements Initializable {
                 return null;
             }
         };
+
+    @FXML
+    private void usunNaprawe(ActionEvent event) {
+        
+        int id_naprawy = workerFixTable.getSelectionModel().getSelectedItem().getFixId();
+
+        System.out.println(id_naprawy);
+        Statement stmt = null;
+          boolean flaga=Potwierdzenie.display("Usuń", "Czy napewno chcesz usunać?");
+          if(flaga== true){
+        try {
+            stmt = sesja.createStatement();
+
+         stmt.executeUpdate("delete from naprawa_pracownik where Naprawa = " + id_naprawy);
+         helper.message("Naprawa pracownika zostala usunieta");
+         getTableData();
+              
+              
+        } catch (SQLException ex) {
+            Logger.getLogger(WorkersController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+          }
+          
+        
+        
+        
+    }
 }

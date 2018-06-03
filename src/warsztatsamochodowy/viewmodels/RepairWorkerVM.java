@@ -10,6 +10,7 @@ package warsztatsamochodowy.viewmodels;
  * @author lukasz
  */
 public class RepairWorkerVM {
+    private int FixId;
     private int CarId;
     private int WorkerId;
     private String Imie;
@@ -17,13 +18,14 @@ public class RepairWorkerVM {
     private String Model;
     private String Producent;
 
-    public RepairWorkerVM(int CarId, int WorkerId, String Imie, String Nazwisko, String Model, String Producent) {
+    public RepairWorkerVM(int CarId, int WorkerId, int FixId, String Imie, String Nazwisko, String Model, String Producent) {
         this.CarId = CarId;
         this.WorkerId = WorkerId;
         this.Imie = Imie;
         this.Nazwisko = Nazwisko;
         this.Model = Model;
         this.Producent = Producent;
+        this.FixId = FixId;
     }
 
     public int getCarId() {
@@ -72,6 +74,14 @@ public class RepairWorkerVM {
 
     public void setProducent(String Producent) {
         this.Producent = Producent;
+    }
+
+    public int getFixId() {
+        return FixId;
+    }
+
+    public void setFixId(int FixId) {
+        this.FixId = FixId;
     }
     
     
