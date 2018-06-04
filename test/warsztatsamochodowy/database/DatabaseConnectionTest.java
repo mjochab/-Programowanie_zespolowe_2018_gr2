@@ -26,7 +26,7 @@ public class DatabaseConnectionTest {
         DatabaseConnection instance = new DatabaseConnection();
         Connection conn = instance.connectDatabase();
         assertNotNull(conn);
-        System.out.println(nazwa_testu + " przeszedł pomyślnie");
+        System.out.println(nazwa_testu + " przebiegl pomyślnie");
 
     }
 

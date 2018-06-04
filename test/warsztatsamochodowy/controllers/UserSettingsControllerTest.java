@@ -55,7 +55,7 @@ public class UserSettingsControllerTest {
         instance.junit = true;
         boolean wynik = instance.pobierzDane(login);
         assertTrue(wynik);
-        System.out.println(nazwa_testu + " przeszedł pomyślnie");
+        System.out.println(nazwa_testu + " przebiegl pomyślnie");
     }
     
 }

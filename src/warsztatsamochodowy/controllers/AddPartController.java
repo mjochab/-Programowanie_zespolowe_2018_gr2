@@ -39,7 +39,7 @@ public class AddPartController implements Initializable {
     private TextField sb_cena;
 
    
-
+boolean junit = false;
     DatabaseConnection PolaczenieDB = new DatabaseConnection();
 
     LoginController login = new LoginController();
@@ -59,12 +59,19 @@ public class AddPartController implements Initializable {
 
     
      @FXML
-    void dodajCzesc(ActionEvent event) {
+    void dodajCzesc_button() {
 
-        String nazwa = sb_nazwa.getText();
+                        String nazwa = sb_nazwa.getText();
         String producent = sb_producent.getText();
         String ilosc = sb_ilosc.getText();
         String cena = sb_cena.getText();
+        dodajCzesc(nazwa,producent,ilosc,cena);
+
+    }
+    
+   protected boolean dodajCzesc(String nazwa, String producent, String ilosc, String cena) {
+        
+boolean dziala = false;
 
         try {
             if (sesja == null || sesja.isClosed()) {
@@ -79,15 +86,20 @@ public class AddPartController implements Initializable {
                     + "', '" + ilosc
                     + "', '" + cena
                     + "');");
+
             if (wynik == 1) {
-sb_nazwa.clear();
-sb_producent.clear();
+                dziala = true;
+                if(junit == false) {
+                    sb_producent.clear();
 sb_ilosc.clear();
 sb_cena.clear();
                 helper.message("Część została dodana");
+                }
+
             }
 
         } catch (Exception e) {
+            System.out.println(e);
             helper.error(e.getMessage());
         } finally {
 
@@ -99,6 +111,7 @@ sb_cena.clear();
             }
 
         }
+        return dziala;
     }
     
 

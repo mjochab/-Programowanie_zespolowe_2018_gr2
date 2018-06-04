@@ -50,7 +50,7 @@ public class LoginControllerTest {
         instance.junit = true;
         boolean wynik = instance.sprawdzLogowanie(login, haslo);
         assertTrue(wynik);
-        System.out.println(nazwa_testu + " przeszedł pomyślnie");
+        System.out.println(nazwa_testu + " przebiegl pomyślnie");
     }
 
 }

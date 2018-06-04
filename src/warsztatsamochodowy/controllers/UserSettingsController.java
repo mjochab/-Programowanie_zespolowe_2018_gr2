@@ -74,7 +74,7 @@ public class UserSettingsController implements Initializable {
         pobierzDane(username);
     }
 
-    boolean pobierzDane(String username) {
+    protected boolean pobierzDane(String username) {
         boolean dziala = false;
         try {
             sesja = PolaczenieDB.connectDatabase();
