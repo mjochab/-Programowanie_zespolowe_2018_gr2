@@ -43,7 +43,7 @@ stmt.executeUpdate("DELETE FROM Czesc WHERE Nazwa = 'junit';");
 
     @Test
     public void testDodajCzesc() {
-        String nazwa_testu = "Test logowania użytkownika do aplikacji";
+        String nazwa_testu = "Test dodawania czesci do magazynu";
         AddPartController instance = new AddPartController();
         instance.junit = true;
         boolean wynik = instance.dodajCzesc("junit","junit","1","1");
