@@ -22,7 +22,6 @@ public class DatabaseConnectionTest {
     @Test
     public void testConnectDatabase() {
         String nazwa_testu = "Test połączenia z bazą";
-        System.out.println(nazwa_testu);
         DatabaseConnection instance = new DatabaseConnection();
         Connection conn = instance.connectDatabase();
         assertNotNull(conn);

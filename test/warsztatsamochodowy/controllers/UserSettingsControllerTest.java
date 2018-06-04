@@ -44,9 +44,6 @@ public class UserSettingsControllerTest {
         
     }
     
-    @AfterClass
-    public static void tearDownClass() {
-    }
 
     @Test
     public void testPobierzDane() {

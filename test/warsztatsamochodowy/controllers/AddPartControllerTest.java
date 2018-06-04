@@ -23,10 +23,7 @@ public class AddPartControllerTest {
     
     public AddPartControllerTest() {
     }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
+
     
     @AfterClass
     public static void tearDownClass() throws SQLException {
