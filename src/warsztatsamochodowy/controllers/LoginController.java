@@ -27,6 +27,7 @@ public class LoginController implements Initializable {
     public static String Stanowisko;
     public static String Username;
 
+    public boolean junit = false;
     private Helper helper = new Helper();
     DatabaseConnection PolaczenieDB = new DatabaseConnection();
     Connection sesja;
@@ -96,8 +97,9 @@ public class LoginController implements Initializable {
      * @param username login użytkownika
      * @param password hasło użytkownika
      */
-    private void sprawdzLogowanie(String username, String password) throws IOException {
+    protected boolean sprawdzLogowanie(String username, String password) throws IOException {
 
+        boolean dziala = false;
         try {
             if (sesja == null || sesja.isClosed()) {
                 sesja = PolaczenieDB.connectDatabase();
@@ -118,7 +120,8 @@ public class LoginController implements Initializable {
                     break;
                 }
             } else {
-                helper.error("Podano błędny login lub hasło!");
+                dziala = true;
+                 if(junit == false) helper.error("Podano błędny login lub hasło!");
             }
 
         } catch (Exception e) {
@@ -131,12 +134,14 @@ public class LoginController implements Initializable {
                 } catch (Exception e) {
                 } finally {
                     if (Username != null) {
-                        zalogujUzytkownika();
+                      if(junit == false) zalogujUzytkownika();
+                     dziala = true;
+                        
                     }
                 }
             }
         }
-
+return dziala;
     }
 
     @Override
