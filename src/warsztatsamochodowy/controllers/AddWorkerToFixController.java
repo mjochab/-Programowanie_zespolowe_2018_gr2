@@ -8,6 +8,7 @@ package warsztatsamochodowy.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -78,6 +79,8 @@ public class AddWorkerToFixController implements Initializable {
     Connection sesja = PolaczenieDB.connectDatabase();
     @FXML
     private TableColumn<Integer, Integer> RepairIdTable;
+    @FXML
+    private Button b_usun_Pracwonika;
     
     /**
      * Initializes the controller class.
@@ -187,27 +190,65 @@ public class AddWorkerToFixController implements Initializable {
 
     @FXML
     private void usunNaprawe(ActionEvent event) {
-        
+             int selectedItem = workerFixTable.getSelectionModel().getSelectedIndex();
+             if(selectedItem < 0){
+                  helper.error("Nic nie zostalo wybrane");
+                  return;
+             }
         int id_naprawy = workerFixTable.getSelectionModel().getSelectedItem().getFixId();
-
+        int id_pracownika = workerFixTable.getSelectionModel().getSelectedItem().getWorkerId();
         System.out.println(id_naprawy);
+           System.out.println(id_pracownika);
         Statement stmt = null;
           boolean flaga=Potwierdzenie.display("Usuń", "Czy napewno chcesz usunać?");
           if(flaga== true){
         try {
             stmt = sesja.createStatement();
-
-         stmt.executeUpdate("delete from naprawa_pracownik where Naprawa = " + id_naprawy);
+         
+         stmt.executeUpdate("delete from naprawa_pracownik where naprawa="+id_naprawy);
          helper.message("Naprawa pracownika zostala usunieta");
          getTableData();
               
               
-        } catch (SQLException ex) {
-            Logger.getLogger(WorkersController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+           helper.error(e.getMessage());
         }
           }
           
         
+        
+        
+    }
+
+    @FXML
+    private void usunPracownika(ActionEvent event) {
+         int selectedItem = workerFixTable.getSelectionModel().getSelectedIndex();
+             if(selectedItem < 0){
+                  helper.error("Nic nie zostalo wybrane");
+                  return;
+             }
+        int id_naprawy = workerFixTable.getSelectionModel().getSelectedItem().getFixId();
+        int id_pracownika = workerFixTable.getSelectionModel().getSelectedItem().getWorkerId();
+        System.out.println(id_naprawy);
+           System.out.println(id_pracownika);
+        Statement stmt = null;
+          boolean flaga=Potwierdzenie.display("Usuń", "Czy napewno chcesz usunać?");
+          if(flaga== true){
+        try {
+            
+           
+            String query = "delete from naprawa_pracownik where naprawa ="+id_naprawy+" and pracownik = "+id_pracownika;
+            PreparedStatement preparedStmt = sesja.prepareStatement(query);
+            preparedStmt.executeUpdate();
+            helper.message("Naprawa pracownika zostala usunieta");
+         getTableData();
+            
+               
+        } catch (SQLException e) {
+            System.out.println(e);
+           helper.error(e.getMessage());
+        }
+          }
         
         
     }
