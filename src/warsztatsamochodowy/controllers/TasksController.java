@@ -42,7 +42,7 @@ public class TasksController implements Initializable {
     @FXML
     private TableView<Repair> tabelaFix;
     @FXML
-    private TableColumn<?, ?> colWorker;
+    private TableColumn<Repair, String> colWorker;
     @FXML
     private TableColumn<?, ?> colClient;
     @FXML
