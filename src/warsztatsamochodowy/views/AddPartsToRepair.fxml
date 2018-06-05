@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="552.0" prefWidth="716.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="warsztatsamochodowy.views.AddPartsToRepairController">
+<AnchorPane id="AnchorPane" prefHeight="552.0" prefWidth="716.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="warsztatsamochodowy.controllers.AddPartsToRepairController">
    <children>
       <Button fx:id="b_dodaj" layoutX="168.0" layoutY="504.0" mnemonicParsing="false" onAction="#dodajCzesc" prefHeight="25.0" prefWidth="81.0" text="Dodaj" />
       <TableView fx:id="tab_czesci" layoutX="22.0" layoutY="64.0" prefHeight="301.0" prefWidth="315.0">
@@ -20,7 +20,7 @@
       </TableView>
       <Label layoutX="22.0" layoutY="32.0" text="Wyszukaj czesc:" />
       <Label layoutX="388.0" layoutY="32.0" text="Czesci dodane do zamowienia:" />
-      <TableView fx:id="tab_czesci1" layoutX="388.0" layoutY="64.0" prefHeight="301.0" prefWidth="315.0">
+      <TableView fx:id="tab_czesciDodane" layoutX="388.0" layoutY="64.0" prefHeight="301.0" prefWidth="315.0">
          <columns>
             <TableColumn fx:id="kol_Nazwa1" prefWidth="90.0" style="-fx-alignment: center;" text="Nazwa" />
             <TableColumn fx:id="kol_Producent1" prefWidth="101.0" style="-fx-alignment: center;" text="Producent" />
@@ -28,10 +28,10 @@
             <TableColumn fx:id="kol_Cena1" prefWidth="56.0" style="-fx-alignment: center;" text="Cena" />
          </columns>
       </TableView>
-      <Button layoutX="89.0" layoutY="504.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Szukaj" />
-      <TextField layoutX="147.0" layoutY="390.0" prefHeight="25.0" prefWidth="190.0" />
-      <TextField layoutX="147.0" layoutY="428.0" prefHeight="25.0" prefWidth="190.0" />
-      <TextField layoutX="147.0" layoutY="466.0" prefHeight="25.0" prefWidth="190.0" />
+      <Button fx:id="b_szukaj" layoutX="89.0" layoutY="504.0" mnemonicParsing="false" onAction="#szukajCzesci" prefHeight="25.0" prefWidth="65.0" text="Szukaj" />
+      <TextField fx:id="field_nazwa" layoutX="147.0" layoutY="390.0" prefHeight="25.0" prefWidth="190.0" />
+      <TextField fx:id="field_producent" layoutX="147.0" layoutY="428.0" prefHeight="25.0" prefWidth="190.0" />
+      <TextField fx:id="field_cena" layoutX="147.0" layoutY="466.0" prefHeight="25.0" prefWidth="190.0" />
       <Label layoutX="22.0" layoutY="394.0" text="Nazwa:" />
       <Label layoutX="23.0" layoutY="432.0" text="Producent:" />
       <Label layoutX="22.0" layoutY="470.0" text="Cena:" />

@@ -33,6 +33,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import warsztatsamochodowy.Helper;
+import static warsztatsamochodowy.controllers.SearchClientsController.ID;
 import warsztatsamochodowy.database.DatabaseConnection;
 
 /**
@@ -70,16 +71,16 @@ public class AddRepairController implements Initializable {
     private Button button_add;
     @FXML
     private Button button_back;
-    
+
     @FXML
-    private Label label_client ;
+    private Label label_client;
     @FXML
     private TextField field_client;
 
     public void setFieldClientName(String name) {
         field_client.setText(name);
     }
-    
+
     public void setName(String name) {
         label_client.setText(name);
     }
@@ -92,6 +93,12 @@ public class AddRepairController implements Initializable {
 
     LoginController login = new LoginController();
     String id_pracownika = login.getID();
+
+    public static int Last_ID;
+
+    public int getLastID() {
+        return Last_ID;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -111,17 +118,16 @@ public class AddRepairController implements Initializable {
     }
 
     @FXML
-    public void addTask(ActionEvent event) {
-        SearchClientsController klient  = new SearchClientsController();
+    public void addTask(ActionEvent event) throws IOException {
+        SearchClientsController klient = new SearchClientsController();
         String id_wybranegoklienta = klient.getID();
-        
-        
+
         try {
             if (sesja == null || sesja.isClosed()) {
                 sesja = PolaczenieDB.connectDatabase();
             }
             PreparedStatement ps = sesja.prepareStatement(
-                    "INSERT INTO naprawa(data_rozpoczecia, data_zakonczenia, koszt, status, opis, id_pracownika, id_klienta) VALUES(?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS
+                    "INSERT INTO naprawa(data_rozpoczecia, data_zakonczenia, koszt, status, opis, id_pracownika, id_klienta) VALUES(?,?,?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS
             );
             Date now = new Date();
             ps.setTimestamp(1, new Timestamp(now.getTime()));
@@ -134,11 +140,20 @@ public class AddRepairController implements Initializable {
             ps.setString(6, id_pracownika);
             ps.setString(7, id_wybranegoklienta);
             ps.execute();
+            
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                Last_ID = rs.getInt(1);
+            }
+            
             ps.close();
             helper.message("Dodano naprawe");
-            helper.sceneSwitcher("/warsztatsamochodowy/views/Tasks.fxml", "Warsztat samochodowy - Zlecenia");
-            Stage this_scene = (Stage) button_back.getScene().getWindow();
-            this_scene.close();
+
+//            ResultSet rs = stmt.executeQuery("SELECT LAST_INSERT_ID();");
+//            while (rs.next()) {
+//                Last_ID = rs.getString("LAST_INSERT_ID()");
+//            }
+
 
         } catch (Exception e) {
             helper.error(e.getMessage());
@@ -151,6 +166,9 @@ public class AddRepairController implements Initializable {
                 }
             }
         }
+                    helper.sceneSwitcher("/warsztatsamochodowy/views/AddPartsToRepair.fxml", "Warsztat samochodowy - Dodaj czesci");
+            Stage this_scene = (Stage) button_add.getScene().getWindow();
+            this_scene.hide();
     }
 
     @FXML

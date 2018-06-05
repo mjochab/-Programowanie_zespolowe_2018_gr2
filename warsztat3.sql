@@ -108,7 +108,6 @@ INSERT INTO `naprawa` (`napraw_id`, `data_rozpoczecia`, `data_zakonczenia`, `kos
 
 CREATE TABLE `naprawa_czesci` (
   `id` int(11) NOT NULL,
-  `cena` decimal(16,2) NOT NULL,
   `id_czesci` int(11) NOT NULL,
   `id_naprawy` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -117,8 +116,8 @@ CREATE TABLE `naprawa_czesci` (
 -- Zrzut danych tabeli `naprawa_czesci`
 --
 
-INSERT INTO `naprawa_czesci` (`id`, `cena`, `id_czesci`, `id_naprawy`) VALUES
-(1, '10.00', 1, 1);
+INSERT INTO `naprawa_czesci` (`id`, `id_czesci`, `id_naprawy`) VALUES
+(1, 1, 1);
 
 -- --------------------------------------------------------
 
