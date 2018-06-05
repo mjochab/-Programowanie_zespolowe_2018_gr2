@@ -20,7 +20,9 @@ public class Repair implements Serializable {
     private String koszt;
     private String status;
     private String opis;
-
+    
+    private String producent;
+    private String model;
     public Repair(Long ID, String koszt, String status, String opis) {
         this.ID = ID;
         this.koszt = koszt;
@@ -53,6 +55,12 @@ public class Repair implements Serializable {
         this.koszt = koszt;
         this.status = status;
         this.opis = opis;
+    }
+
+    public Repair(Long id, String producent, String model) {
+        this.ID = id;
+        this.producent = producent;
+        this.model = model;
     }
 
     public Long getID() {

@@ -114,35 +114,14 @@ public class DBHelper {
         }
         return fix;
     }
-    
-//        public List<Repair> getAllTasks() {
-//        List<Repair> fix = new ArrayList<>();
-//        try {
-//            checkConnection();
-//            Statement s = connection.createStatement();
-//            s.execute("SELECT n.*, p.PracownikId, p.Imie, p.Nazwisko "
-//                    + "FROM napraw2 as n "
-//                    + "INNER JOIN pracownik p ON p.PracownikId = n.id_pracownika ");
-//            ResultSet rs = s.getResultSet();
-//            while (rs.next()) {
-//                fix.add(new Repair(rs.getLong("napraw_id"), rs.getString("Koszt"), rs.getString("Status"), rs.getString("Opis"), 
-//                        new Pracownik(rs.getInt("PracownikId"), rs.getString("Imie"), rs.getString("Nazwisko"))));
-//
-//            }
-//            rs.close();
-//            s.close();
-//        } catch (SQLException e) {
-//            helper.error(e.getMessage());
-//        }
-//        return fix;
-//    }
+   
 
     public List<RepairWorkerVM> getAllWorkersAssignedToRepairs() {
         List<RepairWorkerVM> repairWorker = new ArrayList<>();
         try {
             checkConnection();
             Statement s = connection.createStatement();
-            s.execute("select p.PracownikId, s.SamochodId,n.NaprawaId, p.Imie, p.Nazwisko, s.Producent, s.Model from naprawa_pracownik np\n" +
+            s.execute("select p.PracownikId, s.SamochodId,n.NaprawaId, p.Imie, p.Nazwisko, s.Producent, s.Model from naprawa_pracownik np\n" 
                     + "inner join naprawa n on np.Naprawa = n.NaprawaId\n"
                     + "inner join pracownik p on np.Pracownik = p.PracownikId\n"
                     + "inner join klient k on n.Klient = k.KlientId\n"
@@ -309,12 +288,12 @@ public class DBHelper {
         }
     }
 
-    public void addWorkerToFix(int fixId, int workerId) {
+    public void addWorkerToFix(long fixId, int workerId) {
         try {
             checkConnection();
             PreparedStatement ps = connection.prepareStatement(
                     "INSERT INTO naprawa_pracownik(Naprawa,Pracownik) VALUES(?, ?)", Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, fixId);
+            ps.setLong(1, fixId);
             ps.setInt(2, workerId);
             ps.executeUpdate();
             ps.close();
