@@ -397,8 +397,8 @@ ALTER TABLE `naprawa_czesci`
 -- Ograniczenia dla tabeli `naprawa_pracownika`
 --
 ALTER TABLE `naprawa_pracownika`
-  ADD CONSTRAINT `naprawa_pracownika_id_naprawy_fk` FOREIGN KEY (`id_naprawy`) REFERENCES `naprawa` (`napraw_id`),
-  ADD CONSTRAINT `naprawa_pracownika_id_pracownika_fk` FOREIGN KEY (`id_pracownika`) REFERENCES `pracownik` (`PracownikId`);
+  ADD CONSTRAINT `naprawa_pracownika_id_naprawy_fk` FOREIGN KEY (`id_naprawy`) REFERENCES `naprawa` (`napraw_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `naprawa_pracownika_id_pracownika_fk` FOREIGN KEY (`id_pracownika`) REFERENCES `pracownik` (`PracownikId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ograniczenia dla tabeli `samochod`
