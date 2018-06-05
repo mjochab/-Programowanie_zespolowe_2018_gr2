@@ -88,11 +88,12 @@ boolean dziala = false;
                     + "');");
 
             if (wynik == 1) {
+            sb_nazwa.clear();
                 dziala = true;
                 if(junit == false) {
                     sb_producent.clear();
-sb_ilosc.clear();
-sb_cena.clear();
+            sb_ilosc.clear();
+            sb_cena.clear();
                 helper.message("Część została dodana");
                 }
 

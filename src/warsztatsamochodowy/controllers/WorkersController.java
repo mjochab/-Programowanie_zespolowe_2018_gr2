@@ -35,6 +35,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import static jdk.nashorn.internal.runtime.Debug.id;
 import warsztatsamochodowy.Helper;
 import warsztatsamochodowy.database.DatabaseConnection;
 import warsztatsamochodowy.database.entity.Potwierdzenie;
@@ -80,6 +81,9 @@ public class WorkersController implements Initializable {
     private Button generateRaport;
     @FXML
     private Button addWorkerToFix;
+    @FXML
+    private Button b_edytuj;
+    public static Integer idPracownika;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -189,6 +193,19 @@ public class WorkersController implements Initializable {
         Stage mainmenu_scene = (Stage) dodajPracownika.getScene().getWindow();
         mainmenu_scene.close();
 
+    }
+
+    @FXML
+    private void EdytujPracownika(ActionEvent event) throws IOException, SQLException {
+         //int id_placowki2 = tablepracownik.getSelectionModel().getSelectedItem().getID();
+         idPracownika = tablepracownik.getSelectionModel().getSelectedItem().getID();
+        //System.out.println(id_placowki2);
+        helper.sceneSwitcher("/warsztatsamochodowy/views/EditWorkers.fxml", "Warsztat samochodowy - Edytuj Pracownika");
+
+        Stage mainmenu_scene = (Stage) dodajPracownika.getScene().getWindow();
+        mainmenu_scene.close();
+
+        
     }
 
 }

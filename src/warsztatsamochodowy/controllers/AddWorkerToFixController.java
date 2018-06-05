@@ -7,12 +7,17 @@ package warsztatsamochodowy.controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -29,6 +34,8 @@ import warsztatsamochodowy.database.entity.Pracownik;
 import warsztatsamochodowy.database.entity.Samochod;
 import warsztatsamochodowy.viewmodels.RepairWorkerVM;
 
+import warsztatsamochodowy.database.DatabaseConnection;
+import warsztatsamochodowy.database.entity.Potwierdzenie;
 /**
  * FXML Controller class
  *
@@ -40,6 +47,9 @@ public class AddWorkerToFixController implements Initializable {
     private  List<Pracownik> dbWorkers = new ArrayList<>();
     private  List<Repair> dbFix = new ArrayList<>();
     private  List<RepairWorkerVM> repairWorkerVM = new ArrayList<>();
+    
+    Connection sesja;
+    
     @FXML
     private ComboBox<Pracownik> workersCB = new ComboBox<>();
     @FXML
@@ -76,7 +86,7 @@ public class AddWorkerToFixController implements Initializable {
 
     @FXML
     private void addWorkerToFix(ActionEvent event) {
-        int fixId = fixesCB.getSelectionModel().getSelectedItem().getFixId();
+        long fixId = fixesCB.getSelectionModel().getSelectedItem().getID();
         int workerId = workersCB.getSelectionModel().getSelectedItem().getID();
         if(fixId < 1 && workerId < 1){
             helper.error("Nalezy wybrac pracownika oraz naprawe");
@@ -143,12 +153,12 @@ public class AddWorkerToFixController implements Initializable {
      //get carId and create new list
      dbFixList.forEach((f) -> {
             Samochod samochod = dbCars.stream()
-                    .filter(w -> w.getId() == f.getSamochodId()).findFirst().get();
+                    .filter(w -> w.getId() == f.getSamochod().getId()).findFirst().get();
              if(samochod == null){
                  helper.message("Nie znaleziono auta");
                  return;
                  }
-          filteredFixList.add(new Repair(f.getFixId(), samochod.getProducent(), samochod.getModel()));
+          filteredFixList.add(new Repair(f.getID(), samochod.getProducent(), samochod.getModel()));
            
      });
      //set combobox for fixes
@@ -160,7 +170,7 @@ public class AddWorkerToFixController implements Initializable {
     private  StringConverter<Repair> converterFix = new StringConverter<Repair>() {
             @Override
             public String toString(Repair object) {
-                return object.getFixId() + " " +object.getCarName()+object.getCarProducer();
+                return object.getID()+ " " +object.getSamochod().getModel()+object.getSamochod().getProducent();
             }
 
             @Override
@@ -168,4 +178,29 @@ public class AddWorkerToFixController implements Initializable {
                 return null;
             }
         };
+
+
+    @FXML
+    private void usunNaprawe(ActionEvent event) {
+        
+        int id_naprawy = workerFixTable.getSelectionModel().getSelectedItem().getFixId();
+
+        System.out.println(id_naprawy);
+        Statement stmt = null;
+          boolean flaga=Potwierdzenie.display("Usuń", "Czy napewno chcesz usunać?");
+          if(flaga== true){
+        try {
+            stmt = sesja.createStatement();
+
+         stmt.executeUpdate("delete from naprawa_pracownik where Naprawa = " + id_naprawy);
+         helper.message("Naprawa pracownika zostala usunieta");
+         getTableData();
+              
+              
+        } catch (SQLException ex) {
+            Logger.getLogger(WorkersController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+          }
+          
+    }
 }

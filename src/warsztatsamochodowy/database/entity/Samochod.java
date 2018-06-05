@@ -40,6 +40,12 @@ public class Samochod implements Serializable {
         this.typ = typ;
     }
     
+    public Samochod(Long id, String producent, String model) {
+        this.id = id;
+        this.producent = producent;
+        this.model = model;
+    }
+    
     public Long getId() {
         return id;
     }
@@ -92,8 +98,12 @@ public class Samochod implements Serializable {
 
     @Override
     public String toString() {
-        return producent + " " + model + " " + typ + " " + vin;
+        if(typ==null && vin==null){
+            return producent + " " + model;
+        }else return producent + " " + model + " " + typ + " " + vin;
     }
+    
+
 
    
 
