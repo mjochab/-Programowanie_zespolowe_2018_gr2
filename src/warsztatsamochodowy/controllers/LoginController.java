@@ -26,6 +26,7 @@ public class LoginController implements Initializable {
 
     public static String Stanowisko;
     public static String Username;
+    public static String ID;
 
     private Helper helper = new Helper();
     DatabaseConnection PolaczenieDB = new DatabaseConnection();
@@ -87,6 +88,10 @@ public class LoginController implements Initializable {
     public String getLogin() {
         return Username;
     }
+    
+    public String getID() {
+        return ID;
+    }
 
     /**
      * Funkcja sprawdza poprawność danych wprowadzonych przez użytkownika i
@@ -104,7 +109,7 @@ public class LoginController implements Initializable {
             }
             stmt = sesja.createStatement();
 
-            ResultSet rs = stmt.executeQuery("select Login, Haslo, Specjalizacja, Status from pracownik where Login = '" + username
+            ResultSet rs = stmt.executeQuery("select PracownikId ,Login, Haslo, Specjalizacja, Status from pracownik where Login = '" + username
                     + "' AND Haslo = '" + password + "';");
             if (rs.isBeforeFirst()) {
                 while (rs.next()) {
@@ -115,6 +120,7 @@ public class LoginController implements Initializable {
                     }
                     Stanowisko = rs.getString("Specjalizacja");
                     Username = username;
+                    ID = rs.getString("PracownikId");
                     break;
                 }
             } else {
