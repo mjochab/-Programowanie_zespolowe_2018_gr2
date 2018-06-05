@@ -46,7 +46,7 @@ public class AddRepairController implements Initializable {
     @FXML
     private TextField field_koszt;
     @FXML
-    private DatePicker dataroczpoczecia;
+    private DatePicker datazakonczenia;
     @FXML
     private ComboBox<String> combo_status;
     @FXML
@@ -131,7 +131,7 @@ public class AddRepairController implements Initializable {
             );
             Date now = new Date();
             ps.setTimestamp(1, new Timestamp(now.getTime()));
-            ps.setTimestamp(2, new Timestamp(now.getTime()));
+            ps.setString(2, datazakonczenia.getValue().toString());
 
             ps.setInt(3, Integer.parseInt(field_koszt.getText()));
             ps.setString(4, combo_status.getSelectionModel().getSelectedItem());
@@ -166,7 +166,7 @@ public class AddRepairController implements Initializable {
                 }
             }
         }
-                    helper.sceneSwitcher("/warsztatsamochodowy/views/AddPartsToRepair.fxml", "Warsztat samochodowy - Dodaj czesci");
+            helper.sceneSwitcher("/warsztatsamochodowy/views/AddPartsToRepair.fxml", "Warsztat samochodowy - Dodaj czesci");
             Stage this_scene = (Stage) button_add.getScene().getWindow();
             this_scene.hide();
     }

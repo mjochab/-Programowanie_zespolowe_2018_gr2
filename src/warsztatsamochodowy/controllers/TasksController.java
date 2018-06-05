@@ -143,9 +143,9 @@ public class TasksController implements Initializable {
 
     @FXML
     private void editTask(ActionEvent event) throws IOException {
-                    helper.sceneSwitcher("/warsztatsamochodowy/views/AddPartsToRepair.fxml", "Warsztat samochodowy - Dodaj czesci");
-            Stage this_scene = (Stage) editTask.getScene().getWindow();
-            this_scene.hide();
+//                    helper.sceneSwitcher("/warsztatsamochodowy/views/AddPartsToRepair.fxml", "Warsztat samochodowy - Dodaj czesci");
+//            Stage this_scene = (Stage) editTask.getScene().getWindow();
+//            this_scene.hide();
     }
 
     @FXML

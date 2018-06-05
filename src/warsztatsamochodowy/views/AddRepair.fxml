@@ -10,7 +10,7 @@
 <AnchorPane id="AnchorPane" prefHeight="311.0" prefWidth="342.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="warsztatsamochodowy.controllers.AddRepairController">
    <children>
       <TextField fx:id="field_koszt" layoutX="149.0" layoutY="121.0" />
-      <DatePicker fx:id="dataroczpoczecia" layoutX="149.0" layoutY="76.0" />
+      <DatePicker fx:id="datazakonczenia" layoutX="149.0" layoutY="76.0" />
       <ComboBox fx:id="combo_status" layoutX="149.0" layoutY="159.0" prefWidth="150.0" />
       <TextField fx:id="field_opis" layoutX="149.0" layoutY="199.0" />
       <Button fx:id="wybierz_klienta" layoutX="204.0" layoutY="36.0" mnemonicParsing="false" onAction="#searchClient" text="Wybierz klienta" />
