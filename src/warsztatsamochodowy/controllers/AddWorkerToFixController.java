@@ -231,7 +231,7 @@ public class AddWorkerToFixController implements Initializable {
         try {
             
            
-            String query = "delete from naprawa_pracownik where naprawa ="+id_naprawy+" and pracownik = "+id_pracownika;
+            String query = "delete from naprawa where naprawa ="+id_naprawy+" and pracownik = "+id_pracownika;
             PreparedStatement preparedStmt = sesja.prepareStatement(query);
             preparedStmt.executeUpdate();
             helper.message("Naprawa pracownika zostala usunieta");
