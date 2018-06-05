@@ -207,8 +207,5 @@ public class AddWorkerToFixController implements Initializable {
         }
           }
           
-        
-        
-        
     }
 }
