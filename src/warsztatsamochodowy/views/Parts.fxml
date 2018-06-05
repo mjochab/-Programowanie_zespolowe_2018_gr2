@@ -18,6 +18,6 @@
         </columns>
       </TableView>
       <Button fx:id="b_edytuj" layoutX="483.0" layoutY="258.0" mnemonicParsing="false" onAction="#edytujCzesc" prefHeight="25.0" prefWidth="81.0" text="Edytuj" />
-      <Button fx:id="b_usun" layoutX="483.0" layoutY="305.0" mnemonicParsing="false" onAction="#usunCzesc" prefHeight="25.0" prefWidth="81.0" text="Usuń" />
+      <Button fx:id="b_usun" layoutX="483.0" layoutY="305.0" mnemonicParsing="false" onAction="#usunCzesc_button" prefHeight="25.0" prefWidth="81.0" text="Usuń" />
    </children>
 </AnchorPane>
