@@ -35,5 +35,6 @@
       <Label layoutX="22.0" layoutY="394.0" text="Nazwa:" />
       <Label layoutX="23.0" layoutY="432.0" text="Producent:" />
       <Label layoutX="22.0" layoutY="470.0" text="Cena:" />
+      <Button fx:id="button_dalej" layoutX="524.0" layoutY="437.0" mnemonicParsing="false" onAction="#goSelectWorker" text="Dalej" />
    </children>
 </AnchorPane>

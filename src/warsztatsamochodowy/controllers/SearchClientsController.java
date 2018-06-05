@@ -41,7 +41,7 @@ import warsztatsamochodowy.database.entity.Klient;
  * @author Bartek
  */
 public class SearchClientsController implements Initializable {
-    
+
     @FXML
     private TableView<Klient> tabelaKlienci;
     @FXML
@@ -58,7 +58,7 @@ public class SearchClientsController implements Initializable {
     private TableColumn<Klient, String> colEmail;
     @FXML
     private Label test;
-    
+
     @FXML
     private TextField field_imie;
     @FXML
@@ -74,15 +74,15 @@ public class SearchClientsController implements Initializable {
     @FXML
     private Button button_search;
     private Button button_close;
-    
-    public static String ID;
+
+    public static String ClientID;
     @FXML
     private Button button_wybierz;
-    
-    public String getID() {
-        return ID;
+
+    public String getClientID() {
+        return ClientID;
     }
-    
+
     private Helper helper = new Helper();
     DatabaseConnection PolaczenieDB = new DatabaseConnection();
     Connection sesja;
@@ -101,24 +101,24 @@ public class SearchClientsController implements Initializable {
         //tabelaKlienci.setItems(FXCollections.observableArrayList(klienci));
         wczytajBaze();
     }
-    
+
     private void dodajDoTabeli(Long id, String imie, String nazwisko, String nrTel, String miejscowosc, String adres, String email) {
-        
+
         Klient klient = new Klient(id, imie, nazwisko, nrTel, miejscowosc, adres, email);
         tabelaKlienci.getItems().add(klient);
-        
+
     }
-    
+
     private void wczytajBaze() {
-        
+
         try {
             if (sesja == null || sesja.isClosed()) {
                 sesja = PolaczenieDB.connectDatabase();
             }
             stmt = sesja.createStatement();
-            
+
             ResultSet rs = stmt.executeQuery("SELECT * FROM klient;");
-            
+
             while (rs.next()) {
                 String id = rs.getString("KlientId");
                 String imie = rs.getString("Imie");
@@ -129,11 +129,11 @@ public class SearchClientsController implements Initializable {
                 String email = rs.getString("Email");
                 dodajDoTabeli(Long.parseLong(id), imie, nazwisko, nrTel, miejscowosc, adres, email);
             }
-            
+
         } catch (Exception e) {
             helper.error(e.getMessage());
         } finally {
-            
+
             if (sesja != null) {
                 try {
                     sesja.close();
@@ -141,15 +141,15 @@ public class SearchClientsController implements Initializable {
                 }
             }
         }
-        
+
     }
-    
+
     @FXML
     public void selectClient(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/warsztatsamochodowy/views/AddRepair.fxml"));
         Parent root = loader.load();
-        AddRepairController klient = (AddRepairController)loader.getController();
-        
+        AddRepairController klient = (AddRepairController) loader.getController();
+
         try {
             if (sesja == null || sesja.isClosed()) {
                 sesja = PolaczenieDB.connectDatabase();
@@ -157,25 +157,28 @@ public class SearchClientsController implements Initializable {
             if (stmt == null || stmt.isClosed()) {
                 stmt = sesja.createStatement();
             }
-            
+
             ObservableList<Klient> klientZaznaczony;
             klientZaznaczony = tabelaKlienci.getSelectionModel().getSelectedItems();
             for (Klient c : klientZaznaczony) {
-                
-                ID = c.getId().toString();
-                
-                ResultSet rs = stmt.executeQuery("Select Imie, Nazwisko FROM Klient WHERE KlientId = " + ID + ";");
-                while (rs.next()) {
-                    klient.setName(rs.getString("Imie")+" "+rs.getString("Nazwisko"));
-                    button_wybierz.getScene().setRoot(root);
-                }
-                
+
+                ClientID = c.getId().toString();
+
+                helper.sceneSwitcher("/warsztatsamochodowy/views/AddRepair.fxml", "Warsztat samochodowy - Szczegoly zlecenia");
+                Stage this_scene = (Stage) button_wybierz.getScene().getWindow();
+                this_scene.hide();
+
+//                ResultSet rs = stmt.executeQuery("Select Imie, Nazwisko FROM Klient WHERE KlientId = " + ID + ";");
+//                while (rs.next()) {
+//                    klient.setName(rs.getString("Imie")+" "+rs.getString("Nazwisko"));
+//                    button_wybierz.getScene().setRoot(root);
+//                }
             }
-            
+
         } catch (Exception e) {
             helper.error(e.getMessage());
         } finally {
-            
+
             if (sesja != null) {
                 try {
                     sesja.close();
@@ -184,11 +187,11 @@ public class SearchClientsController implements Initializable {
             }
         }
     }
-    
+
     @FXML
     public void searchClient(ActionEvent event) throws IOException {
         tabelaKlienci.getItems().clear();
-        
+
         try {
             if (sesja == null || sesja.isClosed()) {
                 sesja = PolaczenieDB.connectDatabase();
@@ -213,7 +216,7 @@ public class SearchClientsController implements Initializable {
             if (field_email.getText().isEmpty() == false) {
                 query = query + "email = '" + field_email.getText().toString() + "' AND ";
             }
-            
+
             query = query + " KlientId IS NOT NULL";
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
@@ -226,11 +229,11 @@ public class SearchClientsController implements Initializable {
                 String email = rs.getString("Email");
                 dodajDoTabeli(Long.parseLong(id), imie, nazwisko, nrTel, miejscowosc, adres, email);
             }
-            
+
         } catch (Exception e) {
             helper.error(e.getMessage());
         } finally {
-            
+
             if (sesja != null) {
                 try {
                     sesja.close();
@@ -239,10 +242,10 @@ public class SearchClientsController implements Initializable {
             }
         }
     }
-    
+
     public void goBack(ActionEvent event) throws IOException {
         Stage this_scene = (Stage) button_close.getScene().getWindow();
         this_scene.close();
     }
-    
+
 }

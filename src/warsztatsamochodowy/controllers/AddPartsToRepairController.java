@@ -5,6 +5,7 @@
  */
 package warsztatsamochodowy.controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,8 +24,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import warsztatsamochodowy.Helper;
-import static warsztatsamochodowy.controllers.SearchClientsController.ID;
+import static warsztatsamochodowy.controllers.SearchClientsController.ClientID;
 import warsztatsamochodowy.database.DatabaseConnection;
 import warsztatsamochodowy.database.entity.Czesc;
 import warsztatsamochodowy.database.entity.Klient;
@@ -39,6 +41,9 @@ public class AddPartsToRepairController implements Initializable {
     @FXML
     private Button b_dodaj;
     @FXML
+    private Button button_dalej;
+
+    @FXML
     private TableView<Czesc> tab_czesci;
 
     @FXML
@@ -52,7 +57,7 @@ public class AddPartsToRepairController implements Initializable {
 
     @FXML
     private TableColumn<Czesc, String> kol_Cena;
-    
+
     @FXML
     private TableView<Czesc> tab_czesciDodane;
 
@@ -87,6 +92,7 @@ public class AddPartsToRepairController implements Initializable {
     AddRepairController addrepaircontroller = new AddRepairController();
     //int last_id = Integer.parseInt(addrepaircontroller.getLastID());
     int last_id = addrepaircontroller.getLastID();
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         tab_czesci.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -99,6 +105,13 @@ public class AddPartsToRepairController implements Initializable {
         kol_Ilosc1.setCellValueFactory(new PropertyValueFactory<>("Ilosc"));
         kol_Cena1.setCellValueFactory(new PropertyValueFactory<>("Cena"));
         wczytajBaze();
+    }
+
+    @FXML
+    void goSelectWorker(ActionEvent event) throws IOException {
+        helper.sceneSwitcher("/warsztatsamochodowy/views/AddWorkersToRepair.fxml", "Warsztat samochodowy - Dodaj pracownikow");
+        Stage this_scene = (Stage) button_dalej.getScene().getWindow();
+        this_scene.hide();
     }
 
     @FXML
@@ -124,7 +137,7 @@ public class AddPartsToRepairController implements Initializable {
 
                 ps.execute();
                 ps.close();
-                
+
                 helper.message("Dodano czesc");
                 tab_czesciDodane.getItems().clear();
                 wczytajBazeDodanych();
@@ -194,6 +207,7 @@ public class AddPartsToRepairController implements Initializable {
         tab_czesci.getItems().add(czesc);
 
     }
+
     private void dodajDoTabeliDodanych(String id, String nazwa, String producent, String ilosc, String cena) {
 
         Czesc czesc = new Czesc(id, nazwa, producent, ilosc, cena);
@@ -233,7 +247,7 @@ public class AddPartsToRepairController implements Initializable {
         }
 
     }
-    
+
     private void wczytajBazeDodanych() {
 
         try {
@@ -242,7 +256,7 @@ public class AddPartsToRepairController implements Initializable {
             }
             stmt = sesja.createStatement();
 
-            ResultSet rs = stmt.executeQuery("SELECT * FROM czesc as c INNER JOIN naprawa_czesci nc ON c.CzescID = nc.id_czesci WHERE nc.id_naprawy = "+last_id);
+            ResultSet rs = stmt.executeQuery("SELECT * FROM czesc as c INNER JOIN naprawa_czesci nc ON c.CzescID = nc.id_czesci WHERE nc.id_naprawy = " + last_id);
 
             while (rs.next()) {
                 String id = rs.getString("CzescId");
