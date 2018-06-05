@@ -88,18 +88,17 @@ CREATE TABLE `naprawa` (
   `status` varchar(100) NOT NULL,
   `opis` varchar(100) NOT NULL,
   `id_pracownika` int(11) NOT NULL,
-  `id_klienta` int(11) NOT NULL,
-  `id_samochodu` int(11) NOT NULL
+  `id_klienta` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Zrzut danych tabeli `naprawa`
 --
 
-INSERT INTO `naprawa` (`napraw_id`, `data_rozpoczecia`, `data_zakonczenia`, `koszt`, `status`, `opis`, `id_pracownika`, `id_klienta`, `id_samochodu`) VALUES
-(1, '2018-06-04', '2018-06-04', 100, '123', '4564564', 4, 4, 2),
-(2, '2018-06-05', '2018-06-05', 1000, 'Przyjete', 'eqdasda', 4, 1, 1),
-(3, '2018-06-05', '2018-06-05', 1000, 'W trakcie', 'Wymiana b', 4, 1, 1);
+INSERT INTO `naprawa` (`napraw_id`, `data_rozpoczecia`, `data_zakonczenia`, `koszt`, `status`, `opis`, `id_pracownika`, `id_klienta`) VALUES
+(1, '2018-06-04', '2018-06-04', 100, '123', '4564564', 4, 4),
+(2, '2018-06-05', '2018-06-05', 1000, 'Przyjete', 'eqdasda', 4, 1),
+(3, '2018-06-05', '2018-06-05', 1000, 'W trakcie', 'Wymiana b', 4, 1);
 
 -- --------------------------------------------------------
 
@@ -225,8 +224,7 @@ ALTER TABLE `klient`
 ALTER TABLE `naprawa`
   ADD PRIMARY KEY (`napraw_id`),
   ADD KEY `naprawa_id_pracownika_fk` (`id_pracownika`),
-  ADD KEY `naprawa_id_klienta_fk` (`id_klienta`),
-  ADD KEY `naprawa_id_samochodu_fk` (`id_samochodu`);
+  ADD KEY `naprawa_id_klienta_fk` (`id_klienta`);
 
 --
 -- Indeksy dla tabeli `naprawa_czesci`
@@ -312,8 +310,7 @@ ALTER TABLE `zamowienie`
 --
 ALTER TABLE `naprawa`
   ADD CONSTRAINT `naprawa_id_klienta_fk` FOREIGN KEY (`id_klienta`) REFERENCES `klient` (`KlientId`),
-  ADD CONSTRAINT `naprawa_id_pracownika_fk` FOREIGN KEY (`id_pracownika`) REFERENCES `pracownik` (`PracownikId`),
-  ADD CONSTRAINT `naprawa_id_samochodu_fk` FOREIGN KEY (`id_samochodu`) REFERENCES `samochod` (`SamochodId`);
+  ADD CONSTRAINT `naprawa_id_pracownika_fk` FOREIGN KEY (`id_pracownika`) REFERENCES `pracownik` (`PracownikId`);
 
 --
 -- Ograniczenia dla tabeli `naprawa_czesci`

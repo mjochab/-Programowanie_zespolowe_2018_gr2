@@ -76,14 +76,13 @@ public class TasksController implements Initializable {
         colAbout.setCellValueFactory(new PropertyValueFactory("opis"));
         colWorker.setCellValueFactory(new PropertyValueFactory("pracownik"));
         colClient.setCellValueFactory(new PropertyValueFactory("klient"));
-        colCar.setCellValueFactory(new PropertyValueFactory("samochod"));
         //tabelaFix.setItems(FXCollections.observableArrayList(fix));
         wczytajBaze();
     }
 
-    private void dodajDoTabeli(Long ID, String koszt, String status, String opis, Pracownik pracownik, Klient klient, Samochod samochod) {
+    private void dodajDoTabeli(Long ID, String koszt, String status, String opis, Pracownik pracownik, Klient klient) {
 
-        Repair repair = new Repair(ID, koszt, status, opis, pracownik, klient, samochod);
+        Repair repair = new Repair(ID, koszt, status, opis, pracownik, klient);
         tabelaFix.getItems().add(repair);
 
     }
@@ -97,12 +96,10 @@ public class TasksController implements Initializable {
             stmt = sesja.createStatement();
 
             ResultSet rs = stmt.executeQuery("SELECT n.napraw_id, n.koszt, n.status, n.opis, p.PracownikId, p.Imie, p.Nazwisko, " 
-                    + "k.KlientId, k.Imie, k.Nazwisko, " 
-                    + "s.SamochodId, s.producent, s.model " 
+                    + "k.KlientId, k.Imie, k.Nazwisko " 
                     + "FROM naprawa as n " 
                     + "INNER JOIN pracownik p ON p.PracownikId = n.id_pracownika " 
-                    + "INNER JOIN klient k ON k.KlientId = n.id_klienta " 
-                    + "INNER JOIN samochod s ON s.SamochodId = n.id_samochodu;");
+                    + "INNER JOIN klient k ON k.KlientId = n.id_klienta;");
 
             while (rs.next()) {
                 String ID = rs.getString("napraw_id");
@@ -114,8 +111,7 @@ public class TasksController implements Initializable {
 //                new Pracownik(rs.getInt("PracownikId"), rs.getString("Imie"), rs.getString("Nazwisko"));
                 dodajDoTabeli(Long.parseLong(ID), koszt, status, opis, 
                         new Pracownik(rs.getInt("PracownikId"), rs.getString("Imie"), rs.getString("Nazwisko")),
-                        new Klient(rs.getLong("PracownikId"), rs.getString("Imie"), rs.getString("Nazwisko")),
-                        new Samochod(rs.getLong("SamochodId"), rs.getString("Producent"), rs.getString("Model")));
+                        new Klient(rs.getLong("PracownikId"), rs.getString("Imie"), rs.getString("Nazwisko")));
             }
 
         } catch (Exception e) {

@@ -21,8 +21,7 @@
       <Label layoutX="623.0" layoutY="267.0" text="Adres:" />
       <TextField fx:id="field_email" layoutX="719.0" layoutY="313.0" />
       <Label layoutX="623.0" layoutY="317.0" text="e-mail:" />
-      <Button fx:id="button_search" layoutX="816.0" layoutY="369.0" mnemonicParsing="false" text="Szukaj" />
-      <Button fx:id="button_close" layoutX="808.0" layoutY="21.0" mnemonicParsing="false" onAction="#goBack" text="Zamknij" />
+      <Button fx:id="button_search" layoutX="816.0" layoutY="369.0" mnemonicParsing="false" onAction="#searchClient" text="Szukaj" />
       <TableView fx:id="tabelaKlienci" layoutX="10.0" layoutY="10.0" prefHeight="400.0" prefWidth="600.0">
          <columns>
             <TableColumn fx:id="colImie" prefWidth="95.0" text="Imie" />
@@ -33,5 +32,6 @@
             <TableColumn fx:id="colEmail" prefWidth="140.0" text="e-mail" />
          </columns>
       </TableView>
+      <Button fx:id="button_wybierz" layoutX="625.0" layoutY="369.0" mnemonicParsing="false" onAction="#selectClient" text="Wybierz" />
    </children>
 </AnchorPane>

@@ -11,7 +11,6 @@
         <columns>
           <TableColumn fx:id="colWorker" prefWidth="100.0" text="Pracownik" />
           <TableColumn fx:id="colClient" prefWidth="100.0" text="Klient" />
-            <TableColumn fx:id="colCar" prefWidth="100.0" text="Samochód" />
             <TableColumn fx:id="colPrice" prefWidth="50.0" text="Koszt" />
             <TableColumn fx:id="colStatus" prefWidth="100.0" text="Status" />
             <TableColumn fx:id="colAbout" prefWidth="100.0" text="Opis" />

@@ -18,10 +18,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -65,6 +70,19 @@ public class AddRepairController implements Initializable {
     private Button button_add;
     @FXML
     private Button button_back;
+    
+    @FXML
+    private Label label_client ;
+    @FXML
+    private TextField field_client;
+
+    public void setFieldClientName(String name) {
+        field_client.setText(name);
+    }
+    
+    public void setName(String name) {
+        label_client.setText(name);
+    }
 
     private Helper helper = new Helper();
 
@@ -85,31 +103,36 @@ public class AddRepairController implements Initializable {
         combo_status.setItems(status);
     }
 
+    @FXML
     public void goBack(ActionEvent event) throws IOException {
         helper.sceneSwitcher("/warsztatsamochodowy/views/Tasks.fxml", "Warsztat samochodowy - Zlecenia");
         Stage this_scene = (Stage) button_back.getScene().getWindow();
         this_scene.close();
     }
 
+    @FXML
     public void addTask(ActionEvent event) {
+        SearchClientsController klient  = new SearchClientsController();
+        String id_wybranegoklienta = klient.getID();
+        
+        
         try {
             if (sesja == null || sesja.isClosed()) {
                 sesja = PolaczenieDB.connectDatabase();
             }
             PreparedStatement ps = sesja.prepareStatement(
-                    "INSERT INTO naprawa(data_rozpoczecia, data_zakonczenia, koszt, status, opis, id_pracownika, id_klienta, id_samochodu) VALUES(?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS
+                    "INSERT INTO naprawa(data_rozpoczecia, data_zakonczenia, koszt, status, opis, id_pracownika, id_klienta) VALUES(?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS
             );
             Date now = new Date();
             ps.setTimestamp(1, new Timestamp(now.getTime()));
             ps.setTimestamp(2, new Timestamp(now.getTime()));
 
-            ps.setInt(3, Integer.parseInt(field_koszt.getText().toString()));
-            ps.setString(4, combo_status.getSelectionModel().getSelectedItem().toString());
-            ps.setString(5, field_opis.getText().toString());
+            ps.setInt(3, Integer.parseInt(field_koszt.getText()));
+            ps.setString(4, combo_status.getSelectionModel().getSelectedItem());
+            ps.setString(5, field_opis.getText());
 
             ps.setString(6, id_pracownika);
-            ps.setString(7, "1");
-            ps.setString(8, "1");
+            ps.setString(7, id_wybranegoklienta);
             ps.execute();
             ps.close();
             helper.message("Dodano naprawe");
@@ -130,10 +153,11 @@ public class AddRepairController implements Initializable {
         }
     }
 
+    @FXML
     public void searchClient(ActionEvent event) throws IOException {
         helper.sceneSwitcher("/warsztatsamochodowy/views/SearchClient.fxml", "Warsztat samochodowy - Wyszukaj klienta");
         Stage this_scene = (Stage) button_back.getScene().getWindow();
-        //this_scene.hide();
+        this_scene.hide();
     }
 
 }
