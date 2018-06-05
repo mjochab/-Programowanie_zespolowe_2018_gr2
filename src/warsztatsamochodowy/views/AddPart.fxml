@@ -7,7 +7,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="234.0" prefWidth="272.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="warsztatsamochodowy.controllers.AddPartController">
    <children>
-      <Button fx:id="zatwierdz" layoutX="167.0" layoutY="186.0" mnemonicParsing="false" onAction="#dodajCzesc" prefHeight="25.0" prefWidth="76.0" text="Zatwierdź" />
+      <Button fx:id="zatwierdz" layoutX="167.0" layoutY="186.0" mnemonicParsing="false" onAction="#dodajCzesc_button" prefHeight="25.0" prefWidth="76.0" text="Zatwierdź" />
       <Button fx:id="powrot" layoutX="94.0" layoutY="186.0" mnemonicParsing="false" onAction="#powrot" prefHeight="25.0" prefWidth="62.0" text="Powrót" />
       <TextField fx:id="sb_nazwa" layoutX="94.0" layoutY="23.0" />
       <TextField fx:id="sb_producent" layoutX="94.0" layoutY="61.0" />

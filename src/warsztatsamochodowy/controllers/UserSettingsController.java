@@ -59,6 +59,7 @@ public class UserSettingsController implements Initializable {
     String aktualne_haslo = "";
 
     Connection sesja;
+    boolean junit = false;
 
     private Helper helper = new Helper();
     Statement stmt;
@@ -70,46 +71,66 @@ public class UserSettingsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        try {
-             sesja = PolaczenieDB.connectDatabase();
-                    stmt = sesja.createStatement();
-            
-            ResultSet rs = stmt.executeQuery("select * from pracownik where Login = '" + username + "';");
-            while (rs.next()) {
+        pobierzDane(username);
+    }
 
-                sb_imie.setText(rs.getString("Imie"));
-                sb_nazwisko.setText(rs.getString("Nazwisko"));
-                sb_miejscowosc.setText(rs.getString("Miejscowosc"));
-                sb_adres.setText(rs.getString("Adres"));
-                sb_telefon.setText(rs.getString("Telefon"));
-                sb_email.setText(rs.getString("Email"));
-                sb_login.setText(rs.getString("Login"));
-                aktualne_haslo = rs.getString("Haslo");
-                break;
+    protected boolean pobierzDane(String username) {
+        boolean dziala = false;
+        try {
+            sesja = PolaczenieDB.connectDatabase();
+            stmt = sesja.createStatement();
+
+            ResultSet rs = stmt.executeQuery("select * from pracownik where Login = '" + username + "';");
+            if (rs.isBeforeFirst()) {
+
+                while (rs.next()) {
+
+           
+                    if(junit == false) {
+                        sb_imie.setText(rs.getString("Imie"));
+                        sb_nazwisko.setText(rs.getString("Nazwisko"));
+                        sb_miejscowosc.setText(rs.getString("Miejscowosc"));
+                        sb_adres.setText(rs.getString("Adres"));
+                        sb_telefon.setText(rs.getString("Telefon"));
+                        sb_email.setText(rs.getString("Email"));
+                        sb_login.setText(rs.getString("Login"));
+                        aktualne_haslo = rs.getString("Haslo");
+                    }
+                                        dziala = true;
+                    break;
+                }
+            } else {
+                dziala = true;
             }
         } catch (Exception e) {
+
             helper.error(e.getMessage());
+        } finally {
+
+            if (sesja != null) {
+                try {
+                    sesja.close();
+                } catch (Exception e) {
+                }
+            }
         }
-        finally {
-            
-              if(sesja!= null) try {
-                  sesja.close();
-              } catch (Exception e) {
-              }
-        }
+        return dziala;
     }
 
     @FXML
     /**
-     * Metoda pobiera wartoĹci z pĂłl tekstowych i aktualizuje dane uĹźytkownika w
-     * bazie danych. Zmiana hasĹa wymaga wpisania aktualnego hasĹa, w przypadku
-     * braku zgodnoĹci haseĹ wyĹwietlany jest bĹÄd i dane nie sÄ aktualizowane.
+     * Metoda pobiera wartoĹci z pĂłl tekstowych i aktualizuje dane
+     * uĹźytkownika w bazie danych. Zmiana hasĹa wymaga wpisania aktualnego
+     * hasĹa, w przypadku braku zgodnoĹci haseĹ wyĹwietlany jest bĹÄd i
+     * dane nie sÄ aktualizowane.
      */
     private void zapiszZmiany(ActionEvent event) {
 
         try {
-            if(sesja == null || sesja.isClosed()) sesja = PolaczenieDB.connectDatabase();
-           stmt = sesja.createStatement();
+            if (sesja == null || sesja.isClosed()) {
+                sesja = PolaczenieDB.connectDatabase();
+            }
+            stmt = sesja.createStatement();
             int poprawnosc = 1;
             Statement stmt = sesja.createStatement();
             String new_miejscowosc = sb_miejscowosc.getText();
@@ -149,13 +170,14 @@ public class UserSettingsController implements Initializable {
             }
         } catch (Exception e) {
             helper.error(e.getMessage());
-        }
-                finally {
-            
-              if(sesja != null) try {
-                  sesja.close();
-              } catch (Exception e) {
-              }
+        } finally {
+
+            if (sesja != null) {
+                try {
+                    sesja.close();
+                } catch (Exception e) {
+                }
+            }
         }
 
     }
