@@ -72,7 +72,7 @@ public class ClientsController implements Initializable {
         colMiejscowosc.setCellValueFactory(new PropertyValueFactory("miejscowosc"));
         colAdres.setCellValueFactory(new PropertyValueFactory("adres"));
         colEmail.setCellValueFactory(new PropertyValueFactory("email"));
-        colSamochod.setCellValueFactory(new PropertyValueFactory("samochod"));
+        //colSamochod.setCellValueFactory(new PropertyValueFactory("samochod"));
         tabelaKlienci.setItems(FXCollections.observableArrayList(klienci));
     }    
     /**

@@ -5,89 +5,96 @@
  */
 package warsztatsamochodowy.database.entity;
 
+import java.io.Serializable;
+
 /**
  *
  * @author lukasz
  */
-public class Repair {
-    private int FixId;
-    private int PracownikId;
-    private int SamochodId;
-    private String Status;
-    private float Koszt;
-    private String carName;
-    private String carProducer;
-    public Repair(int FixId, int PracownikId, int SamochodId, String Status, float Koszt) {
-        this.FixId = FixId;
-        this.PracownikId = PracownikId;
-        this.SamochodId = SamochodId;
-        this.Status = Status;
-        this.Koszt = Koszt;
+public class Repair implements Serializable {
+
+    private Long ID;
+    private Pracownik pracownik;
+    private Klient klient;
+    private Samochod samochod;
+    private String koszt;
+    private String status;
+    private String opis;
+
+    public Repair(Long ID, String koszt, String status, String opis) {
+        this.ID = ID;
+        this.koszt = koszt;
+        this.status = status;
+        this.opis = opis;
     }
 
-    public Repair(int FixId, String carName, String carProducer) {
-        this.FixId = FixId;
-        this.carName = carName;
-        this.carProducer = carProducer;
-    }   
-
-   
-    public int getFixId() {
-        return FixId;
+    public Repair(Long ID, String koszt, String status, String opis, Pracownik pracownik, Klient klient, Samochod samochod) {
+        this.ID = ID;
+        this.klient = klient;
+        this.samochod = samochod;
+        this.pracownik = pracownik;
+        this.koszt = koszt;
+        this.status = status;
+        this.opis = opis;
     }
 
-    public void setFixId(int FixId) {
-        this.FixId = FixId;
+    public Repair(Long ID, String koszt, String status, String opis, Pracownik pracownik, Klient klient) {
+        this.ID = ID;
+        this.klient = klient;
+        this.pracownik = pracownik;
+        this.koszt = koszt;
+        this.status = status;
+        this.opis = opis;
     }
 
-  
+    public Repair(Long ID, String koszt, String status, String opis, Pracownik pracownik) {
+        this.ID = ID;
+        this.pracownik = pracownik;
+        this.koszt = koszt;
+        this.status = status;
+        this.opis = opis;
+    }
+
+    public Long getID() {
+        return ID;
+    }
+
+    public Pracownik getPracownik() {
+        return pracownik;
+    }
+
+    public Klient getKlient() {
+        return klient;
+    }
+
+    public Samochod getSamochod() {
+        return samochod;
+    }
+
+    public String getKoszt() {
+        return koszt;
+    }
 
     public String getStatus() {
-        return Status;
+        return status;
     }
 
-    public void setStatus(String Status) {
-        this.Status = Status;
+    public String getOpis() {
+        return opis;
     }
 
-    public float getKoszt() {
-        return Koszt;
+    public void setKlient(Klient klient) {
+        this.klient = klient;
     }
 
-    public void setKoszt(float Koszt) {
-        this.Koszt = Koszt;
+    public void setPracownik(Pracownik pracownik) {
+        this.pracownik = pracownik;
     }
 
-    public int getPracownikId() {
-        return PracownikId;
+    public void setSamochod(Samochod samochod) {
+        this.samochod = samochod;
     }
 
-    public void setPracownikId(int PracownikId) {
-        this.PracownikId = PracownikId;
-    }
-
-    public int getSamochodId() {
-        return SamochodId;
-    }
-
-    public void setSamochodId(int SamochodId) {
-        this.SamochodId = SamochodId;
-    }
-
-    public String getCarName() {
-        return carName;
-    }
-
-    public void setCarName(String carName) {
-        this.carName = carName;
-    }
-
-    public String getCarProducer() {
-        return carProducer;
-    }
-
-    public void setCarProducer(String carProducer) {
-        this.carProducer = carProducer;
-    }
-   
+    
+    
 }

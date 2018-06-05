@@ -132,5 +132,9 @@ public class Pracownik {
         return Wynagrodzenie;
     }
     
+    @Override
+    public String toString() {
+        return Imie + " " + Nazwisko;
+    }
     
 }

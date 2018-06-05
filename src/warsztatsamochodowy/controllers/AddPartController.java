@@ -80,10 +80,10 @@ public class AddPartController implements Initializable {
                     + "', '" + cena
                     + "');");
             if (wynik == 1) {
-sb_nazwa.clear();
-sb_producent.clear();
-sb_ilosc.clear();
-sb_cena.clear();
+            sb_nazwa.clear();
+            sb_producent.clear();
+            sb_ilosc.clear();
+            sb_cena.clear();
                 helper.message("Część została dodana");
             }
 

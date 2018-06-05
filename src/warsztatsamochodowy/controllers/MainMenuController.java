@@ -46,7 +46,7 @@ public class MainMenuController implements Initializable {
     LoginController login = new LoginController();
     String stanowisko = login.getStanowisko();
     String username = login.getLogin();
-
+    String id = login.getID();
     private final Helper helper = new Helper();
     //ustawienie przycisków w menu jako odblokowane
     boolean lock_tasks, lock_orders, lock_parts, lock_team, lock_clients, lock_cars, lock_settings, lock_logout = false;
