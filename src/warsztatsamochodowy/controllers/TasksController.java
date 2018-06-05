@@ -26,6 +26,7 @@ import javafx.stage.Stage;
 import warsztatsamochodowy.Helper;
 import warsztatsamochodowy.database.DBHelper;
 import warsztatsamochodowy.database.DatabaseConnection;
+import warsztatsamochodowy.database.entity.Czesc;
 import warsztatsamochodowy.database.entity.Klient;
 import warsztatsamochodowy.database.entity.Pracownik;
 import warsztatsamochodowy.database.entity.Repair;
@@ -61,12 +62,10 @@ public class TasksController implements Initializable {
     @FXML
     private Button deleteTask;
 
-
     private Helper helper = new Helper();
     DatabaseConnection PolaczenieDB = new DatabaseConnection();
     Connection sesja;
     Statement stmt;
-
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -95,10 +94,10 @@ public class TasksController implements Initializable {
             }
             stmt = sesja.createStatement();
 
-            ResultSet rs = stmt.executeQuery("SELECT n.napraw_id, n.koszt, n.status, n.opis, p.PracownikId, p.Imie, p.Nazwisko, " 
-                    + "k.KlientId, k.Imie, k.Nazwisko " 
-                    + "FROM naprawa as n " 
-                    + "INNER JOIN pracownik p ON p.PracownikId = n.id_pracownika " 
+            ResultSet rs = stmt.executeQuery("SELECT n.napraw_id, n.koszt, n.status, n.opis, p.PracownikId, p.Imie, p.Nazwisko, "
+                    + "k.KlientId, k.Imie, k.Nazwisko "
+                    + "FROM naprawa as n "
+                    + "INNER JOIN pracownik p ON p.PracownikId = n.id_pracownika "
                     + "INNER JOIN klient k ON k.KlientId = n.id_klienta;");
 
             while (rs.next()) {
@@ -109,7 +108,7 @@ public class TasksController implements Initializable {
                 //new Pracownik(rs.getInt("PracownikId"), rs.getString("Imie"), rs.getString("Nazwisko"));
 //                new Klient(rs.getLong("KlientId"), rs.getString("Imie"), rs.getString("Nazwisko"));
 //                new Pracownik(rs.getInt("PracownikId"), rs.getString("Imie"), rs.getString("Nazwisko"));
-                dodajDoTabeli(Long.parseLong(ID), koszt, status, opis, 
+                dodajDoTabeli(Long.parseLong(ID), koszt, status, opis,
                         new Pracownik(rs.getInt("PracownikId"), rs.getString("Imie"), rs.getString("Nazwisko")),
                         new Klient(rs.getLong("PracownikId"), rs.getString("Imie"), rs.getString("Nazwisko")));
             }
@@ -127,6 +126,7 @@ public class TasksController implements Initializable {
         }
 
     }
+
     @FXML
     private void back(ActionEvent event) throws IOException {
         helper.powrotDoMenu();
@@ -150,6 +150,50 @@ public class TasksController implements Initializable {
 
     @FXML
     private void deleteTask(ActionEvent event) {
+        try {
+            if (sesja == null || sesja.isClosed()) {
+                sesja = PolaczenieDB.connectDatabase();
+            }
+            if (stmt == null || stmt.isClosed()) {
+                stmt = sesja.createStatement();
+            }
+
+            ObservableList<Repair> naprawaZaznaczona;
+            ObservableList<Repair> doUsuniecia = FXCollections.observableArrayList();
+            naprawaZaznaczona = tabelaFix.getSelectionModel().getSelectedItems();
+            for (Repair c : naprawaZaznaczona) {
+
+                Long id = c.getID();
+
+                int wynik = stmt.executeUpdate("DELETE FROM naprawa WHERE napraw_id = " + id + ";");
+                if (wynik == 1) {
+
+                    doUsuniecia.add(c);
+                }
+
+            }
+
+            usunzTabeli(doUsuniecia);
+            tabelaFix.getSelectionModel().clearSelection();
+
+        } catch (Exception e) {
+            helper.error(e.getMessage());
+        } finally {
+
+            if (sesja != null) {
+                try {
+                    sesja.close();
+                } catch (Exception e) {
+                }
+            }
+        }
+    }
+        private void usunzTabeli(ObservableList<Repair> zaznaczoneNaprawy) {
+
+        ObservableList<Repair> wszystkieNaprawy = tabelaFix.getItems();
+        wszystkieNaprawy.removeAll(zaznaczoneNaprawy);
+        // wszystkieCzesci.removeAll(czescZaznaczona);
+
     }
 
 }
