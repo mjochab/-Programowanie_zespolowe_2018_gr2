@@ -242,20 +242,28 @@ public class DBHelper {
     public void addOrUpdateKlient(Klient klient) {
         try {
             checkConnection();
-            PreparedStatement ps = connection.prepareStatement(
-                    "INSERT INTO klient(Imie, Nazwisko, Telefon, Miejscowosc, Adres, Email) VALUES(?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            String query = "INSERT INTO klient(Imie, Nazwisko, Telefon, Miejscowosc, Adres, Email) VALUES(?, ?, ?, ?, ?, ?)";
+            if(klient.getId() != null) {
+                query = "UPDATE klient SET Imie=?, Nazwisko=?, Telefon=?, Miejscowosc=?, Adres=?, Email=? WHERE ID=?";
+            }
+            PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, klient.getImie());
             ps.setString(2, klient.getNazwisko());
             ps.setString(3, klient.getNrTel());
             ps.setString(4, klient.getMiejscowosc());
             ps.setString(5, klient.getAdres());
             ps.setString(6, klient.getEmail());
-            ps.executeUpdate();
-            ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                klient.setId(rs.getLong(1));
+            if (klient.getId() != null) {
+                ps.setLong(7, klient.getId());
+                ps.executeUpdate();
+            } else {
+                ps.executeUpdate();
+                ResultSet rs = ps.getGeneratedKeys();
+                if (rs.next()) {
+                    klient.setId(rs.getLong(1));
+                }
+                rs.close();
             }
-            rs.close();
             ps.close();
             klient.getSamochod().setKlient(klient);
             addOrUpdateCar(klient.getSamochod());
@@ -305,31 +313,57 @@ public class DBHelper {
     public void addOrUpdateCar(Samochod car) {
         try {
             checkConnection();
+            String query = "INSERT INTO samochod(VIN, Producent, Model, Typ, Klient) VALUES(?, ?, ?, ?, ?)";
+            if(car.getId() != null) {
+                query = "UPDATE samochod SET VIN=?, Producent=?, Model=?, Typ=? WHERE ID=?";
+            }
             PreparedStatement ps = connection.prepareStatement(
-                    "INSERT INTO samochod(VIN, Producent, Model, Typ, Klient) VALUES(?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, car.getVin());
             ps.setString(2, car.getProducent());
             ps.setString(3, car.getModel());
             ps.setString(4, car.getTyp());
-            ps.setLong(5, car.getKlient().getId());
-            ps.executeUpdate();
-            ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                car.setId(rs.getLong(1));
+            if(car.getId() != null) {
+                ps.setLong(5, car.getId());
+                ps.executeUpdate();
+            } else {
+                ps.setLong(5, car.getKlient().getId());
+                ps.executeUpdate();
+                ResultSet rs = ps.getGeneratedKeys();
+                if(rs.next()) {
+                    car.setId(rs.getLong(1));
+                }
+                rs.close();
             }
-            rs.close();
             ps.close();
         } catch (SQLException e) {
             helper.error(e.getMessage());
         }
 
     }
+    
+    public boolean checkKlientAndCarHaveDependency(Klient k) {
+        boolean result = false;
+        try {
+            checkConnection();
+            PreparedStatement ps = connection.prepareStatement("SELECT 1 from naprawa where Klient=? or Samochod=?");
+            ps.setLong(1, k.getId());
+            ps.setLong(2, k.getSamochod().getId());
+            ResultSet rs = ps.executeQuery();
+            result = rs.next();
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            helper.error(e.getMessage());
+        }
+        return result;
+    }
 
     public boolean deleteKlient(Long id) {
         boolean result = false;
         try {
             checkConnection();
-            PreparedStatement ps = connection.prepareStatement("delete from Klient k where k.KlientId = ?");
+            PreparedStatement ps = connection.prepareStatement("delete from klient where ID=?");
             ps.setLong(1, id);
             int res = ps.executeUpdate();
             if (res == 1) {

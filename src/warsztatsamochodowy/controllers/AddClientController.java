@@ -57,6 +57,8 @@ public class AddClientController implements Initializable {
     
 
     private Helper helper = new Helper();
+    
+    private Klient klientToEdit;
     /**
     /**
      * Initializes the controller class.
@@ -93,7 +95,7 @@ public class AddClientController implements Initializable {
         Samochod samochod = null;
           if(StringUtils.isNotBlank(vin) && StringUtils.isNotBlank(producent) 
                 && StringUtils.isNotBlank(model) &&  StringUtils.isNotBlank(typ)) {
-            samochod = new Samochod(null, vin, producent, model, typ);
+            samochod = new Samochod(klientToEdit != null ? klientToEdit.getSamochod().getId() : null, vin, producent, model, typ);
         } 
         
         if(StringUtils.isBlank(imie)) {
@@ -115,6 +117,9 @@ public class AddClientController implements Initializable {
         if(StringUtils.isNotBlank(imie) && StringUtils.isNotBlank(nazwisko) 
                 && StringUtils.isNotBlank(nrTel) && samochod != null) {
             Klient k = new Klient(imie, nazwisko, nrTel, miejscowosc, adres, email, samochod);
+            if(klientToEdit != null) {
+                k.setId(klientToEdit.getId());
+            }
             DBHelper.getInstance().addOrUpdateKlient(k);
             DBHelper.getInstance().addOrUpdateNaprawa(k);
         } else {
@@ -132,5 +137,21 @@ public class AddClientController implements Initializable {
         helper.sceneSwitcher("/warsztatsamochodowy/views/Clients.fxml", "Warsztat samochodowy - Klienci");
         Stage addNewClient = (Stage) b_powrot.getScene().getWindow();
         addNewClient.close();
+    }
+
+    public void setKlientToEdit(Klient klientToEdit) {
+        this.klientToEdit = klientToEdit;
+        if(this.klientToEdit != null) {
+           tfImie.setText(this.klientToEdit.getImie());
+            tfNazwisko.setText(this.klientToEdit.getNazwisko());
+            tfNrTel.setText(this.klientToEdit.getNrTel());
+            tfMiejscowosc.setText(this.klientToEdit.getMiejscowosc());
+            tfAdres.setText(this.klientToEdit.getAdres());
+            tfEmail.setText(this.klientToEdit.getEmail());
+            tfVin.setText(this.klientToEdit.getSamochod().getVin());
+            tfProducent.setText(this.klientToEdit.getSamochod().getProducent());
+            tfModel.setText(this.klientToEdit.getSamochod().getModel());
+            tfTyp.setText(this.klientToEdit.getSamochod().getTyp());
+       }
     }
 }

@@ -12,8 +12,12 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -33,6 +37,10 @@ public class ClientsController implements Initializable {
     private Button powrot;
     @FXML
     private Button dodajKlienta;
+    @FXML
+    private Button edytujKlienta;
+    @FXML
+    private Button usunKlienta;
     
     @FXML
     private TableView<Klient> tabelaKlienci;
@@ -74,6 +82,7 @@ public class ClientsController implements Initializable {
         colEmail.setCellValueFactory(new PropertyValueFactory("email"));
         //colSamochod.setCellValueFactory(new PropertyValueFactory("samochod"));
         tabelaKlienci.setItems(FXCollections.observableArrayList(klienci));
+        tabelaKlienci.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }    
     /**
      * Obsługa przycisku otwierającego okno dodawania nowych klientów
@@ -89,6 +98,35 @@ public class ClientsController implements Initializable {
          Stage clients = (Stage) powrot.getScene().getWindow();
          clients.close();
     }
+    
+    @FXML
+    private void usunKlienta(ActionEvent event) throws IOException {
+        if(tabelaKlienci.getSelectionModel().getSelectedItem() != null) {
+            if(DBHelper.getInstance().checkKlientAndCarHaveDependency(tabelaKlienci.getSelectionModel().getSelectedItem())) {
+                helper.message("Nie można usunąc klienta - posiada zależności w naprawach");
+            } else {
+                DBHelper.getInstance().deleteCar(tabelaKlienci.getSelectionModel().getSelectedItem().getSamochod().getId());
+                DBHelper.getInstance().deleteKlient(tabelaKlienci.getSelectionModel().getSelectedItem().getId());
+                tabelaKlienci.getSelectionModel().clearSelection();
+                klienci = DBHelper.getInstance().getKlienci();
+                tabelaKlienci.setItems(FXCollections.observableArrayList(klienci));
+            }
+        } else {
+             helper.message("Zaznacz Klienta!");
+        }
+    }
+
+    @FXML
+    private void edytujKlienta(ActionEvent event) throws IOException {
+        if (tabelaKlienci.getSelectionModel().getSelectedItem() != null) {
+            openEditScene(tabelaKlienci.getSelectionModel().getSelectedItem());
+            Stage clients = (Stage) powrot.getScene().getWindow();
+            clients.close();
+            tabelaKlienci.getSelectionModel().clearSelection();
+        } else {
+            helper.message("Zaznacz Klienta!");
+        }
+    }
     /**
      * Medota obslugujaca przycisk powrotu do panelu glownego programu
      * @param event
@@ -100,6 +138,17 @@ public class ClientsController implements Initializable {
         helper.powrotDoMenu();
         Stage clients = (Stage) powrot.getScene().getWindow();
         clients.close();
+    }
+    
+    private void openEditScene(Klient klient) throws IOException {
+         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/warsztatsamochodowy/views/AddClient.fxml"));
+        Stage settings_scene = new Stage();
+        Parent root = (Parent) fxmlLoader.load();
+        AddClientController editController = (AddClientController) fxmlLoader.getController();
+        editController.setKlientToEdit(klient);
+        settings_scene.setScene(new Scene(root));
+        settings_scene.setTitle("Warsztat samochodowy - Edytuj Klienta");
+        settings_scene.show();
     }
     
 }
