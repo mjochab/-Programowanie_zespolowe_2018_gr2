@@ -19,6 +19,8 @@
               <TableColumn fx:id="colSamochod" prefWidth="140.0" text="Samochód" />
           </columns> 
       </TableView>
-      <Button fx:id="dodajKlienta" layoutX="610.0" layoutY="348.0" mnemonicParsing="false" onAction="#dodajKlienta" text="Dodaj klienta" />
+            <Button fx:id="dodajKlienta" layoutX="610.0" layoutY="250.0" mnemonicParsing="false" onAction="#dodajKlienta" text="Dodaj klienta" />
+            <Button fx:id="edytujKlienta" layoutX="610.0" layoutY="300.0" mnemonicParsing="false" onAction="#edytujKlienta" text="Edytuj klienta" />
+            <Button fx:id="usunKlienta" layoutX="610.0" layoutY="350.0" mnemonicParsing="false" onAction="#usunKlienta" text="Usuń klienta" />
    </children>
 </AnchorPane>
