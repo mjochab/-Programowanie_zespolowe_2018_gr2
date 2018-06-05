@@ -5,21 +5,20 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="warsztatsamochodowy.controllers.TasksController">
+<AnchorPane id="AnchorPane" prefHeight="489.0" prefWidth="727.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="warsztatsamochodowy.controllers.TasksController">
    <children>
-      <TableView prefHeight="400.0" prefWidth="499.0">
+      <TableView fx:id="tabelaFix" prefHeight="489.0" prefWidth="585.0">
         <columns>
-          <TableColumn fx:id="colWorker" prefWidth="101.0" text="Pracownik" />
-          <TableColumn fx:id="colClient" prefWidth="116.0" text="Klient" />
-            <TableColumn fx:id="colCar" prefWidth="116.0" text="Samochód" />
-            <TableColumn fx:id="colStatus" prefWidth="99.0" text="Status naprawy" />
-            <TableColumn fx:id="colPrice" prefWidth="66.0" text="Cena" />
+          <TableColumn fx:id="colWorker" prefWidth="100.0" text="Pracownik" />
+          <TableColumn fx:id="colClient" prefWidth="100.0" text="Klient" />
+            <TableColumn fx:id="colPrice" prefWidth="50.0" text="Koszt" />
+            <TableColumn fx:id="colStatus" prefWidth="100.0" text="Status" />
+            <TableColumn fx:id="colAbout" prefWidth="100.0" text="Opis" />
         </columns>
       </TableView>
-      <Button fx:id="back" layoutX="517.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" text="Powrot" />
-      <Button fx:id="addTask" layoutX="504.0" layoutY="147.0" mnemonicParsing="false" onAction="#addTask" text="Dodaj zlecenie" />
-      <Button fx:id="editTask" layoutX="504.0" layoutY="188.0" mnemonicParsing="false" onAction="#editTask" text="Edytuj zlecenie" />
-      <Button fx:id="deleteTask" layoutX="504.0" layoutY="225.0" mnemonicParsing="false" onAction="#deleteTask" text="Usun zlecenie" />
+      <Button fx:id="back" layoutX="659.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" text="Powrot" />
+      <Button fx:id="addTask" layoutX="620.0" layoutY="124.0" mnemonicParsing="false" onAction="#addTask" text="Dodaj zlecenie" />
+      <Button fx:id="editTask" layoutX="620.0" layoutY="175.0" mnemonicParsing="false" onAction="#editTask" text="Edytuj zlecenie" />
+      <Button fx:id="deleteTask" layoutX="622.0" layoutY="220.0" mnemonicParsing="false" onAction="#deleteTask" text="Usun zlecenie" />
    </children>
 </AnchorPane>

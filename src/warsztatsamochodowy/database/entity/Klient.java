@@ -53,6 +53,16 @@ public class Klient implements Serializable {
         this.samochod = samochod;
         this.email = email;
     }
+    
+    public Klient(Long id, String imie, String nazwisko, String nrTel, String miejscowosc, String adres, String email) {
+        this.id = id;
+        this.imie = imie;
+        this.nazwisko = nazwisko;
+        this.nrTel = nrTel;
+        this.miejscowosc = miejscowosc;
+        this.adres = adres;
+        this.email = email;
+    }
 
     public Klient(Long id, String imie, String nazwisko) {
         this.id = id;

@@ -116,7 +116,7 @@ public class NewWorkersController implements Initializable {
 
         Statement stmt = null;
         
-       
+
 
         try {
 
@@ -142,6 +142,7 @@ public class NewWorkersController implements Initializable {
                     + "','" + wyplata
                     + "');";
 
+            
             int wynik = stmt.executeUpdate(query);
             helper.message("Ustawienia zostały zapisane");
             tfLogin.clear();

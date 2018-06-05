@@ -146,8 +146,30 @@ public class PartsController implements Initializable {
     }
 
     @FXML
-    private void usunCzesc(ActionEvent event) {
+    private void usunCzesc_button() {
 
+        ObservableList<Czesc> czescZaznaczona;
+        ObservableList<Czesc> doUsuniecia = FXCollections.observableArrayList();
+        czescZaznaczona = tab_czesci.getSelectionModel().getSelectedItems();
+        for (Czesc c : czescZaznaczona) {
+
+            String id = c.getID();
+
+            boolean wynik = usunCzesci(id);
+            if (wynik == true) {
+
+                doUsuniecia.add(c);
+            }
+
+        }
+
+        usunzTabeli(doUsuniecia);
+        tab_czesci.getSelectionModel().clearSelection();
+
+    }
+
+    boolean usunCzesci(String id) {
+        boolean dziala = false;
         try {
             if (sesja == null || sesja.isClosed()) {
                 sesja = PolaczenieDB.connectDatabase();
@@ -155,24 +177,11 @@ public class PartsController implements Initializable {
             if (stmt == null || stmt.isClosed()) {
                 stmt = sesja.createStatement();
             }
-
-            ObservableList<Czesc> czescZaznaczona;
-            ObservableList<Czesc> doUsuniecia = FXCollections.observableArrayList();
-            czescZaznaczona = tab_czesci.getSelectionModel().getSelectedItems();
-            for (Czesc c : czescZaznaczona) {
-
-                String id = c.getID();
-
-                int wynik = stmt.executeUpdate("DELETE FROM Czesc WHERE CzescId = " + id + ";");
-                if (wynik == 1) {
-
-                    doUsuniecia.add(c);
-                }
-
+            
+            int wynik = stmt.executeUpdate("DELETE FROM czesc WHERE CzescID = '" + id + "';");
+            if (wynik == 1) {
+                dziala = true;
             }
-
-            usunzTabeli(doUsuniecia);
-            tab_czesci.getSelectionModel().clearSelection();
 
         } catch (Exception e) {
             helper.error(e.getMessage());
@@ -185,7 +194,7 @@ public class PartsController implements Initializable {
                 }
             }
         }
-
+        return dziala;
     }
 
     @FXML
@@ -210,7 +219,8 @@ public class PartsController implements Initializable {
         }
 
     }
-       public String getID() {
+
+    public String getID() {
         return ID;
     }
 

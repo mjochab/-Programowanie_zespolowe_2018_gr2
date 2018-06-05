@@ -55,3 +55,6 @@ release.properties
 pom.xml.releaseBackup
 pom.xml.tag
 /raport.pdf
+/src/warsztatsamochodowy/views/Workers.fxml.orig
+/src/warsztatsamochodowy/viewmodels/RepairWorkerVM.java.orig
+/src/warsztatsamochodowy/database/DBHelper.java.orig

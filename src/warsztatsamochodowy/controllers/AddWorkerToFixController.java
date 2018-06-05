@@ -14,11 +14,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -30,13 +30,13 @@ import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import warsztatsamochodowy.Helper;
 import warsztatsamochodowy.database.DBHelper;
-import warsztatsamochodowy.database.DatabaseConnection;
-import warsztatsamochodowy.database.entity.Potwierdzenie;
 import warsztatsamochodowy.database.entity.Repair;
 import warsztatsamochodowy.database.entity.Pracownik;
 import warsztatsamochodowy.database.entity.Samochod;
 import warsztatsamochodowy.viewmodels.RepairWorkerVM;
 
+import warsztatsamochodowy.database.DatabaseConnection;
+import warsztatsamochodowy.database.entity.Potwierdzenie;
 /**
  * FXML Controller class
  *
@@ -48,6 +48,9 @@ public class AddWorkerToFixController implements Initializable {
     private  List<Pracownik> dbWorkers = new ArrayList<>();
     private  List<Repair> dbFix = new ArrayList<>();
     private  List<RepairWorkerVM> repairWorkerVM = new ArrayList<>();
+    
+    Connection sesja;
+    
     @FXML
     private ComboBox<Pracownik> workersCB = new ComboBox<>();
     @FXML
@@ -72,16 +75,7 @@ public class AddWorkerToFixController implements Initializable {
     @FXML
     private TableColumn<String, String> carMakeTable;
     @FXML
-    private Button b_usun;
-    
-      DatabaseConnection PolaczenieDB = new DatabaseConnection();
-
-    Connection sesja = PolaczenieDB.connectDatabase();
-    @FXML
-    private TableColumn<Integer, Integer> RepairIdTable;
-    @FXML
     private Button b_usun_Pracwonika;
-    
     /**
      * Initializes the controller class.
      * Dodaje listy napraw oraz liste pracownikow do comboboxow
@@ -95,7 +89,7 @@ public class AddWorkerToFixController implements Initializable {
 
     @FXML
     private void addWorkerToFix(ActionEvent event) {
-        int fixId = fixesCB.getSelectionModel().getSelectedItem().getFixId();
+        long fixId = fixesCB.getSelectionModel().getSelectedItem().getID();
         int workerId = workersCB.getSelectionModel().getSelectedItem().getID();
         if(fixId < 1 && workerId < 1){
             helper.error("Nalezy wybrac pracownika oraz naprawe");
@@ -137,7 +131,7 @@ public class AddWorkerToFixController implements Initializable {
       carIdTable.setCellValueFactory(new PropertyValueFactory("CarId"));
       carProducerTable.setCellValueFactory(new PropertyValueFactory("Producent"));
       carMakeTable.setCellValueFactory(new PropertyValueFactory("Model"));
-      RepairIdTable.setCellValueFactory(new PropertyValueFactory("FixId"));
+     
     }
     private void setComboBoxes(){
      dbFix = dbhelper.getAllTasks();
@@ -162,12 +156,12 @@ public class AddWorkerToFixController implements Initializable {
      //get carId and create new list
      dbFixList.forEach((f) -> {
             Samochod samochod = dbCars.stream()
-                    .filter(w -> w.getId() == f.getSamochodId()).findFirst().get();
+                    .filter(w -> w.getId() == f.getSamochod().getId()).findFirst().get();
              if(samochod == null){
                  helper.message("Nie znaleziono auta");
                  return;
                  }
-          filteredFixList.add(new Repair(f.getFixId(), samochod.getProducent(), samochod.getModel()));
+          filteredFixList.add(new Repair(f.getID(), samochod.getProducent(), samochod.getModel()));
            
      });
      //set combobox for fixes
@@ -179,7 +173,7 @@ public class AddWorkerToFixController implements Initializable {
     private  StringConverter<Repair> converterFix = new StringConverter<Repair>() {
             @Override
             public String toString(Repair object) {
-                return object.getFixId() + " " +object.getCarName()+object.getCarProducer();
+                return object.getID()+ " " +object.getSamochod().getModel()+object.getSamochod().getProducent();
             }
 
             @Override
@@ -187,6 +181,7 @@ public class AddWorkerToFixController implements Initializable {
                 return null;
             }
         };
+
 
     @FXML
     private void usunNaprawe(ActionEvent event) {
@@ -215,7 +210,6 @@ public class AddWorkerToFixController implements Initializable {
         }
           }
           
-        
         
         
     }
@@ -249,7 +243,5 @@ public class AddWorkerToFixController implements Initializable {
            helper.error(e.getMessage());
         }
           }
-        
-        
     }
 }
