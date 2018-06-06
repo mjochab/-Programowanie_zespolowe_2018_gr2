@@ -11,7 +11,7 @@ import warsztatsamochodowy.Helper;
 
 public class DatabaseConnection {
 
-          Connection con;
+    Connection con;
     private Helper helper = new Helper();
     
    
