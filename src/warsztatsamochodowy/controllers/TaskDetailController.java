@@ -29,9 +29,17 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import warsztatsamochodowy.Helper;
+import static warsztatsamochodowy.controllers.TasksController.Data_zakonczenia;
+import static warsztatsamochodowy.controllers.TasksController.Imie;
+import static warsztatsamochodowy.controllers.TasksController.Koszt;
+import static warsztatsamochodowy.controllers.TasksController.Naprawa_ID;
+import static warsztatsamochodowy.controllers.TasksController.Nazwisko;
+import static warsztatsamochodowy.controllers.TasksController.Opis;
+import static warsztatsamochodowy.controllers.TasksController.Status;
 import warsztatsamochodowy.database.DatabaseConnection;
 import warsztatsamochodowy.database.entity.Czesc;
 import warsztatsamochodowy.database.entity.PracownikRepair;
+import warsztatsamochodowy.database.entity.Repair;
 
 /**
  * FXML Controller class
@@ -89,6 +97,8 @@ public class TaskDetailController implements Initializable {
     Statement stmt;
 
     public static boolean edit;
+    @FXML
+    private Button button_detalEdit;
 
     public boolean getEdit() {
         return edit;
@@ -174,6 +184,39 @@ public class TaskDetailController implements Initializable {
         tabelaPracownicy.getItems().clear();
         wczytajCzesci();
         wczytajPracownikow();
+
+        try {
+            TasksController task = new TasksController();
+            if (sesja == null || sesja.isClosed()) {
+                sesja = PolaczenieDB.connectDatabase();
+            }
+            stmt = sesja.createStatement();
+
+            ResultSet rs = stmt.executeQuery("SELECT * FROM klient INNER JOIN naprawa ON naprawa.id_klienta = klient.KlientId WHERE naprawa.napraw_id = " + task.getRepairID());
+
+            while (rs.next()) {
+                Naprawa_ID = rs.getString("napraw_id");
+                Imie = rs.getString("Imie");
+                Nazwisko = rs.getString("Nazwisko");
+                Data_zakonczenia = rs.getString("data_zakonczenia");
+                Koszt = rs.getString("koszt");
+                Status = rs.getString("status");
+                Opis = rs.getString("opis");
+            }
+            label_klient.setText(task.getImie() + " " + task.getNazwisko());
+
+        } catch (Exception e) {
+            helper.error(e.getMessage());
+        } finally {
+
+            if (sesja != null) {
+                try {
+                    sesja.close();
+                } catch (Exception e) {
+                }
+            }
+        }
+
     }
 
     private void dodajDoTabeliDodanych(String id, String nazwa, String producent, String ilosc, String cena) {
@@ -257,6 +300,73 @@ public class TaskDetailController implements Initializable {
             }
         }
 
+    }
+    public static String Imie, Nazwisko, Naprawa_ID, Data_zakonczenia, Koszt, Status, Opis, Edit;
+
+    @FXML
+    private void detalEdit(ActionEvent event) {
+        edit = true;
+        try {
+            TasksController task = new TasksController();
+            if (sesja == null || sesja.isClosed()) {
+                sesja = PolaczenieDB.connectDatabase();
+            }
+            stmt = sesja.createStatement();
+
+            ResultSet rs = stmt.executeQuery("SELECT * FROM klient INNER JOIN naprawa ON naprawa.id_klienta = klient.KlientId WHERE naprawa.napraw_id = " + task.getRepairID());
+
+            while (rs.next()) {
+                Naprawa_ID = rs.getString("napraw_id");
+                Imie = rs.getString("Imie");
+                Nazwisko = rs.getString("Nazwisko");
+                Data_zakonczenia = rs.getString("data_zakonczenia");
+                Koszt = rs.getString("koszt");
+                Status = rs.getString("status");
+                Opis = rs.getString("opis");
+            }
+            helper.sceneSwitcher("/warsztatsamochodowy/views/AddRepair.fxml", "Warsztat samochodowy - Szczegoly zlecenia");
+            Stage this_scene = (Stage) button_detalEdit.getScene().getWindow();
+
+        } catch (Exception e) {
+            helper.error(e.getMessage());
+        } finally {
+
+            if (sesja != null) {
+                try {
+                    sesja.close();
+                } catch (Exception e) {
+                }
+            }
+        }
+
+    }
+
+    public String getRepairID() {
+        return Naprawa_ID;
+    }
+
+    public String getImie() {
+        return Imie;
+    }
+
+    public String getNazwisko() {
+        return Nazwisko;
+    }
+
+    public String getData_zakonczenia() {
+        return Data_zakonczenia;
+    }
+
+    public String getKoszt() {
+        return Koszt;
+    }
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public String getOpis() {
+        return Opis;
     }
 
 }

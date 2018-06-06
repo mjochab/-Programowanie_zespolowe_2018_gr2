@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="556.0" prefWidth="983.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1" fx:controller="warsztatsamochodowy.controllers.TaskDetailController">
+<AnchorPane id="AnchorPane" prefHeight="556.0" prefWidth="983.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="warsztatsamochodowy.controllers.TaskDetailController">
    <children>
       <TextField fx:id="field_koszt" disable="true" layoutX="154.0" layoutY="80.0" />
       <DatePicker fx:id="datazakonczenia" disable="true" layoutX="154.0" layoutY="35.0" />
@@ -27,7 +26,7 @@
          </font>
       </Label>
       <Button fx:id="button_zmienKlienta" layoutX="634.0" layoutY="118.0" mnemonicParsing="false" onAction="#zmienKlienta" text="Zmien klienta" />
-      <Button layoutX="251.0" layoutY="201.0" mnemonicParsing="false" text="Edytuj" />
+      <Button fx:id="button_detalEdit" layoutX="251.0" layoutY="201.0" mnemonicParsing="false" onAction="#detalEdit" text="Edytuj" />
       <TableView fx:id="tab_czesci" layoutX="14.0" layoutY="290.0" prefHeight="213.0" prefWidth="317.0">
          <columns>
             <TableColumn fx:id="kol_Nazwa" prefWidth="90.0" style="-fx-alignment: center;" text="Nazwa" />
