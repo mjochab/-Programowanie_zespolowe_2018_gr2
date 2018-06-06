@@ -1,6 +1,6 @@
 # -Programowanie_zespolowe_2018_gr2
 
-Warsztat samochodowy napisany w JavaFX
+Warsztat samochodowy napisany w JavaFX 
 
 # Aplikacja będzie miała za zadaie obsługiwanie klientów oraz przebieg napraw. Będziemy mieli możliwość:
 dodawanie, usuwanie, edycje, podgląd pracowników
@@ -22,6 +22,7 @@ drukowanie raportu PDF odnośnie realizacji zamówień
 Jira
 GitHub
 GitHub Desktop
+Git Extensions
 JavaFx
 NetBeans
 
@@ -39,3 +40,7 @@ NetBeans
 # Diagram klas
 
 <img src="klas.png">
+
+# Diagram ERD
+
+
