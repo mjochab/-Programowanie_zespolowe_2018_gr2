@@ -92,16 +92,18 @@ public class DBHelper {
         try {
             checkConnection();
             Statement s = connection.createStatement();
-            s.execute("SELECT n.napraw_id, n.koszt, n.status, n.opis, p.PracownikId, p.Imie, p.Nazwisko, "
-                    + "k.KlientId, k.Imie, k.Nazwisko, "
-                    + "s.SamochodId, s.producent, s.model"
-                    + "FROM napraw2 as n "
-                    + "INNER JOIN pracownik p ON p.PracownikId = n.id_pracownika "
-                    + "INNER JOIN klient k ON k.KlientId = n.id_klienta "
-                    + "INNER JOIN samochod s ON s.SamochodId = n.id_samochodu ");
+            s.execute("SELECT n.napraw_id, n.koszt, n.status, n.opis, p.PracownikId, p.Imie, p.Nazwisko, \n" +
+"                    k.KlientId, k.Imie, k.Nazwisko, \n" +
+"                    s.SamochodId, s.producent, s.model\n" +
+"                   FROM naprawa as n \n" +
+"                    inner join naprawa_pracownika np on n.napraw_id = np.id_naprawy \n" +
+"                    INNER JOIN pracownik p ON p.PracownikId = np.id_pracownika \n" +
+"                    INNER JOIN klient k ON k.KlientId = n.id_klienta \n" +
+"                    INNER JOIN samochod s ON s.Klient = k.KlientId");
+          
             ResultSet rs = s.getResultSet();
             while (rs.next()) {
-                fix.add(new Repair(rs.getLong("naprawa_id"), rs.getString("koszt"), rs.getString("status"), rs.getString("opis"), 
+                fix.add(new Repair(rs.getLong("napraw_id"), rs.getString("koszt"), rs.getString("status"), rs.getString("opis"), 
                         new Pracownik(rs.getInt("PracownikId"), rs.getString("Imie"), rs.getString("Nazwisko")),
                         new Klient(rs.getLong("KlientId"), rs.getString("Imie"), rs.getString("Nazwisko")),
                         new Samochod(rs.getLong("SamochodId"), rs.getString("Producent"), rs.getString("Model"))));
@@ -121,21 +123,22 @@ public class DBHelper {
         try {
             checkConnection();
             Statement s = connection.createStatement();
-            s.execute("select p.PracownikId, s.SamochodId,n.NaprawaId, p.Imie, p.Nazwisko, s.Producent, s.Model from naprawa_pracownik np\n" 
-                    + "inner join naprawa n on np.Naprawa = n.NaprawaId\n"
-                    + "inner join pracownik p on np.Pracownik = p.PracownikId\n"
-                    + "inner join klient k on n.Klient = k.KlientId\n"
-                    + "inner join samochod s on n.Samochod = s.SamochodId");
+            s.execute("select p.PracownikId, s.SamochodId,n.napraw_id, p.Imie, p.Nazwisko, s.Producent, s.Model, n.status from naprawa_pracownika np "
+                    + "inner join naprawa n on np.id_naprawy = n.napraw_id\n"
+                    + "inner join pracownik p on np.id_pracownika = p.PracownikId\n"
+                    + "inner join klient k on n.id_klienta = k.KlientId\n"
+                    + "inner join samochod s on k.KlientId = s.Klient");
             ResultSet rs = s.getResultSet();
             while (rs.next()) {
                 repairWorker.add(new RepairWorkerVM(
                         rs.getInt("SamochodId"),
                                                     rs.getInt("PracownikId"),
-                                                    rs.getInt("NaprawaId"),
+                                                    rs.getInt("napraw_id"),
                         rs.getString("Imie"),
                         rs.getString("Nazwisko"),
                         rs.getString("Model"),
-                        rs.getString("Producent")));
+                        rs.getString("Producent"),
+                        rs.getString("Status")));
             }
             rs.close();
             s.close();
@@ -300,7 +303,7 @@ public class DBHelper {
         try {
             checkConnection();
             PreparedStatement ps = connection.prepareStatement(
-                    "INSERT INTO naprawa_pracownik(Naprawa,Pracownik) VALUES(?, ?)", Statement.RETURN_GENERATED_KEYS);
+                    "INSERT INTO naprawa_pracownika(Naprawa,Pracownik) VALUES(?, ?)", Statement.RETURN_GENERATED_KEYS);
             ps.setLong(1, fixId);
             ps.setInt(2, workerId);
             ps.executeUpdate();

@@ -26,7 +26,7 @@
             <TableColumn fx:id="carIdTable" prefWidth="97.0" text="Id Samochodu" />
             <TableColumn fx:id="carProducerTable" prefWidth="72.0" text="Producent" />
             <TableColumn fx:id="carMakeTable" prefWidth="56.0" text="Marka" />
-            <TableColumn fx:id="RepairIdTable" prefWidth="127.0" text="Id naprawy" />
+            <TableColumn fx:id="colReprairStatus" prefWidth="127.0" text="Status" />
         </columns>
       </TableView>
       <Button fx:id="b_usun" layoutX="337.0" layoutY="354.0" mnemonicParsing="false" onAction="#usunNaprawe" text="Usun Naprawe" />

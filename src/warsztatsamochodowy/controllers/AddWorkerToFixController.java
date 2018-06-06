@@ -76,6 +76,10 @@ public class AddWorkerToFixController implements Initializable {
     private TableColumn<String, String> carMakeTable;
     @FXML
     private Button b_usun_Pracwonika;
+    @FXML
+    private TableColumn<String, String> colReprairStatus;
+    @FXML
+    private Button b_usun;
     /**
      * Initializes the controller class.
      * Dodaje listy napraw oraz liste pracownikow do comboboxow
@@ -131,6 +135,7 @@ public class AddWorkerToFixController implements Initializable {
       carIdTable.setCellValueFactory(new PropertyValueFactory("CarId"));
       carProducerTable.setCellValueFactory(new PropertyValueFactory("Producent"));
       carMakeTable.setCellValueFactory(new PropertyValueFactory("Model"));
+      colReprairStatus.setCellValueFactory(new PropertyValueFactory("Status"));
      
     }
     private void setComboBoxes(){
