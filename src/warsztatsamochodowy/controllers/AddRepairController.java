@@ -33,7 +33,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import warsztatsamochodowy.Helper;
-import static warsztatsamochodowy.controllers.SearchClientsController.ID;
+import static warsztatsamochodowy.controllers.TaskDetailController.LOCAL_DATE;
 import warsztatsamochodowy.database.DatabaseConnection;
 
 /**
@@ -85,20 +85,17 @@ public class AddRepairController implements Initializable {
         label_client.setText(name);
     }
 
+    TaskDetailController taskd = new TaskDetailController();
+    TasksController task = new TasksController();
     private Helper helper = new Helper();
 
     DatabaseConnection PolaczenieDB = new DatabaseConnection();
     Connection sesja;
     Statement stmt;
 
-    LoginController login = new LoginController();
-    String id_pracownika = login.getID();
-
+    //LoginController login = new LoginController();
+    //String id_pracownika = login.getID();
     public static int Last_ID;
-
-    public int getLastID() {
-        return Last_ID;
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -108,6 +105,16 @@ public class AddRepairController implements Initializable {
                 "Zakonczone"
         );
         combo_status.setItems(status);
+
+        if (taskd.getEdit() == true) {
+            datazakonczenia.setValue(LOCAL_DATE("" + task.getData_zakonczenia() + ""));
+            combo_status.setValue(task.getStatus());
+            field_koszt.setText(task.getKoszt());
+            field_opis.setText(task.getOpis());
+            button_back.setDisable(true);
+            button_add.setText("Aktualizuj");
+        }
+
     }
 
     @FXML
@@ -120,14 +127,14 @@ public class AddRepairController implements Initializable {
     @FXML
     public void addTask(ActionEvent event) throws IOException {
         SearchClientsController klient = new SearchClientsController();
-        String id_wybranegoklienta = klient.getID();
+        String id_wybranegoklienta = klient.getClientID();
 
         try {
             if (sesja == null || sesja.isClosed()) {
                 sesja = PolaczenieDB.connectDatabase();
             }
             PreparedStatement ps = sesja.prepareStatement(
-                    "INSERT INTO naprawa(data_rozpoczecia, data_zakonczenia, koszt, status, opis, id_pracownika, id_klienta) VALUES(?,?,?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS
+                    "INSERT INTO naprawa(data_rozpoczecia, data_zakonczenia, koszt, status, opis, id_klienta) VALUES(?,?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS
             );
             Date now = new Date();
             ps.setTimestamp(1, new Timestamp(now.getTime()));
@@ -137,15 +144,14 @@ public class AddRepairController implements Initializable {
             ps.setString(4, combo_status.getSelectionModel().getSelectedItem());
             ps.setString(5, field_opis.getText());
 
-            ps.setString(6, id_pracownika);
-            ps.setString(7, id_wybranegoklienta);
-            ps.execute();
-            
+            ps.setString(6, id_wybranegoklienta);
+            ps.executeUpdate();
+
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 Last_ID = rs.getInt(1);
             }
-            
+
             ps.close();
             helper.message("Dodano naprawe");
 
@@ -153,10 +159,12 @@ public class AddRepairController implements Initializable {
 //            while (rs.next()) {
 //                Last_ID = rs.getString("LAST_INSERT_ID()");
 //            }
-
+            helper.sceneSwitcher("/warsztatsamochodowy/views/AddPartsToRepair.fxml", "Warsztat samochodowy - Dodaj czesci");
+            Stage this_scene = (Stage) button_add.getScene().getWindow();
+            this_scene.hide();
 
         } catch (Exception e) {
-            helper.error(e.getMessage());
+            helper.error("Blednie wypelnione pola");
         } finally {
 
             if (sesja != null) {
@@ -166,9 +174,11 @@ public class AddRepairController implements Initializable {
                 }
             }
         }
-            helper.sceneSwitcher("/warsztatsamochodowy/views/AddPartsToRepair.fxml", "Warsztat samochodowy - Dodaj czesci");
-            Stage this_scene = (Stage) button_add.getScene().getWindow();
-            this_scene.hide();
+
+    }
+
+    public int getLastID() {
+        return Last_ID;
     }
 
     @FXML
