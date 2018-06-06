@@ -28,3 +28,4 @@ NetBeans
 # Diagram UML
 
 <img src="Diagram UML przypadkow uzycia.png">
+<img src="kier.png">
