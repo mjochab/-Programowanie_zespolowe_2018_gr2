@@ -116,7 +116,7 @@ public class NewWorkersController implements Initializable {
 
         Statement stmt = null;
         
-       
+
 
         try {
 
@@ -129,7 +129,7 @@ public class NewWorkersController implements Initializable {
 //       
 //         }
 //            
-            String query = "INSERT INTO pracownik (ID, Login, Haslo, Imie, Nazwisko, Miejscowosc, Adres, Telefon, Email, Specjalizacja, Status,Wynagrodzenie) "
+            String query = "INSERT INTO pracownik (PracownikId, Login, Haslo, Imie, Nazwisko, Miejscowosc, Adres, Telefon, Email, Specjalizacja, Status,Wynagrodzenie) "
                     + "Values(NULL,'" + tfLogin.getText()
                     + "','" + tfHaslo.getText() + "','" + tfImie.getText()
                     + "','" + tfNazwisko.getText()
@@ -142,6 +142,7 @@ public class NewWorkersController implements Initializable {
                     + "','" + wyplata
                     + "');";
 
+            
             int wynik = stmt.executeUpdate(query);
             helper.message("Ustawienia zostały zapisane");
             tfLogin.clear();

@@ -16,18 +16,18 @@ import javafx.beans.property.StringProperty;
  */
 public class Pracownik {
 
-    private final IntegerProperty ID;
-    private final StringProperty Login;
-    private final StringProperty Haslo;
-    private final StringProperty Imie;
-    private final StringProperty Nazwisko;
-    private final StringProperty Miejscowosc;
-    private final StringProperty Adres;
-    private final StringProperty Telefon;
-    private final StringProperty Email;
-    private final StringProperty Specjalizacja;
-    private final StringProperty Status;
-    private final IntegerProperty Wynagrodzenie;
+    private IntegerProperty ID;
+    private StringProperty Login;
+    private StringProperty Haslo;
+    private StringProperty Imie;
+    private StringProperty Nazwisko;
+    private StringProperty Miejscowosc;
+    private StringProperty Adres;
+    private StringProperty Telefon;
+    private StringProperty Email;
+    private StringProperty Specjalizacja;
+    private StringProperty Status;
+    private IntegerProperty Wynagrodzenie;
 
     public Pracownik(Integer ID, String Login, String Haslo, String Imie, String Nazwisko, String Miejscowosc, String Adres, String Telefon, String Email, String Specjalizacja, String Status, Integer Wynagrodzenie) {
         this.ID = new SimpleIntegerProperty(ID);
@@ -42,82 +42,129 @@ public class Pracownik {
         this.Specjalizacja = new SimpleStringProperty(Specjalizacja);
         this.Status = new SimpleStringProperty(Status);
         this.Wynagrodzenie = new SimpleIntegerProperty(Wynagrodzenie);
-        
+
     }
 
-    
-     public Integer getID(){
+    public Pracownik(Integer ID, String Imie, String Nazwisko, String Status) {
+        this.ID = new SimpleIntegerProperty(ID);
+        this.Imie = new SimpleStringProperty(Imie);
+        this.Nazwisko = new SimpleStringProperty(Nazwisko);
+        this.Status = new SimpleStringProperty(Status);
+    }
+
+    public Pracownik(int ID, String Imie, String Nazwisko) {
+        this.ID = new SimpleIntegerProperty(ID);
+        this.Imie = new SimpleStringProperty(Imie);
+        this.Nazwisko = new SimpleStringProperty(Nazwisko);
+    }
+
+    public Integer getID() {
         return ID.get();
     }
-    public String getLogin(){
-        return Login.get();      
+
+    public String getLogin() {
+        return Login.get();
     }
-    public String getHaslo(){
+
+    public String getHaslo() {
         return Haslo.get();
     }
-    public String getImie(){
+
+    public String getImie() {
         return Imie.get();
     }
-    public String getNazwisko(){
+    
+    public void setImie(String Imie) {
+        ImieProperty().set(Imie);
+    }
+
+    public String getNazwisko() {
         return Nazwisko.get();
     }
-    public String getMiejscowosc(){
+    
+    public void setNazwisko(String Nazwisko) {
+        NazwiskoProperty().set(Nazwisko);
+    }
+
+    public String getMiejscowosc() {
         return Miejscowosc.get();
     }
-    public String getAdres(){
+
+    public String getAdres() {
         return Adres.get();
     }
-    public String getTelefon(){
+
+    public String getTelefon() {
         return Telefon.get();
     }
-       public String getEmail(){
+
+    public String getEmail() {
         return Email.get();
     }
-       public String getSpecjalizacja(){
+
+    public String getSpecjalizacja() {
         return Specjalizacja.get();
     }
-        public String getStatus(){
+
+    public String getStatus() {
         return Status.get();
     }
-            public Integer getWynagrodzenie(){
+
+    public Integer getWynagrodzenie() {
         return Wynagrodzenie.get();
     }
-     public IntegerProperty IDProperty() {
+
+    public IntegerProperty IDProperty() {
         return ID;
-     }
+    }
+
     public StringProperty LoginProperty() {
         return Login;
     }
-     public StringProperty HasloProperty() {
+
+    public StringProperty HasloProperty() {
         return Haslo;
     }
-      public StringProperty ImieProperty() {
+
+    public StringProperty ImieProperty() {
         return Imie;
     }
-      public StringProperty NazwiskoProperty() {
+
+    public StringProperty NazwiskoProperty() {
         return Nazwisko;
     }
-       public StringProperty MiejscowoscProperty() {
+
+    public StringProperty MiejscowoscProperty() {
         return Miejscowosc;
     }
-        public StringProperty AdresProperty() {
+
+    public StringProperty AdresProperty() {
         return Adres;
     }
-         public StringProperty TelefonProperty() {
+
+    public StringProperty TelefonProperty() {
         return Telefon;
     }
-          public StringProperty EmailProperty() {
+
+    public StringProperty EmailProperty() {
         return Email;
     }
-          public StringProperty SpecjalizacjaProperty() {
+
+    public StringProperty SpecjalizacjaProperty() {
         return Specjalizacja;
     }
-          public StringProperty StatusProperty() {
+
+    public StringProperty StatusProperty() {
         return Status;
     }
-          public IntegerProperty WynagrodzenieProperty() {
+
+    public IntegerProperty WynagrodzenieProperty() {
         return Wynagrodzenie;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return Imie + " " + Nazwisko;
+    }
+
 }

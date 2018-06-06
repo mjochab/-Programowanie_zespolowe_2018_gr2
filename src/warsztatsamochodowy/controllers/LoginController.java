@@ -26,7 +26,9 @@ public class LoginController implements Initializable {
 
     public static String Stanowisko;
     public static String Username;
+    public static String ID;
 
+    public boolean junit = false;
     private Helper helper = new Helper();
     DatabaseConnection PolaczenieDB = new DatabaseConnection();
     Connection sesja;
@@ -87,6 +89,10 @@ public class LoginController implements Initializable {
     public String getLogin() {
         return Username;
     }
+    
+    public String getID() {
+        return ID;
+    }
 
     /**
      * Funkcja sprawdza poprawność danych wprowadzonych przez użytkownika i
@@ -96,15 +102,16 @@ public class LoginController implements Initializable {
      * @param username login użytkownika
      * @param password hasło użytkownika
      */
-    private void sprawdzLogowanie(String username, String password) throws IOException {
+    protected boolean sprawdzLogowanie(String username, String password) throws IOException {
 
+        boolean dziala = false;
         try {
             if (sesja == null || sesja.isClosed()) {
                 sesja = PolaczenieDB.connectDatabase();
             }
             stmt = sesja.createStatement();
 
-            ResultSet rs = stmt.executeQuery("select Login, Haslo, Specjalizacja, Status from pracownik where Login = '" + username
+            ResultSet rs = stmt.executeQuery("select PracownikId ,Login, Haslo, Specjalizacja, Status from pracownik where Login = '" + username
                     + "' AND Haslo = '" + password + "';");
             if (rs.isBeforeFirst()) {
                 while (rs.next()) {
@@ -115,10 +122,12 @@ public class LoginController implements Initializable {
                     }
                     Stanowisko = rs.getString("Specjalizacja");
                     Username = username;
+                    ID = rs.getString("PracownikId");
                     break;
                 }
             } else {
-                helper.error("Podano błędny login lub hasło!");
+                dziala = true;
+                 if(junit == false) helper.error("Podano błędny login lub hasło!");
             }
 
         } catch (Exception e) {
@@ -131,12 +140,14 @@ public class LoginController implements Initializable {
                 } catch (Exception e) {
                 } finally {
                     if (Username != null) {
-                        zalogujUzytkownika();
+                      if(junit == false) zalogujUzytkownika();
+                     dziala = true;
+                        
                     }
                 }
             }
         }
-
+return dziala;
     }
 
     @Override

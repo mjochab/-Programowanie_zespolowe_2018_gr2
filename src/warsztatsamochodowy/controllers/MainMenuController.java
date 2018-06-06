@@ -46,7 +46,7 @@ public class MainMenuController implements Initializable {
     LoginController login = new LoginController();
     String stanowisko = login.getStanowisko();
     String username = login.getLogin();
-
+    String id = login.getID();
     private final Helper helper = new Helper();
     //ustawienie przycisków w menu jako odblokowane
     boolean lock_tasks, lock_orders, lock_parts, lock_team, lock_clients, lock_cars, lock_settings, lock_logout = false;
@@ -169,9 +169,12 @@ public class MainMenuController implements Initializable {
     }
 
     @FXML
-    void tasks(MouseEvent event) {
-        if (lock_tasks == false) {
+    void tasks(MouseEvent event) throws IOException {
+        if (!lock_tasks) {
+            helper.sceneSwitcher("/warsztatsamochodowy/views/Tasks.fxml", "Warsztat samochodowy - Zlecenia");
 
+            Stage mainmenu_scene = (Stage) logout.getScene().getWindow();
+            mainmenu_scene.close();
         }
     }
 

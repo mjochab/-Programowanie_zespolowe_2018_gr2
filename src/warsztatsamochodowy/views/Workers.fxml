@@ -5,9 +5,9 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="489.0" prefWidth="681.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="warsztatsamochodowy.controllers.WorkersController">
+<AnchorPane id="AnchorPane" prefHeight="489.0" prefWidth="681.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="warsztatsamochodowy.controllers.WorkersController">
    <children>
-      <Button fx:id="powrot" layoutX="559.0" layoutY="369.0" mnemonicParsing="false" onAction="#powrotDoMenu" prefHeight="25.0" prefWidth="112.0" text="Powrot" />
+      <Button fx:id="powrot" layoutX="559.0" layoutY="369.0" mnemonicParsing="false" onAction="#powrotDoMenu" prefHeight="25.0" prefWidth="118.0" text="Powrot" />
       <TableView fx:id="tablepracownik" layoutX="14.0" layoutY="14.0" prefHeight="476.0" prefWidth="541.0">
         <columns>
           <TableColumn fx:id="ImieColumn" prefWidth="95.0" text="Imie" />
@@ -17,8 +17,10 @@
             <TableColumn fx:id="StatusColumn" prefWidth="98.0" text="Status" />
         </columns>
       </TableView>
-      <Button fx:id="dodajPracownika" layoutX="559.0" layoutY="305.0" mnemonicParsing="false" onAction="#dodajPracownika" text="Dodaj pracownika" />
-      <Button fx:id="usunPracownika" layoutX="559.0" layoutY="338.0" mnemonicParsing="false" onAction="#usunPracownika" prefHeight="25.0" prefWidth="112.0" text="Usun pracownika" />
+      <Button fx:id="dodajPracownika" layoutX="559.0" layoutY="305.0" mnemonicParsing="false" onAction="#dodajPracownika" prefHeight="25.0" prefWidth="118.0" text="Dodaj pracownika" />
+      <Button fx:id="usunPracownika" layoutX="559.0" layoutY="338.0" mnemonicParsing="false" onAction="#usunPracownika" prefHeight="25.0" prefWidth="118.0" text="Usun pracownika" />
       <Button fx:id="generateRaport" layoutX="559.0" layoutY="272.0" mnemonicParsing="false" onAction="#generateRaport" prefHeight="25.0" prefWidth="112.0" text="Generuj raport" />
+      <Button fx:id="addWorkerToFix" layoutX="555.0" layoutY="64.0" mnemonicParsing="false" onAction="#addWorkerToFix" prefHeight="25.0" prefWidth="201.0" text="Dodaj pracownika do naprawy" />
+      <Button fx:id="b_edytuj" layoutX="559.0" layoutY="240.0" mnemonicParsing="false" onAction="#EdytujPracownika" prefHeight="25.0" prefWidth="118.0" text="Edytuj Pracownika" />
    </children>
 </AnchorPane>

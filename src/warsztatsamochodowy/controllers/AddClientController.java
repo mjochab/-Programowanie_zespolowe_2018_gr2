@@ -121,6 +121,7 @@ public class AddClientController implements Initializable {
                 k.setId(klientToEdit.getId());
             }
             DBHelper.getInstance().addOrUpdateKlient(k);
+            DBHelper.getInstance().addOrUpdateNaprawa(k);
         } else {
             return;
         }

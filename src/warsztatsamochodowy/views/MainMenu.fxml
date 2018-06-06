@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="436.0" prefWidth="715.0" stylesheets="@styles/Main.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="warsztatsamochodowy.controllers.MainMenuController">
+<AnchorPane id="AnchorPane" prefHeight="436.0" prefWidth="715.0" stylesheets="@styles/Main.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="warsztatsamochodowy.controllers.MainMenuController">
    <children>
       <Pane fx:id="logout" layoutX="544.0" layoutY="238.0" onMouseClicked="#logout" prefHeight="172.0" prefWidth="140.0" styleClass="custom_button">
          <children>
@@ -95,30 +95,30 @@
       </Pane>
       <Pane fx:id="tasks" layoutX="31.0" layoutY="28.0" onMouseClicked="#tasks" prefHeight="172.0" prefWidth="140.0" styleClass="custom_button">
          <children>
-            <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="33.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/list.png" />
-               </image>
-            </ImageView>
             <Label layoutX="34.0" layoutY="119.0" text="Zlecenia" textAlignment="CENTER">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-         </children>
-      </Pane>
-      <Pane fx:id="orders" layoutX="205.0" layoutY="28.0" onMouseClicked="#orders" prefHeight="172.0" prefWidth="140.0" styleClass="custom_button">
-         <children>
-            <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="33.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="33.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/basket.png" />
                </image>
             </ImageView>
-            <Label layoutX="17.0" layoutY="119.0" text="Zamówienia" textAlignment="CENTER">
+         </children>
+      </Pane>
+      <Pane fx:id="raports" layoutX="205.0" layoutY="28.0" onMouseClicked="#orders" prefHeight="172.0" prefWidth="140.0" styleClass="custom_button">
+         <children>
+            <Label layoutX="36.0" layoutY="120.0" text="Raporty" textAlignment="CENTER">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
+            <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="33.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/list.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
    </children>

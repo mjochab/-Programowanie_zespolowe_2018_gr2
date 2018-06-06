@@ -35,6 +35,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import static jdk.nashorn.internal.runtime.Debug.id;
 import warsztatsamochodowy.Helper;
 import warsztatsamochodowy.database.DatabaseConnection;
 import warsztatsamochodowy.database.entity.Potwierdzenie;
@@ -78,6 +79,11 @@ public class WorkersController implements Initializable {
     private Button usunPracownika;
     @FXML
     private Button generateRaport;
+    @FXML
+    private Button addWorkerToFix;
+    @FXML
+    private Button b_edytuj;
+    public static Integer idPracownika;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -131,7 +137,11 @@ public class WorkersController implements Initializable {
 
     @FXML
     private void usunPracownika(ActionEvent event) {
-
+          int selectedItem = tablepracownik.getSelectionModel().getSelectedIndex();
+             if(selectedItem < 0){
+                  helper.error("Nic nie zostalo wybrane");
+                  return;
+             }
         int id_placowki = tablepracownik.getSelectionModel().getSelectedItem().getID();
 
         System.out.println(id_placowki);
@@ -141,7 +151,7 @@ public class WorkersController implements Initializable {
         try {
             stmt = sesja.createStatement();
 
-         int rs = stmt.executeUpdate("delete from Pracownik where ID = " + tablepracownik.getSelectionModel().getSelectedItem().getID());
+         int rs = stmt.executeUpdate("delete from Pracownik where PracownikId = " + tablepracownik.getSelectionModel().getSelectedItem().getID());
        
          helper.message("Pracownik zostal usuniety");
               ladujTabelePracownick();
@@ -156,28 +166,36 @@ public class WorkersController implements Initializable {
 
     @FXML
     private void generateRaport(ActionEvent event) {
-        data = FXCollections.observableArrayList();
-        Statement stmt = null;
-        Document document = new Document(PageSize.A4);
-         try {
-             PdfWriter.getInstance(document, new FileOutputStream("raport.pdf"));
-            stmt = sesja.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from pracownik;");
-            while (rs.next()) {
-                
-                data.add(new Pracownik(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getInt(12)));
+       pdfcreator.ConvertToPdf raport = new pdfcreator.ConvertToPdf();
+       raport.printAllUsers();
+    }
 
-            }
-            document.open();
-            for(Pracownik p : data){
-                Paragraph para = new Paragraph("Imie " + p.getImie() + " Nazwisko " + p.getNazwisko() + " Login " + p.getLogin());
-                document.add(para);
-            }
+    @FXML
+    private void addWorkerToFix(ActionEvent event) throws IOException {
+        helper.sceneSwitcher("/warsztatsamochodowy/views/AddWorkerToFix.fxml", "Warsztat samochodowy - Dodaj Naprawe");
+
+        Stage mainmenu_scene = (Stage) dodajPracownika.getScene().getWindow();
+        mainmenu_scene.close();
+
+    }
+
+    @FXML
+    private void EdytujPracownika(ActionEvent event) throws IOException, SQLException {
          
-        } catch (Exception e) {
-             helper.message(e.getMessage());
-        } 
-         document.close();
+     int selectedItem = tablepracownik.getSelectionModel().getSelectedIndex();
+             if(selectedItem < 0){
+                  helper.error("Nic nie zostalo wybrane");
+                  return;
+             }
+//int id_placowki2 = tablepracownik.getSelectionModel().getSelectedItem().getID();
+         idPracownika = tablepracownik.getSelectionModel().getSelectedItem().getID();
+        //System.out.println(id_placowki2);
+        helper.sceneSwitcher("/warsztatsamochodowy/views/EditWorkers.fxml", "Warsztat samochodowy - Edytuj Pracownika");
+
+        Stage mainmenu_scene = (Stage) dodajPracownika.getScene().getWindow();
+        mainmenu_scene.close();
+
+        
     }
 
 }

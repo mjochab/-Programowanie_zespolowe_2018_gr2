@@ -7,7 +7,7 @@ package warsztatsamochodowy.database.entity;
 
 /**
  *
- * @author Michał Kucharzyk
+ * @author Artur Pasciak
  */
 
 /*
