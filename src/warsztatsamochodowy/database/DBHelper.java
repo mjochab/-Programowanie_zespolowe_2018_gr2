@@ -21,6 +21,7 @@ import warsztatsamochodowy.database.entity.Klient;
 import warsztatsamochodowy.database.entity.Pracownik;
 import warsztatsamochodowy.database.entity.Samochod;
 import warsztatsamochodowy.database.entity.Task;
+import warsztatsamochodowy.viewmodels.RaportsVM;
 import warsztatsamochodowy.viewmodels.RepairWorkerVM;
 
 /**
@@ -86,7 +87,31 @@ public class DBHelper {
         }
         return klienci;
     }
+    public List<RaportsVM> getAllClientsForPDF(){
+        List<RaportsVM> clients = new ArrayList<>();
+        String query = "SELECT n.napraw_id, k.Imie, k.Nazwisko, n.opis, n.koszt FROM naprawa n inner join klient k on n.id_klienta = k.KlientId";
+        try {
+            checkConnection();
+            Statement s = connection.createStatement();
+            s.execute(query);
+          
+            ResultSet rs = s.getResultSet();
+            while (rs.next()) {
+                clients.add(new RaportsVM(
+                        rs.getInt("napraw_id"),
+                        rs.getString("Imie"),
+                        rs.getString("Nazwisko"),
+                        rs.getString("opis"),
+                        rs.getLong("koszt")));
 
+            }
+            rs.close();
+            s.close();
+        } catch (SQLException e) {
+            helper.error(e.getMessage());
+        }
+        return clients;
+    }
     public List<Repair> getAllTasks() {
         List<Repair> fix = new ArrayList<>();
         try {

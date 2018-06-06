@@ -39,7 +39,6 @@ public class MainMenuController implements Initializable {
     @FXML
     private Pane tasks;
 
-    @FXML
     private Pane orders;
 
     //zmienne globalne z loginem i stanowiskiem użytkownika
@@ -50,6 +49,8 @@ public class MainMenuController implements Initializable {
     private final Helper helper = new Helper();
     //ustawienie przycisków w menu jako odblokowane
     boolean lock_tasks, lock_orders, lock_parts, lock_team, lock_clients, lock_cars, lock_settings, lock_logout = false;
+    @FXML
+    private Pane raports;
 
     /**
      * Funkcja blokuje przyciski menu dla nieuprawnionych użytkowników i
@@ -139,7 +140,6 @@ public class MainMenuController implements Initializable {
 
     }
 
-    @FXML
     void orders(MouseEvent event) {
         if (lock_orders == false) {
 
@@ -195,6 +195,12 @@ public class MainMenuController implements Initializable {
             mainmenu_scene.close();
         }
     }
+    @FXML
+    private void raports(MouseEvent event) throws IOException {
+        helper.sceneSwitcher("/warsztatsamochodowy/views/Raports.fxml", "Warsztat samochodowy - Raporty");
+            Stage mainmenu_scene = (Stage) team.getScene().getWindow();
+            mainmenu_scene.close();
+    }
 
     /**
      * Funkcja inicjalizująca kontroler.
@@ -204,5 +210,7 @@ public class MainMenuController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         przygotujMenu();
     }
+
+    
 
 }
