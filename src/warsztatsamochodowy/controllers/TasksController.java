@@ -62,6 +62,12 @@ public class TasksController implements Initializable {
     @FXML
     private Button deleteTask;
 
+    public static Long Repair_ID;
+
+    public Long getRepair_ID() {
+        return Repair_ID;
+    }
+
     private Helper helper = new Helper();
     DatabaseConnection PolaczenieDB = new DatabaseConnection();
     Connection sesja;
@@ -136,12 +142,6 @@ public class TasksController implements Initializable {
         this_scene.close();
     }
 
-    @FXML
-    private void editTask(ActionEvent event) throws IOException {
-//                    helper.sceneSwitcher("/warsztatsamochodowy/views/AddPartsToRepair.fxml", "Warsztat samochodowy - Dodaj czesci");
-//            Stage this_scene = (Stage) editTask.getScene().getWindow();
-//            this_scene.hide();
-    }
 
     @FXML
     private void deleteTask(ActionEvent event) {
@@ -183,12 +183,84 @@ public class TasksController implements Initializable {
             }
         }
     }
-        private void usunzTabeli(ObservableList<Repair> zaznaczoneNaprawy) {
+
+    private void usunzTabeli(ObservableList<Repair> zaznaczoneNaprawy) {
 
         ObservableList<Repair> wszystkieNaprawy = tabelaFix.getItems();
         wszystkieNaprawy.removeAll(zaznaczoneNaprawy);
         // wszystkieCzesci.removeAll(czescZaznaczona);
 
+    }
+    public static String Imie, Nazwisko, Naprawa_ID, Data_zakonczenia, Koszt, Status, Opis, Edit;
+    @FXML
+    public void editTask(ActionEvent event){
+        if (tabelaFix.getSelectionModel().getSelectedItems().size() == 1) {
+
+            try {
+                Repair c = tabelaFix.getSelectionModel().getSelectedItem();
+                if (sesja == null || sesja.isClosed()) {
+                    sesja = PolaczenieDB.connectDatabase();
+                }
+                stmt = sesja.createStatement();
+
+                ResultSet rs = stmt.executeQuery("SELECT * FROM klient INNER JOIN naprawa ON naprawa.id_klienta = klient.KlientId WHERE naprawa.napraw_id = " + c.getID());
+
+                while (rs.next()) {
+                    Naprawa_ID = rs.getString("napraw_id");
+                    Imie = rs.getString("Imie");
+                    Nazwisko = rs.getString("Nazwisko");
+                    Data_zakonczenia = rs.getString("data_zakonczenia");
+                    Koszt = rs.getString("koszt");
+                    Status = rs.getString("status");
+                    Opis = rs.getString("opis");
+                }
+                helper.sceneSwitcher("/warsztatsamochodowy/views/TaskDetail.fxml", "Warsztat samochodowy - Szczegoly zmowienia");
+                Stage this_scene = (Stage) tabelaFix.getScene().getWindow();
+                this_scene.close();
+
+            } catch (Exception e) {
+                helper.error(e.getMessage());
+            } finally {
+
+                if (sesja != null) {
+                    try {
+                        sesja.close();
+                    } catch (Exception e) {
+                    }
+                }
+            }
+
+        } else {
+            helper.error("Wybierz 1 zlecenie");
+        }
+    }
+
+    public String getRepairID() {
+        return Naprawa_ID;
+    }
+
+    public String getImie() {
+        return Imie;
+    }
+
+    public String getNazwisko() {
+        return Nazwisko;
+    }
+
+    public String getData_zakonczenia() {
+        return Data_zakonczenia;
+    }
+
+    public String getKoszt() {
+        return Koszt;
+    }
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public String getOpis() {
+        return Opis;
     }
 
 }

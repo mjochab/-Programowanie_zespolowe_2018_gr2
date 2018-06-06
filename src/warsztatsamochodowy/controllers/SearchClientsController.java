@@ -8,6 +8,7 @@ package warsztatsamochodowy.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
@@ -73,11 +74,12 @@ public class SearchClientsController implements Initializable {
     private TextField field_email;
     @FXML
     private Button button_search;
+    @FXML
     private Button button_close;
 
-    public static String ClientID;
     @FXML
     private Button button_wybierz;
+    public static String ClientID;
 
     public String getClientID() {
         return ClientID;
@@ -87,7 +89,9 @@ public class SearchClientsController implements Initializable {
     DatabaseConnection PolaczenieDB = new DatabaseConnection();
     Connection sesja;
     Statement stmt;
-    //public static String Nazwa, ID, Cena, Producent, Ilosc;
+
+    TaskDetailController taskd = new TaskDetailController();
+    TasksController task = new TasksController();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -164,9 +168,25 @@ public class SearchClientsController implements Initializable {
 
                 ClientID = c.getId().toString();
 
-                helper.sceneSwitcher("/warsztatsamochodowy/views/AddRepair.fxml", "Warsztat samochodowy - Szczegoly zlecenia");
-                Stage this_scene = (Stage) button_wybierz.getScene().getWindow();
-                this_scene.hide();
+                if (taskd.getEdit() == true) {
+                    PreparedStatement ps = sesja.prepareStatement(
+                            "UPDATE naprawa SET id_klienta = ? WHERE naprawa.napraw_id = ?", Statement.RETURN_GENERATED_KEYS
+                    );
+                    ps.setInt(1, Integer.parseInt(ClientID));
+                    ps.setString(2, task.getRepairID());
+
+                    ps.execute();
+                    ps.close();
+                    
+                    taskd.setEdit(false);
+                    helper.sceneSwitcher("/warsztatsamochodowy/views/TaskDetail.fxml", "Warsztat samochodowy - Szczegoly zmowienia");
+                    Stage this_scene = (Stage) button_wybierz.getScene().getWindow();
+                    this_scene.close();
+                } else {
+                    helper.sceneSwitcher("/warsztatsamochodowy/views/AddRepair.fxml", "Warsztat samochodowy - Szczegoly zlecenia");
+                    Stage this_scene = (Stage) button_wybierz.getScene().getWindow();
+                    this_scene.hide();
+                }
 
 //                ResultSet rs = stmt.executeQuery("Select Imie, Nazwisko FROM Klient WHERE KlientId = " + ID + ";");
 //                while (rs.next()) {

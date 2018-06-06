@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="556.0" prefWidth="983.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1" fx:controller="warsztatsamochodowy.controllers.TaskDetailController">
+   <children>
+      <TextField fx:id="field_koszt" disable="true" layoutX="154.0" layoutY="80.0" />
+      <DatePicker fx:id="datazakonczenia" disable="true" layoutX="154.0" layoutY="35.0" />
+      <ComboBox fx:id="combo_status" disable="true" layoutX="154.0" layoutY="118.0" prefWidth="150.0" />
+      <TextField fx:id="field_opis" disable="true" layoutX="154.0" layoutY="158.0" />
+      <Label layoutX="34.0" layoutY="39.0" text="Data zakonczenia:" />
+      <Label layoutX="34.0" layoutY="84.0" text="Koszt:" />
+      <Label layoutX="34.0" layoutY="122.0" text="Status:" />
+      <Label layoutX="34.0" layoutY="162.0" text="Opis:" />
+      <Label fx:id="label_klient" layoutX="655.0" layoutY="67.0" text="Klient">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="button_zmienKlienta" layoutX="634.0" layoutY="118.0" mnemonicParsing="false" onAction="#zmienKlienta" text="Zmien klienta" />
+      <Button layoutX="251.0" layoutY="201.0" mnemonicParsing="false" text="Edytuj" />
+      <TableView fx:id="tab_czesci" layoutX="14.0" layoutY="290.0" prefHeight="213.0" prefWidth="317.0">
+         <columns>
+            <TableColumn fx:id="kol_Nazwa" prefWidth="90.0" style="-fx-alignment: center;" text="Nazwa" />
+            <TableColumn fx:id="kol_Producent" prefWidth="101.0" style="-fx-alignment: center;" text="Producent" />
+            <TableColumn fx:id="kol_Ilosc" minWidth="0.0" prefWidth="66.0" style="-fx-alignment: center;" text="Ilość" />
+            <TableColumn fx:id="kol_Cena" prefWidth="56.0" style="-fx-alignment: center;" text="Cena" />
+         </columns>
+      </TableView>
+      <TableView fx:id="tabelaPracownicy" layoutX="362.0" layoutY="290.0" prefHeight="213.0" prefWidth="599.0">
+         <columns>
+            <TableColumn fx:id="colImie" prefWidth="95.0" text="Imie" />
+            <TableColumn fx:id="colNazwisko" prefWidth="103.0" text="Nazwisko" />
+            <TableColumn fx:id="colNrTel" prefWidth="140.0" text="Numer Tel." />
+            <TableColumn fx:id="colMiejscowosc" prefWidth="140.0" text="Miejscowość" />
+            <TableColumn fx:id="colAdres" prefWidth="140.0" text="Adres" />
+            <TableColumn fx:id="colSpecjalizacja" prefWidth="140.0" text="Specjalizacja" />
+         </columns>
+      </TableView>
+      <Button fx:id="button_zmienCzesci" layoutX="131.0" layoutY="517.0" mnemonicParsing="false" onAction="#zmienCzesci" text="Edytuj czesci" />
+      <Button fx:id="button_zmienPracownika" layoutX="601.0" layoutY="517.0" mnemonicParsing="false" onAction="#zmienPracownika" text="Edytuj pracownikow" />
+      <Button fx:id="button_wczytaj" layoutX="22.0" layoutY="201.0" mnemonicParsing="false" onAction="#wczytajTabele" text="Wczytaj tabele" />
+      <Label layoutX="19.0" layoutY="259.0" text="Czesci:">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="362.0" layoutY="259.0" text="Pracownicy:">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Button fx:id="button_powrot" layoutX="909.0" layoutY="23.0" mnemonicParsing="false" onAction="#goBack" text="Powrot" />
+   </children>
+</AnchorPane>

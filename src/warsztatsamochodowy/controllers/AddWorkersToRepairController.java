@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,6 +31,7 @@ import warsztatsamochodowy.database.DatabaseConnection;
 import warsztatsamochodowy.database.entity.Czesc;
 import warsztatsamochodowy.database.entity.Klient;
 import warsztatsamochodowy.database.entity.PracownikRepair;
+import warsztatsamochodowy.database.entity.Repair;
 
 /**
  * FXML Controller class
@@ -84,12 +86,16 @@ public class AddWorkersToRepairController implements Initializable {
     private TableColumn<?, ?> colSpecjalizacja1;
     @FXML
     private Button button_dalej;
+        @FXML
+    private Button button_usunPrac;
 
     private Helper helper = new Helper();
     DatabaseConnection PolaczenieDB = new DatabaseConnection();
     Connection sesja;
     Statement stmt;
-
+    
+    TaskDetailController taskd = new TaskDetailController();
+    TasksController task = new TasksController();
     AddRepairController addrepaircontroller = new AddRepairController();
     int last_id = addrepaircontroller.getLastID();
 
@@ -110,6 +116,9 @@ public class AddWorkersToRepairController implements Initializable {
         colSpecjalizacja1.setCellValueFactory(new PropertyValueFactory("specjalizacja"));
         //tabelaKlienci.setItems(FXCollections.observableArrayList(klienci));
         wczytajBaze();
+        if (taskd.getEdit() == true){
+            button_dalej.setDisable(true);
+        }
     }
 
     private void dodajDoTabeli(int id, String imie, String nazwisko, String nrTel, String miejscowosc, String adres, String specjalizacja) {
@@ -254,6 +263,9 @@ public class AddWorkersToRepairController implements Initializable {
 
     @FXML
     private void selectWorker(ActionEvent event) {
+        if (taskd.getEdit() == true) {
+            last_id = Integer.parseInt(task.getRepairID());
+        }
         try {
             if (sesja == null || sesja.isClosed()) {
                 sesja = PolaczenieDB.connectDatabase();
@@ -275,7 +287,7 @@ public class AddWorkersToRepairController implements Initializable {
 
                 ps.execute();
                 ps.close();
-
+                taskd.setEdit(false);
                 helper.message("Dodano pracownika");
                 tabelaPracownicyDodani.getItems().clear();
                 wczytajBazeDodanych();
@@ -301,5 +313,57 @@ public class AddWorkersToRepairController implements Initializable {
         Stage this_scene = (Stage) button_dalej.getScene().getWindow();
         this_scene.hide();
     }
+    
+    @FXML
+    private void usunPracownika(ActionEvent event){
+                try {
+            if (sesja == null || sesja.isClosed()) {
+                sesja = PolaczenieDB.connectDatabase();
+            }
+            if (stmt == null || stmt.isClosed()) {
+                stmt = sesja.createStatement();
+            }
+
+            ObservableList<PracownikRepair> pracownikZaznaczony;
+            ObservableList<PracownikRepair> doUsuniecia = FXCollections.observableArrayList();
+            pracownikZaznaczony = tabelaPracownicyDodani.getSelectionModel().getSelectedItems();
+            for (PracownikRepair c : pracownikZaznaczony) {
+
+                int id = c.getId();
+
+                int wynik = stmt.executeUpdate("DELETE FROM naprawa_pracownika WHERE id_pracownika = " + id + " AND id_naprawy = " + last_id);
+                if (wynik == 1) {
+
+                    doUsuniecia.add(c);
+                }
+
+            }
+
+            usunzTabeli(doUsuniecia);
+            tabelaPracownicyDodani.getSelectionModel().clearSelection();
+            tabelaPracownicyDodani.getItems().clear();
+            wczytajBazeDodanych();
+
+        } catch (Exception e) {
+            helper.error(e.getMessage());
+        } finally {
+
+            if (sesja != null) {
+                try {
+                    sesja.close();
+                } catch (Exception e) {
+                }
+            }
+        }
+    }
+
+    private void usunzTabeli(ObservableList<PracownikRepair> zaznaczonyPracownik) {
+
+        ObservableList<PracownikRepair> wszyscyPracownicy = tabelaPracownicyDodani.getItems();
+        wszyscyPracownicy.removeAll(zaznaczonyPracownik);
+        // wszystkieCzesci.removeAll(czescZaznaczona);
+
+    }
+    
 
 }

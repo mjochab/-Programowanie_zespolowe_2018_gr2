@@ -46,5 +46,6 @@
       </TableView>
       <Label layoutX="20.0" layoutY="379.0" text="Pracownicy dodani do naprawy:" />
       <Button fx:id="button_dalej" layoutX="844.0" layoutY="606.0" mnemonicParsing="false" onAction="#goToRepair" text="Dalej" />
+      <Button fx:id="button_usunPrac" layoutX="20.0" layoutY="606.0" mnemonicParsing="false" onAction="#usunPracownika" text="Usun" />
    </children>
 </AnchorPane>

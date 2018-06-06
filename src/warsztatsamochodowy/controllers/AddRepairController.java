@@ -95,9 +95,7 @@ public class AddRepairController implements Initializable {
 
     public static int Last_ID;
 
-    public int getLastID() {
-        return Last_ID;
-    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -137,7 +135,7 @@ public class AddRepairController implements Initializable {
             ps.setString(5, field_opis.getText());
 
             ps.setString(6, id_wybranegoklienta);
-            ps.execute();
+            ps.executeUpdate();
             
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
@@ -169,6 +167,9 @@ public class AddRepairController implements Initializable {
         }
 
 
+    }
+    public int getLastID() {
+        return Last_ID;
     }
 
     @FXML
