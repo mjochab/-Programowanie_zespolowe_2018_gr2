@@ -131,9 +131,10 @@ public class DBHelper {
             ResultSet rs = s.getResultSet();
             while (rs.next()) {
                 repairWorker.add(new RepairWorkerVM(
+                        rs.getInt("napraw_id"),
                         rs.getInt("SamochodId"),
-                                                    rs.getInt("PracownikId"),
-                                                    rs.getInt("napraw_id"),
+                        rs.getInt("PracownikId"),
+                                                    
                         rs.getString("Imie"),
                         rs.getString("Nazwisko"),
                         rs.getString("Model"),

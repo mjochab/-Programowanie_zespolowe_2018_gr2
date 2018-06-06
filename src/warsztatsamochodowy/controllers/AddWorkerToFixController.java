@@ -49,7 +49,9 @@ public class AddWorkerToFixController implements Initializable {
     private  List<Repair> dbFix = new ArrayList<>();
     private  List<RepairWorkerVM> repairWorkerVM = new ArrayList<>();
     
-    Connection sesja;
+    
+    DatabaseConnection PolaczenieDB = new DatabaseConnection();
+    Connection sesja = PolaczenieDB.connectDatabase();
     
     @FXML
     private ComboBox<Pracownik> workersCB = new ComboBox<>();
@@ -205,10 +207,10 @@ public class AddWorkerToFixController implements Initializable {
         try {
             stmt = sesja.createStatement();
          
-         stmt.executeUpdate("delete from naprawa_pracownik where naprawa="+id_naprawy);
-         helper.message("Naprawa pracownika zostala usunieta");
+         stmt.executeUpdate("delete from naprawa_pracownika where id_naprawy = " +id_naprawy);
+         helper.message("Naprawa zostala usunieta");
          getTableData();
-              
+             stmt.close(); 
               
         } catch (SQLException e) {
            helper.error(e.getMessage());
@@ -220,7 +222,7 @@ public class AddWorkerToFixController implements Initializable {
     }
 
     @FXML
-    private void usunPracownika(ActionEvent event) {
+    private void usunPracownika(ActionEvent event) throws SQLException {
          int selectedItem = workerFixTable.getSelectionModel().getSelectedIndex();
              if(selectedItem < 0){
                   helper.error("Nic nie zostalo wybrane");
@@ -228,18 +230,17 @@ public class AddWorkerToFixController implements Initializable {
              }
         int id_naprawy = workerFixTable.getSelectionModel().getSelectedItem().getFixId();
         int id_pracownika = workerFixTable.getSelectionModel().getSelectedItem().getWorkerId();
-        System.out.println(id_naprawy);
-           System.out.println(id_pracownika);
-        Statement stmt = null;
+       
           boolean flaga=Potwierdzenie.display("Usuń", "Czy napewno chcesz usunać?");
           if(flaga== true){
         try {
             
+            Statement stmt = sesja.createStatement();
+            String query = "delete from naprawa_pracownika where id_naprawy =" +id_naprawy+ " and id_pracownika = " +id_pracownika;
            
-            String query = "delete from naprawa where naprawa ="+id_naprawy+" and pracownik = "+id_pracownika;
-            PreparedStatement preparedStmt = sesja.prepareStatement(query);
-            preparedStmt.executeUpdate();
-            helper.message("Naprawa pracownika zostala usunieta");
+            stmt.executeUpdate(query);
+            stmt.close();
+            helper.message("Pracownik zostal usuniety z naprawy");
          getTableData();
             
                
