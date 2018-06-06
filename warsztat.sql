@@ -1,4 +1,4 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
@@ -199,7 +199,7 @@ INSERT INTO `pracownik` (`PracownikId`, `Login`, `Haslo`, `Imie`, `Nazwisko`, `M
 (2, 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'aa', 'Status', NULL),
 (3, 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'Kierownik', 'Status', NULL),
 (4, 'z', 'z', 'z', 'z', 'z', 'z', 'z', 'z', 'Administrator', 'Status', NULL),
-(5, 'admin', 'admin', '', '', '', '', '', '', '', 'Status', NULL),
+(5, 'admin', 'admin', '', '', '', '', '', '', 'Administrator', 'Status', NULL),
 (7, 'c', 'c', '', '', '', '', '', '', 'administrator', 'Status', NULL),
 (8, 'r', '', 'r', 'rrrrr', 'r', 'rr', '23', 'r', 'Recepcjonista', 'Zwolniony', 12),
 (9, 'w', '', 'w', 'ww', 'w', 'w', '123', 'w', 'Diagnosta', 'Urlop', 14);
