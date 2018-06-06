@@ -3,9 +3,10 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 05 Cze 2018, 10:32
+-- Czas generowania: 06 Cze 2018, 02:05
 -- Wersja serwera: 10.1.32-MariaDB
 -- Wersja PHP: 7.2.5
+-- Ta na pewno finalna
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -41,7 +42,8 @@ CREATE TABLE `czesc` (
 --
 
 INSERT INTO `czesc` (`CzescID`, `Nazwa`, `Producent`, `Ilosc`, `Cena`) VALUES
-(1, 'sruba', 'xd', 10, 5);
+(1, 'sruba', 'xd', 10, 5),
+(2, 'cos', '123', 100, 50);
 
 -- --------------------------------------------------------
 
@@ -87,7 +89,6 @@ CREATE TABLE `naprawa` (
   `koszt` int(11) DEFAULT NULL,
   `status` varchar(100) NOT NULL,
   `opis` varchar(100) NOT NULL,
-  `id_pracownika` int(11) NOT NULL,
   `id_klienta` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -95,10 +96,24 @@ CREATE TABLE `naprawa` (
 -- Zrzut danych tabeli `naprawa`
 --
 
-INSERT INTO `naprawa` (`napraw_id`, `data_rozpoczecia`, `data_zakonczenia`, `koszt`, `status`, `opis`, `id_pracownika`, `id_klienta`) VALUES
-(1, '2018-06-04', '2018-06-04', 100, '123', '4564564', 4, 4),
-(2, '2018-06-05', '2018-06-05', 1000, 'Przyjete', 'eqdasda', 4, 1),
-(3, '2018-06-05', '2018-06-05', 1000, 'W trakcie', 'Wymiana b', 4, 1);
+INSERT INTO `naprawa` (`napraw_id`, `data_rozpoczecia`, `data_zakonczenia`, `koszt`, `status`, `opis`, `id_klienta`) VALUES
+(3, '2018-06-05', '2018-06-05', 1000, 'W trakcie', 'Wymiana b', 6),
+(10, '2018-06-05', '2018-06-21', 213, 'Przyjete', 'dasdasda', 7),
+(11, '2018-06-05', '2018-06-22', 2313, 'W trakcie', 'dadadadaczczx', 9),
+(12, '2018-06-05', '2018-06-22', 231, 'Przyjete', 'asdadqowjrpogksd', 8),
+(13, '2018-06-05', '2018-06-14', 321, 'Przyjete', 'dsadafgxxvxv', 8),
+(14, '2018-06-05', '2018-06-22', 231, 'Przyjete', 'davcxnfhf', 7),
+(15, '2018-06-05', '2018-06-13', 3213, 'Przyjete', 'davxvxvx', 5),
+(16, '2018-06-05', '2018-06-16', 231, 'Przyjete', 'sfsoiwriosopfkl', 4),
+(17, '2018-06-05', '2018-06-13', 231, 'Przyjete', 'dasdada', 6),
+(18, '2018-06-05', '2018-06-21', 12, 'W trakcie', 'easdada', 6),
+(19, '2018-06-05', '2018-06-06', 3213, 'Przyjete', 'dasdzcz', 7),
+(23, '2018-06-05', '2018-06-06', 3213, 'Przyjete', 'gfdgs', 8),
+(30, '2018-06-05', '2018-06-28', 231, 'Przyjete', 'dasdada', 9),
+(31, '2018-06-06', '2018-06-21', 213, 'Przyjete', '123456789', 2),
+(32, '2018-06-06', '2018-06-29', 12, 'Przyjete', '987654', 6),
+(33, '2018-06-06', '2018-06-22', 12, 'Przyjete', 'wqerty', 8),
+(34, '2018-06-06', '2018-06-15', 32, 'W trakcie', 'dsada', 7);
 
 -- --------------------------------------------------------
 
@@ -109,15 +124,62 @@ INSERT INTO `naprawa` (`napraw_id`, `data_rozpoczecia`, `data_zakonczenia`, `kos
 CREATE TABLE `naprawa_czesci` (
   `id` int(11) NOT NULL,
   `id_czesci` int(11) NOT NULL,
-  `id_naprawy` int(11) NOT NULL
+  `id_naprawy` int(11) NOT NULL,
+  `ilosc` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Zrzut danych tabeli `naprawa_czesci`
 --
 
-INSERT INTO `naprawa_czesci` (`id`, `id_czesci`, `id_naprawy`) VALUES
-(1, 1, 1);
+INSERT INTO `naprawa_czesci` (`id`, `id_czesci`, `id_naprawy`, `ilosc`) VALUES
+(48, 1, 30, 1),
+(49, 1, 31, 10),
+(50, 1, 32, 2),
+(51, 1, 33, 1),
+(52, 1, 10, 1),
+(53, 2, 10, 1),
+(54, 2, 34, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `naprawa_pracownika`
+--
+
+CREATE TABLE `naprawa_pracownika` (
+  `id` int(11) NOT NULL,
+  `id_pracownika` int(11) NOT NULL,
+  `id_naprawy` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Zrzut danych tabeli `naprawa_pracownika`
+--
+
+INSERT INTO `naprawa_pracownika` (`id`, `id_pracownika`, `id_naprawy`) VALUES
+(1, 3, 10),
+(2, 8, 10),
+(4, 10, 11),
+(5, 9, 12),
+(6, 9, 13),
+(7, 10, 14),
+(8, 9, 15),
+(9, 10, 16),
+(10, 2, 16),
+(12, 3, 17),
+(13, 8, 18),
+(14, 9, 19),
+(16, 3, 23),
+(19, 2, 30),
+(21, 3, 31),
+(22, 9, 31),
+(23, 4, 32),
+(24, 3, 32),
+(25, 2, 32),
+(26, 3, 33),
+(27, 8, 34),
+(28, 10, 34);
 
 -- --------------------------------------------------------
 
@@ -222,7 +284,6 @@ ALTER TABLE `klient`
 --
 ALTER TABLE `naprawa`
   ADD PRIMARY KEY (`napraw_id`),
-  ADD KEY `naprawa_id_pracownika_fk` (`id_pracownika`),
   ADD KEY `naprawa_id_klienta_fk` (`id_klienta`);
 
 --
@@ -232,6 +293,14 @@ ALTER TABLE `naprawa_czesci`
   ADD PRIMARY KEY (`id`),
   ADD KEY `naprawa_czesci_id_czesci_fk` (`id_czesci`),
   ADD KEY `naprawa_czesci_id_naprawy_fk` (`id_naprawy`);
+
+--
+-- Indeksy dla tabeli `naprawa_pracownika`
+--
+ALTER TABLE `naprawa_pracownika`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `naprawa_pracownika_id_pracownika_fk` (`id_pracownika`),
+  ADD KEY `naprawa_pracownika_id_naprawy_fk` (`id_naprawy`);
 
 --
 -- Indeksy dla tabeli `pracownik`
@@ -262,7 +331,7 @@ ALTER TABLE `zamowienie`
 -- AUTO_INCREMENT dla tabeli `czesc`
 --
 ALTER TABLE `czesc`
-  MODIFY `CzescID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `CzescID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT dla tabeli `klient`
@@ -274,13 +343,19 @@ ALTER TABLE `klient`
 -- AUTO_INCREMENT dla tabeli `naprawa`
 --
 ALTER TABLE `naprawa`
-  MODIFY `napraw_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `napraw_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT dla tabeli `naprawa_czesci`
 --
 ALTER TABLE `naprawa_czesci`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+
+--
+-- AUTO_INCREMENT dla tabeli `naprawa_pracownika`
+--
+ALTER TABLE `naprawa_pracownika`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT dla tabeli `pracownik`
@@ -308,8 +383,7 @@ ALTER TABLE `zamowienie`
 -- Ograniczenia dla tabeli `naprawa`
 --
 ALTER TABLE `naprawa`
-  ADD CONSTRAINT `naprawa_id_klienta_fk` FOREIGN KEY (`id_klienta`) REFERENCES `klient` (`KlientId`),
-  ADD CONSTRAINT `naprawa_id_pracownika_fk` FOREIGN KEY (`id_pracownika`) REFERENCES `pracownik` (`PracownikId`);
+  ADD CONSTRAINT `naprawa_id_klienta_fk` FOREIGN KEY (`id_klienta`) REFERENCES `klient` (`KlientId`);
 
 --
 -- Ograniczenia dla tabeli `naprawa_czesci`
@@ -317,6 +391,13 @@ ALTER TABLE `naprawa`
 ALTER TABLE `naprawa_czesci`
   ADD CONSTRAINT `naprawa_czesci_id_czesci_fk` FOREIGN KEY (`id_czesci`) REFERENCES `czesc` (`CzescID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `naprawa_czesci_id_naprawy_fk` FOREIGN KEY (`id_naprawy`) REFERENCES `naprawa` (`napraw_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ograniczenia dla tabeli `naprawa_pracownika`
+--
+ALTER TABLE `naprawa_pracownika`
+  ADD CONSTRAINT `naprawa_pracownika_id_naprawy_fk` FOREIGN KEY (`id_naprawy`) REFERENCES `naprawa` (`napraw_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `naprawa_pracownika_id_pracownika_fk` FOREIGN KEY (`id_pracownika`) REFERENCES `pracownik` (`PracownikId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ograniczenia dla tabeli `samochod`
