@@ -27,4 +27,12 @@ NetBeans
 
 # Diagram UML
 
+# Diagram przypadków użycia
 <img src="Diagram UML przypadkow uzycia.png">
+# Diagram sekwencji dla każdego użytkownika systemu
+<img src="kier.png">
+<img src="adm.png">
+<img src="mech.png">
+<img src="recep.png">
+# Diagram klas
+<img src="klas.png">
