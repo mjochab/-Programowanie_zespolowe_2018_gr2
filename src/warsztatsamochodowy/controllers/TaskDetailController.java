@@ -203,7 +203,8 @@ public class TaskDetailController implements Initializable {
                 Status = rs.getString("status");
                 Opis = rs.getString("opis");
             }
-            label_klient.setText(task.getImie() + " " + task.getNazwisko());
+            label_klient.setText(Imie + " " + Nazwisko);
+            
 
         } catch (Exception e) {
             helper.error(e.getMessage());
@@ -305,7 +306,7 @@ public class TaskDetailController implements Initializable {
 
     @FXML
     private void detalEdit(ActionEvent event) {
-        edit = true;
+
         try {
             TasksController task = new TasksController();
             if (sesja == null || sesja.isClosed()) {

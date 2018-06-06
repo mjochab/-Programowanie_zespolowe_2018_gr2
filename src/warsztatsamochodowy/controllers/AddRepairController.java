@@ -113,7 +113,6 @@ public class AddRepairController implements Initializable {
             field_opis.setText(task.getOpis());
             button_back.setDisable(true);
             button_add.setText("Aktualizuj");
-            taskd.setEdit(false);
         }
 
     }

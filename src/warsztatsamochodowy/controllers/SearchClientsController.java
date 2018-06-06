@@ -177,7 +177,6 @@ public class SearchClientsController implements Initializable {
 
                     ps.execute();
                     ps.close();
-                    
                     taskd.setEdit(false);
                     helper.sceneSwitcher("/warsztatsamochodowy/views/TaskDetail.fxml", "Warsztat samochodowy - Szczegoly zmowienia");
                     Stage this_scene = (Stage) button_wybierz.getScene().getWindow();
@@ -187,13 +186,10 @@ public class SearchClientsController implements Initializable {
                     Stage this_scene = (Stage) button_wybierz.getScene().getWindow();
                     this_scene.hide();
                 }
+                
 
-//                ResultSet rs = stmt.executeQuery("Select Imie, Nazwisko FROM Klient WHERE KlientId = " + ID + ";");
-//                while (rs.next()) {
-//                    klient.setName(rs.getString("Imie")+" "+rs.getString("Nazwisko"));
-//                    button_wybierz.getScene().setRoot(root);
-//                }
             }
+            
 
         } catch (Exception e) {
             helper.error(e.getMessage());

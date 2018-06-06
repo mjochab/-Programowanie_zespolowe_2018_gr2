@@ -115,8 +115,8 @@ public class AddPartsToRepairController implements Initializable {
         kol_Ilosc1.setCellValueFactory(new PropertyValueFactory<>("Ilosc"));
         kol_Cena1.setCellValueFactory(new PropertyValueFactory<>("Cena"));
         wczytajBaze();
-        
-        if (taskd.getEdit() == true){
+
+        if (taskd.getEdit() == true) {
             button_dalej.setDisable(true);
         }
     }
@@ -130,9 +130,7 @@ public class AddPartsToRepairController implements Initializable {
 
     @FXML
     private void dodajCzesc(ActionEvent event) {
-        if (taskd.getEdit() == true) {
-            last_id = Integer.parseInt(task.getRepairID());
-        }
+
         try {
             if (sesja == null || sesja.isClosed()) {
                 sesja = PolaczenieDB.connectDatabase();
@@ -140,7 +138,9 @@ public class AddPartsToRepairController implements Initializable {
             if (stmt == null || stmt.isClosed()) {
                 stmt = sesja.createStatement();
             }
-
+            if (taskd.getEdit() == true) {
+                last_id = Integer.parseInt(task.getRepairID());
+            }
             ObservableList<Czesc> czescZaznaczona;
             czescZaznaczona = tab_czesci.getSelectionModel().getSelectedItems();
             for (Czesc c : czescZaznaczona) {
