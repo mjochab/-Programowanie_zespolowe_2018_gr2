@@ -17,7 +17,8 @@ public class RepairWorkerVM {
     private String Nazwisko;
     private String Model;
     private String Producent;
-
+    private String Status;
+    
     public RepairWorkerVM(int CarId, int WorkerId, int FixId, String Imie, String Nazwisko, String Model, String Producent) {
         this.CarId = CarId;
         this.WorkerId = WorkerId;
@@ -26,6 +27,17 @@ public class RepairWorkerVM {
         this.Model = Model;
         this.Producent = Producent;
         this.FixId = FixId;
+    }
+
+    public RepairWorkerVM(int FixId, int CarId, int WorkerId, String Imie, String Nazwisko, String Model, String Producent, String Status) {
+        this.FixId = FixId;
+        this.CarId = CarId;
+        this.WorkerId = WorkerId;
+        this.Imie = Imie;
+        this.Nazwisko = Nazwisko;
+        this.Model = Model;
+        this.Producent = Producent;
+        this.Status = Status;
     }
 
     public int getCarId() {
@@ -82,6 +94,14 @@ public class RepairWorkerVM {
 
     public void setFixId(int FixId) {
         this.FixId = FixId;
+    }
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String Status) {
+        this.Status = Status;
     }
     
     

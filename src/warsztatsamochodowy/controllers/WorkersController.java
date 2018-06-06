@@ -137,7 +137,11 @@ public class WorkersController implements Initializable {
 
     @FXML
     private void usunPracownika(ActionEvent event) {
-
+          int selectedItem = tablepracownik.getSelectionModel().getSelectedIndex();
+             if(selectedItem < 0){
+                  helper.error("Nic nie zostalo wybrane");
+                  return;
+             }
         int id_placowki = tablepracownik.getSelectionModel().getSelectedItem().getID();
 
         System.out.println(id_placowki);
@@ -177,7 +181,13 @@ public class WorkersController implements Initializable {
 
     @FXML
     private void EdytujPracownika(ActionEvent event) throws IOException, SQLException {
-         //int id_placowki2 = tablepracownik.getSelectionModel().getSelectedItem().getID();
+         
+     int selectedItem = tablepracownik.getSelectionModel().getSelectedIndex();
+             if(selectedItem < 0){
+                  helper.error("Nic nie zostalo wybrane");
+                  return;
+             }
+//int id_placowki2 = tablepracownik.getSelectionModel().getSelectedItem().getID();
          idPracownika = tablepracownik.getSelectionModel().getSelectedItem().getID();
         //System.out.println(id_placowki2);
         helper.sceneSwitcher("/warsztatsamochodowy/views/EditWorkers.fxml", "Warsztat samochodowy - Edytuj Pracownika");

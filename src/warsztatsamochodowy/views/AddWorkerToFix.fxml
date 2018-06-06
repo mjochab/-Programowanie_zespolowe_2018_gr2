@@ -10,7 +10,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="401.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="warsztatsamochodowy.controllers.AddWorkerToFixController">
+<AnchorPane id="AnchorPane" prefHeight="446.0" prefWidth="629.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="warsztatsamochodowy.controllers.AddWorkerToFixController">
    <children>
       <ComboBox fx:id="fixesCB" layoutX="45.0" layoutY="60.0" prefWidth="150.0" />
       <ComboBox fx:id="workersCB" layoutX="274.0" layoutY="60.0" prefWidth="150.0" />
@@ -26,9 +26,10 @@
             <TableColumn fx:id="carIdTable" prefWidth="97.0" text="Id Samochodu" />
             <TableColumn fx:id="carProducerTable" prefWidth="72.0" text="Producent" />
             <TableColumn fx:id="carMakeTable" prefWidth="56.0" text="Marka" />
-            <TableColumn fx:id="RepairIdTable" prefWidth="127.0" text="Id naprawy" />
+            <TableColumn fx:id="colReprairStatus" prefWidth="127.0" text="Status" />
         </columns>
       </TableView>
       <Button fx:id="b_usun" layoutX="337.0" layoutY="354.0" mnemonicParsing="false" onAction="#usunNaprawe" text="Usun Naprawe" />
+      <Button fx:id="b_usun_Pracwonika" layoutX="471.0" layoutY="354.0" mnemonicParsing="false" onAction="#usunPracownika" prefHeight="25.0" prefWidth="114.0" text="Usun Pracownika" />
    </children>
 </AnchorPane>
