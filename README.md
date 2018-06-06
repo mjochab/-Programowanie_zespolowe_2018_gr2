@@ -42,5 +42,6 @@ NetBeans
 <img src="klas.png">
 
 # Diagram ERD
-<img src="SchematERD.png">
+<img src="SchematERD.PNG">
+<img src="Schemat ERD bazy danych.png">
 
