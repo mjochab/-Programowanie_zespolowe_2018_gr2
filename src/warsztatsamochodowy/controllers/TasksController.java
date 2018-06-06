@@ -26,6 +26,7 @@ import javafx.stage.Stage;
 import warsztatsamochodowy.Helper;
 import warsztatsamochodowy.database.DBHelper;
 import warsztatsamochodowy.database.DatabaseConnection;
+import warsztatsamochodowy.database.entity.Czesc;
 import warsztatsamochodowy.database.entity.Klient;
 import warsztatsamochodowy.database.entity.Pracownik;
 import warsztatsamochodowy.database.entity.Repair;
@@ -41,7 +42,7 @@ public class TasksController implements Initializable {
     @FXML
     private TableView<Repair> tabelaFix;
     @FXML
-    private TableColumn<?, ?> colWorker;
+    private TableColumn<Repair, String> colWorker;
     @FXML
     private TableColumn<?, ?> colClient;
     @FXML
@@ -61,12 +62,16 @@ public class TasksController implements Initializable {
     @FXML
     private Button deleteTask;
 
+    public static Long Repair_ID;
+
+    public Long getRepair_ID() {
+        return Repair_ID;
+    }
 
     private Helper helper = new Helper();
     DatabaseConnection PolaczenieDB = new DatabaseConnection();
     Connection sesja;
     Statement stmt;
-
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -74,15 +79,14 @@ public class TasksController implements Initializable {
         colPrice.setCellValueFactory(new PropertyValueFactory("koszt"));
         colStatus.setCellValueFactory(new PropertyValueFactory("status"));
         colAbout.setCellValueFactory(new PropertyValueFactory("opis"));
-        colWorker.setCellValueFactory(new PropertyValueFactory("pracownik"));
         colClient.setCellValueFactory(new PropertyValueFactory("klient"));
         //tabelaFix.setItems(FXCollections.observableArrayList(fix));
         wczytajBaze();
     }
 
-    private void dodajDoTabeli(Long ID, String koszt, String status, String opis, Pracownik pracownik, Klient klient) {
+    private void dodajDoTabeli(Long ID, String koszt, String status, String opis, Klient klient) {
 
-        Repair repair = new Repair(ID, koszt, status, opis, pracownik, klient);
+        Repair repair = new Repair(ID, koszt, status, opis, klient);
         tabelaFix.getItems().add(repair);
 
     }
@@ -95,10 +99,9 @@ public class TasksController implements Initializable {
             }
             stmt = sesja.createStatement();
 
-            ResultSet rs = stmt.executeQuery("SELECT n.napraw_id, n.koszt, n.status, n.opis, p.PracownikId, p.Imie, p.Nazwisko, " 
-                    + "k.KlientId, k.Imie, k.Nazwisko " 
-                    + "FROM naprawa as n " 
-                    + "INNER JOIN pracownik p ON p.PracownikId = n.id_pracownika " 
+            ResultSet rs = stmt.executeQuery("SELECT n.napraw_id, n.koszt, n.status, n.opis, "
+                    + "k.KlientId, k.Imie, k.Nazwisko "
+                    + "FROM naprawa as n "
                     + "INNER JOIN klient k ON k.KlientId = n.id_klienta;");
 
             while (rs.next()) {
@@ -106,12 +109,9 @@ public class TasksController implements Initializable {
                 String koszt = rs.getString("koszt");
                 String status = rs.getString("status");
                 String opis = rs.getString("opis");
-                //new Pracownik(rs.getInt("PracownikId"), rs.getString("Imie"), rs.getString("Nazwisko"));
-//                new Klient(rs.getLong("KlientId"), rs.getString("Imie"), rs.getString("Nazwisko"));
-//                new Pracownik(rs.getInt("PracownikId"), rs.getString("Imie"), rs.getString("Nazwisko"));
-                dodajDoTabeli(Long.parseLong(ID), koszt, status, opis, 
-                        new Pracownik(rs.getInt("PracownikId"), rs.getString("Imie"), rs.getString("Nazwisko")),
-                        new Klient(rs.getLong("PracownikId"), rs.getString("Imie"), rs.getString("Nazwisko")));
+
+                dodajDoTabeli(Long.parseLong(ID), koszt, status, opis,
+                        new Klient(rs.getLong("KlientId"), rs.getString("Imie"), rs.getString("Nazwisko")));
             }
 
         } catch (Exception e) {
@@ -127,6 +127,7 @@ public class TasksController implements Initializable {
         }
 
     }
+
     @FXML
     private void back(ActionEvent event) throws IOException {
         helper.powrotDoMenu();
@@ -136,20 +137,130 @@ public class TasksController implements Initializable {
 
     @FXML
     private void addTask(ActionEvent event) throws IOException {
-        helper.sceneSwitcher("/warsztatsamochodowy/views/AddRepair.fxml", "Warsztat samochodowy - Dodaj naprawe");
+        helper.sceneSwitcher("/warsztatsamochodowy/views/SearchClient.fxml", "Warsztat samochodowy - Wybierz klienta");
         Stage this_scene = (Stage) addTask.getScene().getWindow();
         this_scene.close();
     }
 
-    @FXML
-    private void editTask(ActionEvent event) throws IOException {
-//                    helper.sceneSwitcher("/warsztatsamochodowy/views/AddPartsToRepair.fxml", "Warsztat samochodowy - Dodaj czesci");
-//            Stage this_scene = (Stage) editTask.getScene().getWindow();
-//            this_scene.hide();
-    }
 
     @FXML
     private void deleteTask(ActionEvent event) {
+        try {
+            if (sesja == null || sesja.isClosed()) {
+                sesja = PolaczenieDB.connectDatabase();
+            }
+            if (stmt == null || stmt.isClosed()) {
+                stmt = sesja.createStatement();
+            }
+
+            ObservableList<Repair> naprawaZaznaczona;
+            ObservableList<Repair> doUsuniecia = FXCollections.observableArrayList();
+            naprawaZaznaczona = tabelaFix.getSelectionModel().getSelectedItems();
+            for (Repair c : naprawaZaznaczona) {
+
+                Long id = c.getID();
+
+                int wynik = stmt.executeUpdate("DELETE FROM naprawa WHERE napraw_id = " + id + ";");
+                if (wynik == 1) {
+
+                    doUsuniecia.add(c);
+                }
+
+            }
+
+            usunzTabeli(doUsuniecia);
+            tabelaFix.getSelectionModel().clearSelection();
+
+        } catch (Exception e) {
+            helper.error(e.getMessage());
+        } finally {
+
+            if (sesja != null) {
+                try {
+                    sesja.close();
+                } catch (Exception e) {
+                }
+            }
+        }
+    }
+
+    private void usunzTabeli(ObservableList<Repair> zaznaczoneNaprawy) {
+
+        ObservableList<Repair> wszystkieNaprawy = tabelaFix.getItems();
+        wszystkieNaprawy.removeAll(zaznaczoneNaprawy);
+        // wszystkieCzesci.removeAll(czescZaznaczona);
+
+    }
+    public static String Imie, Nazwisko, Naprawa_ID, Data_zakonczenia, Koszt, Status, Opis, Edit;
+    @FXML
+    public void editTask(ActionEvent event){
+        if (tabelaFix.getSelectionModel().getSelectedItems().size() == 1) {
+
+            try {
+                Repair c = tabelaFix.getSelectionModel().getSelectedItem();
+                if (sesja == null || sesja.isClosed()) {
+                    sesja = PolaczenieDB.connectDatabase();
+                }
+                stmt = sesja.createStatement();
+
+                ResultSet rs = stmt.executeQuery("SELECT * FROM klient INNER JOIN naprawa ON naprawa.id_klienta = klient.KlientId WHERE naprawa.napraw_id = " + c.getID());
+
+                while (rs.next()) {
+                    Naprawa_ID = rs.getString("napraw_id");
+                    Imie = rs.getString("Imie");
+                    Nazwisko = rs.getString("Nazwisko");
+                    Data_zakonczenia = rs.getString("data_zakonczenia");
+                    Koszt = rs.getString("koszt");
+                    Status = rs.getString("status");
+                    Opis = rs.getString("opis");
+                }
+                helper.sceneSwitcher("/warsztatsamochodowy/views/TaskDetail.fxml", "Warsztat samochodowy - Szczegoly zmowienia");
+                Stage this_scene = (Stage) tabelaFix.getScene().getWindow();
+                this_scene.close();
+
+            } catch (Exception e) {
+                helper.error(e.getMessage());
+            } finally {
+
+                if (sesja != null) {
+                    try {
+                        sesja.close();
+                    } catch (Exception e) {
+                    }
+                }
+            }
+
+        } else {
+            helper.error("Wybierz 1 zlecenie");
+        }
+    }
+
+    public String getRepairID() {
+        return Naprawa_ID;
+    }
+
+    public String getImie() {
+        return Imie;
+    }
+
+    public String getNazwisko() {
+        return Nazwisko;
+    }
+
+    public String getData_zakonczenia() {
+        return Data_zakonczenia;
+    }
+
+    public String getKoszt() {
+        return Koszt;
+    }
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public String getOpis() {
+        return Opis;
     }
 
 }

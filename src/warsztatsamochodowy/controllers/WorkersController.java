@@ -137,7 +137,11 @@ public class WorkersController implements Initializable {
 
     @FXML
     private void usunPracownika(ActionEvent event) {
-
+          int selectedItem = tablepracownik.getSelectionModel().getSelectedIndex();
+             if(selectedItem < 0){
+                  helper.error("Nic nie zostalo wybrane");
+                  return;
+             }
         int id_placowki = tablepracownik.getSelectionModel().getSelectedItem().getID();
 
         System.out.println(id_placowki);
@@ -162,28 +166,8 @@ public class WorkersController implements Initializable {
 
     @FXML
     private void generateRaport(ActionEvent event) {
-        data = FXCollections.observableArrayList();
-        Statement stmt = null;
-        Document document = new Document(PageSize.A4);
-         try {
-             PdfWriter.getInstance(document, new FileOutputStream("raport.pdf"));
-            stmt = sesja.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from pracownik;");
-            while (rs.next()) {
-                
-                data.add(new Pracownik(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getInt(12)));
-
-            }
-            document.open();
-            for(Pracownik p : data){
-                Paragraph para = new Paragraph("Imie " + p.getImie() + " Nazwisko " + p.getNazwisko() + " Login " + p.getLogin());
-                document.add(para);
-            }
-         
-        } catch (Exception e) {
-             helper.message(e.getMessage());
-        } 
-         document.close();
+       pdfcreator.ConvertToPdf raport = new pdfcreator.ConvertToPdf();
+       raport.printAllUsers();
     }
 
     @FXML
@@ -197,7 +181,13 @@ public class WorkersController implements Initializable {
 
     @FXML
     private void EdytujPracownika(ActionEvent event) throws IOException, SQLException {
-         //int id_placowki2 = tablepracownik.getSelectionModel().getSelectedItem().getID();
+         
+     int selectedItem = tablepracownik.getSelectionModel().getSelectedIndex();
+             if(selectedItem < 0){
+                  helper.error("Nic nie zostalo wybrane");
+                  return;
+             }
+//int id_placowki2 = tablepracownik.getSelectionModel().getSelectedItem().getID();
          idPracownika = tablepracownik.getSelectionModel().getSelectedItem().getID();
         //System.out.println(id_placowki2);
         helper.sceneSwitcher("/warsztatsamochodowy/views/EditWorkers.fxml", "Warsztat samochodowy - Edytuj Pracownika");

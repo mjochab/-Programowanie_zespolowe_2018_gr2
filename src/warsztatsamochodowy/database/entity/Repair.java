@@ -49,9 +49,9 @@ public class Repair implements Serializable {
         this.opis = opis;
     }
 
-    public Repair(Long ID, String koszt, String status, String opis, Pracownik pracownik) {
+    public Repair(Long ID, String koszt, String status, String opis, Klient klient) {
         this.ID = ID;
-        this.pracownik = pracownik;
+        this.klient= klient;
         this.koszt = koszt;
         this.status = status;
         this.opis = opis;

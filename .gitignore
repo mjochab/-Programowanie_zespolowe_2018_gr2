@@ -58,3 +58,4 @@ pom.xml.tag
 /src/warsztatsamochodowy/views/Workers.fxml.orig
 /src/warsztatsamochodowy/viewmodels/RepairWorkerVM.java.orig
 /src/warsztatsamochodowy/database/DBHelper.java.orig
+*.pdf
