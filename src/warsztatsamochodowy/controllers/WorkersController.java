@@ -112,6 +112,7 @@ public class WorkersController implements Initializable {
 
             tablepracownik.setItems(null);
             tablepracownik.setItems(data);
+            stmt.close();
 
         } catch (Exception e) {
 
